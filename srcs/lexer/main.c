@@ -1,12 +1,14 @@
 #include "input.h"
 
-/*typedef	enum	e_tokentype
+typedef	enum	e_tokentype
 {
 	CHAR_GENERAL = -1,
 	CHAR_PIPE = '|',
 	CHAR_QOUTE = '\'',
 	CHAR_DQUOTE = '\"',
 	CHAR_WHITESPACE = ' ',
+	CHAR_DGREATER = '>>',
+	CHAR_DLESSER = '<<',
 	CHAR_TAB = '\t',
 	CHAR_ESCAPE = '\\',
 	CHAR_GREATER = '>',
@@ -19,6 +21,13 @@ typedef struct	s_token
 	t_token_type	type;
 	char	*str;
 }		t_token;
+
+typedef struct	s_tokeniser
+{
+	t_token			token;
+	size_t	char_cnt;
+	int	start;
+}				t_tokeniser;
 
 t_token	*ft_lstnew(char *c, char *s)
 {
@@ -38,97 +47,157 @@ void	init_token(t_token *token)
 	token->next = NULL;
 	token->type = 0;
 	token->str = NULL;
-}*/
+}
+
+void	init_data(t_tokeniser *data)
+{
+	data->char_cnt = 0;
+	data->start = 0;
+}
+
+void	is_alnum(char **cmd, size_t *char_cnt)
+{
+	while (ft_isalnum(**cmd) && **cmd != '\0')
+	{
+		(*cmd)++;
+		(*char_cnt)++;
+	}
+}
+
+void	is_digit(char **cmd, size_t *char_cnt)
+{
+	while ((ft_isdigit(**cmd) || **cmd == '.') && **cmd != '\0')
+	{
+		(*cmd)++;
+		(*char_cnt)++;
+	}
+}
+
+void	is_quort(char **cmd, size_t *char_cnt)
+{
+	char	ch;
+
+	ch = **cmd;
+	(*cmd)++;
+	(*char_cnt)++;
+	while (**cmd != ch && **cmd != '\0')
+	{
+		(*cmd)++;
+		(*char_cnt)++;
+	}
+	(*cmd)++;
+	(*char_cnt)++;
+	if (**cmd == '\'' || **cmd == '\"')
+	{
+		ch = **cmd;
+		(*cmd)++;
+		(*char_cnt)++;
+		while (**cmd != ch && **cmd != '\0')
+		{
+			(*cmd)++;
+			(*char_cnt)++;
+		}
+		(*cmd)++;
+		(*char_cnt)++;
+	}
+}
+
+void	is_else(char **cmd, size_t *char_cnt)
+{
+	char	ch;
+
+	if (**cmd == '>' || **cmd == '<')
+	{
+		ch = **cmd;
+		(*cmd)++;
+		(*char_cnt)++;
+		if (**cmd == ch)
+		{
+			(*cmd)++;
+			(*char_cnt)++;
+		}
+	}
+	else
+	{
+		(*cmd)++;
+		(*char_cnt)++;
+	}
+}
+
+void	put_in_list(t_tokeniser *data, char **command, char **cmd)
+{
+	printf("char_cnt = %zu\n", data->char_cnt);
+	str[s] = ft_substr(command, data->start, data->char_cnt);
+	data->start = 0;
+	data->char_cnt = 0;
+	*command = *cmd;
+	printf("str = %s\n", str[s]);
+}
 
 /*
 * スペース又はタブの時はスキップ
 * [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
 */
 
-void	command_line_sep(char *command, size_t *i, int *start)
+void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
-	//int	start;
-	//size_t	i;
-	char	*cmd;
-	char *str[4];
-	char	ch;
+	char *str; //とりあえず
 
-	cmd = command;
-	//start = 0;
-	//i = 0;
 	while (*cmd == ' ' || *cmd == '\t')
 	{
 		cmd++;
-		(*start)++;
+		data->start++;
 	}
 	if(*cmd == '\0') /* バッファが空 */
 		return ;
 	if (ft_isalpha(*cmd))
-	{
-		while (ft_isalnum(*cmd) && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-	}
+		is_alnum(&cmd, &data->char_cnt);
 	else if (ft_isdigit(*cmd))
-	{
-		while ((ft_isdigit(*cmd) || *cmd == '.') && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-	}
+		is_digit(&cmd, &data->char_cnt);
 	else if (*cmd == '\'' || *cmd == '\"')
-	{
-		ch = *cmd;
-		cmd++;
-		(*i)++;
-		while (*cmd != ch && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-		cmd++;
-		(*i)++;
-		if (*cmd == '\'' || *cmd == '\"')
-		{
-			ch = *cmd;
-			cmd++;
-			(*i)++;
-			while (*cmd != ch && *cmd != '\0')
-			{
-				cmd++;
-				(*i)++;
-			}
-			cmd++;
-			(*i)++;
-		}
-	}
-	else
-	{
-			cmd++;
-			(*i)++;
-	}
+		is_quort(&cmd, &data->char_cnt);
+	else if (*cmd == '|' || *cmd == '>' || *cmd == '<')
+		is_else(&cmd, &data->char_cnt);
 	int s = 0;
-	printf("---------\n");
-	printf("cmd = %c\n", *cmd);
-	if (*cmd == ' ' || *cmd == '\0')
+	if (*cmd == ' ' || *cmd == '\0' || *cmd == '|' || *cmd == '<' || *cmd == '>'
+	|| ((cmd[-1] == '|' || cmd[-1] == '<' || cmd[-1] == '>') && ft_isalnum(*cmd)))
 	{
-		printf("-----if----\n");
-		str[s] = ft_substr(command, *start, *i);
-		*start = 0;
-		*i = 0;
+		printf("char_cnt = %zu\n", data->char_cnt);
+		str = ft_substr(command, data->start, data->char_cnt);
+		data->start = 0;
+		data->char_cnt = 0;
+		command = cmd;
+		printf("str = %s\n", str[s]);
+		s++;
 	}
-	printf("i = %zu\n", *i);
-	printf("start = %d\n", *start);
-	printf("cmd = %s\n", cmd);
-	printf("str = %s\n", str[s]);
-	s++;
-	printf("command = %s\n", command);
-	printf("---------\n");
 	if (*cmd != '\0')
-		command_line_sep(cmd, i, start);
+		sep_command_line(command, cmd, data);
+}
+
+void	character_separator(char *command, t_tokeniser *data)
+{
+	size_t	i;
+	int	start;
+	char	*cmd;
+
+	cmd = command;
+	i = 0;
+	start = 0;
+	sep_command_line(command, cmd, data);
+}
+
+void	init_datas(t_tokeniser *data)
+{
+	init_data(data);
+	init_token(&data->token);
+}
+
+void	lexer(char *command)
+{
+	t_tokeniser data;
+
+	init_datas(&data);
+	character_separator(command, &data);
 }
 
 int	main()
@@ -144,7 +213,7 @@ int	main()
 	{
 		command = readline("minishell >> ");
 		printf("line is '%s'\n", command);
-		command_line_sep(command, &i, &start);
+		lexer(command);
 		add_history(command);
 		free(command);
 		write_history(".my_history");
