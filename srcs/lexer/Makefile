@@ -2,7 +2,11 @@ NAME = minishell
 
 #SRCS_DIR = ./input/
 
-SRCS_NAME = main.c
+SRCS_NAME = main.c\
+	is_function.c\
+	lst_function.c\
+	free_function.c\
+	init_datas.c
 
 #SRCS = ${addprefix ${SRCS_DIR}, ${SRCS_NAME}}
 
