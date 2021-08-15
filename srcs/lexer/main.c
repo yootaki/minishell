@@ -1,215 +1,93 @@
 #include "input.h"
-
-typedef	enum	e_tokentype
-{
-	CHAR_GENERAL = -1,
-	CHAR_PIPE = '|',
-	CHAR_QOUTE = '\'',
-	CHAR_DQUOTE = '\"',
-	CHAR_WHITESPACE = ' ',
-	CHAR_DGREATER = '>>',
-	CHAR_DLESSER = '<<',
-	CHAR_TAB = '\t',
-	CHAR_ESCAPE = '\\',
-	CHAR_GREATER = '>',
-	CHAR_LESSER = '<',
-}		t_token_type;
-
-typedef struct	s_token
-{
-	t_token	next;
-	t_token_type	type;
-	char	*str;
-}		t_token;
-
-typedef struct	s_tokeniser
-{
-	t_token			token;
-	size_t	char_cnt;
-	int	start;
-}				t_tokeniser;
-
-t_token	*ft_lstnew(char *c, char *s)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->type = c;
-	token->next = NULL;
-	token->str = s;
-	return (token);
-}
-
-void	init_token(t_token *token)
-{
-	token->next = NULL;
-	token->type = 0;
-	token->str = NULL;
-}
-
-void	init_data(t_tokeniser *data)
-{
-	data->char_cnt = 0;
-	data->start = 0;
-}
-
-void	is_alnum(char **cmd, size_t *char_cnt)
-{
-	while (ft_isalnum(**cmd) && **cmd != '\0')
-	{
-		(*cmd)++;
-		(*char_cnt)++;
-	}
-}
-
-void	is_digit(char **cmd, size_t *char_cnt)
-{
-	while ((ft_isdigit(**cmd) || **cmd == '.') && **cmd != '\0')
-	{
-		(*cmd)++;
-		(*char_cnt)++;
-	}
-}
-
-void	is_quort(char **cmd, size_t *char_cnt)
-{
-	char	ch;
-
-	ch = **cmd;
-	(*cmd)++;
-	(*char_cnt)++;
-	while (**cmd != ch && **cmd != '\0')
-	{
-		(*cmd)++;
-		(*char_cnt)++;
-	}
-	(*cmd)++;
-	(*char_cnt)++;
-	if (**cmd == '\'' || **cmd == '\"')
-	{
-		ch = **cmd;
-		(*cmd)++;
-		(*char_cnt)++;
-		while (**cmd != ch && **cmd != '\0')
-		{
-			(*cmd)++;
-			(*char_cnt)++;
-		}
-		(*cmd)++;
-		(*char_cnt)++;
-	}
-}
-
-void	is_else(char **cmd, size_t *char_cnt)
-{
-	char	ch;
-
-	if (**cmd == '>' || **cmd == '<')
-	{
-		ch = **cmd;
-		(*cmd)++;
-		(*char_cnt)++;
-		if (**cmd == ch)
-		{
-			(*cmd)++;
-			(*char_cnt)++;
-		}
-	}
-	else
-	{
-		(*cmd)++;
-		(*char_cnt)++;
-	}
-}
+/*
+* 分割した文字列をft_substr()で作成
+* listに作成した文字列を追加
+* エラー対応していない
+* 17行目仮置き
+*/
 
 void	put_in_list(t_tokeniser *data, char **command, char **cmd)
 {
-	printf("char_cnt = %zu\n", data->char_cnt);
-	str[s] = ft_substr(command, data->start, data->char_cnt);
+	char	*str;
+	t_token	*new_list;
+
+	str = ft_substr(*command, data->start, data->char_cnt);
+	new_list = lst_new(str);
+	if (new_list == NULL)
+		return ;
+	lstadd_back(&data->token, new_list);
 	data->start = 0;
 	data->char_cnt = 0;
 	*command = *cmd;
-	printf("str = %s\n", str[s]);
 }
 
 /*
 * スペース又はタブの時はスキップ
 * [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
+* エラー未対応
+* 39行目　仮置き
 */
 
 void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
-	char *str; //とりあえず
-
-	while (*cmd == ' ' || *cmd == '\t')
+	while (*cmd == CHAR_WHITESPACE || *cmd == CHAR_TAB)
 	{
 		cmd++;
 		data->start++;
 	}
-	if(*cmd == '\0') /* バッファが空 */
+	if (*cmd == '\0')
 		return ;
 	if (ft_isalpha(*cmd))
 		is_alnum(&cmd, &data->char_cnt);
 	else if (ft_isdigit(*cmd))
 		is_digit(&cmd, &data->char_cnt);
-	else if (*cmd == '\'' || *cmd == '\"')
+	else if (*cmd == CHAR_QOUTE || *cmd == CHAR_DQUOTE)
 		is_quort(&cmd, &data->char_cnt);
-	else if (*cmd == '|' || *cmd == '>' || *cmd == '<')
+	else if (*cmd == CHAR_PIPE || *cmd == CHAR_GREATER || *cmd == CHAR_LESSER)
 		is_else(&cmd, &data->char_cnt);
-	int s = 0;
-	if (*cmd == ' ' || *cmd == '\0' || *cmd == '|' || *cmd == '<' || *cmd == '>'
-	|| ((cmd[-1] == '|' || cmd[-1] == '<' || cmd[-1] == '>') && ft_isalnum(*cmd)))
-	{
-		printf("char_cnt = %zu\n", data->char_cnt);
-		str = ft_substr(command, data->start, data->char_cnt);
-		data->start = 0;
-		data->char_cnt = 0;
-		command = cmd;
-		printf("str = %s\n", str[s]);
-		s++;
-	}
+	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
+	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
+	|| cmd[-1] == CHAR_GREATER) && ft_isalnum(*cmd)))
+		put_in_list(data, &command, &cmd);
 	if (*cmd != '\0')
 		sep_command_line(command, cmd, data);
 }
 
 void	character_separator(char *command, t_tokeniser *data)
 {
-	size_t	i;
-	int	start;
+	int		i;
 	char	*cmd;
 
 	cmd = command;
 	i = 0;
-	start = 0;
 	sep_command_line(command, cmd, data);
-}
-
-void	init_datas(t_tokeniser *data)
-{
-	init_data(data);
-	init_token(&data->token);
+	while (data->token != NULL)
+	{
+		printf("data->token->str[%d] = %s\n", i, data->token->str);
+		data->token = data->token->next;
+		i++;
+	}
 }
 
 void	lexer(char *command)
 {
-	t_tokeniser data;
+	t_tokeniser	data;
 
+	data.token = NULL;
 	init_datas(&data);
 	character_separator(command, &data);
 }
 
-int	main()
+int	main(void)
 {
 	char	*command;
-	int	start;
+	int		start;
 	size_t	i;
 
 	read_history(".my_history");
 	i = 0;
 	start = 0;
-	while(1)
+	while (1)
 	{
 		command = readline("minishell >> ");
 		printf("line is '%s'\n", command);
