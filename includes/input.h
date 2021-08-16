@@ -9,10 +9,50 @@
 # include <sys/uio.h>
 # include "libft.h"
 
-typedef struct s_data
+typedef enum e_tokentype
 {
-	t_list	*lexical;
-}	t_data;
+	CHAR_GENERAL = -1,
+	CHAR_PIPE = '|',
+	CHAR_QOUTE = '\'',
+	CHAR_DQUOTE = '\"',
+	CHAR_WHITESPACE = ' ',
+	CHAR_TAB = '\t',
+	CHAR_ESCAPE = '\\',
+	CHAR_GREATER = '>',
+	CHAR_LESSER = '<',
+}		t_token_type;
 
+typedef struct s_token
+{
+	struct s_token	*next;
+	t_token_type	type;
+	char			*str;
+}		t_token;
+
+typedef struct s_tokeniser
+{
+	t_token			*token;
+	size_t			char_cnt;
+	int				start;
+}				t_tokeniser;
+
+/* ./lexer/is_function.c */
+void	is_alnum(char **cmd, size_t *char_cnt);
+void	is_digit(char **cmd, size_t *char_cnt);
+void	is_quort(char **cmd, size_t *char_cnt);
+void	is_else(char **cmd, size_t *char_cnt);
+
+/* ./lexer/lst_function.c */
+t_token	*lst_new(char *str);
+void	lst_clear (t_token **lst, void (*del)(char*));
+t_token	*lst_last(t_token *lst);
+void	lstadd_back(t_token **lst, t_token *new_list);
+
+/* ./lexer/init_datas.c */
+void	init_data(t_tokeniser *data);
+void	init_datas(t_tokeniser *data);
+
+/* ./lexer/free_function.c */
+void	free_line(void *line);
 
 #endif

@@ -1,150 +1,97 @@
 #include "input.h"
+/*
+* 分割した文字列をft_substr()で作成
+* listに作成した文字列を追加
+* エラー対応していない
+* 17行目仮置き
+*/
 
-/*typedef	enum	e_tokentype
+void	put_in_list(t_tokeniser *data, char **command, char **cmd)
 {
-	CHAR_GENERAL = -1,
-	CHAR_PIPE = '|',
-	CHAR_QOUTE = '\'',
-	CHAR_DQUOTE = '\"',
-	CHAR_WHITESPACE = ' ',
-	CHAR_TAB = '\t',
-	CHAR_ESCAPE = '\\',
-	CHAR_GREATER = '>',
-	CHAR_LESSER = '<',
-}		t_token_type;
-
-typedef struct	s_token
-{
-	t_token	next;
-	t_token_type	type;
 	char	*str;
-}		t_token;
+	t_token	*new_list;
 
-t_token	*ft_lstnew(char *c, char *s)
-{
-	t_token	*token;
-
-	token = (t_token *)malloc(sizeof(t_token));
-	if (token == NULL)
-		return (NULL);
-	token->type = c;
-	token->next = NULL;
-	token->str = s;
-	return (token);
+	str = ft_substr(*command, data->start, data->char_cnt);
+	new_list = lst_new(str);
+	if (new_list == NULL)
+		return ;
+	lstadd_back(&data->token, new_list);
+	data->start = 0;
+	data->char_cnt = 0;
+	*command = *cmd;
 }
-
-void	init_token(t_token *token)
-{
-	token->next = NULL;
-	token->type = 0;
-	token->str = NULL;
-}*/
 
 /*
 * スペース又はタブの時はスキップ
 * [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
+* エラー未対応
+* 39行目　仮置き
 */
 
-void	command_line_sep(char *command, size_t *i, int *start)
+void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
-	//int	start;
-	//size_t	i;
-	char	*cmd;
-	char *str[4];
-	char	ch;
-
-	cmd = command;
-	//start = 0;
-	//i = 0;
-	while (*cmd == ' ' || *cmd == '\t')
+	while (*cmd == CHAR_WHITESPACE || *cmd == CHAR_TAB)
 	{
 		cmd++;
-		(*start)++;
+		data->start++;
 	}
-	if(*cmd == '\0') /* バッファが空 */
+	if (*cmd == '\0')
 		return ;
 	if (ft_isalpha(*cmd))
-	{
-		while (ft_isalnum(*cmd) && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-	}
+		is_alnum(&cmd, &data->char_cnt);
 	else if (ft_isdigit(*cmd))
-	{
-		while ((ft_isdigit(*cmd) || *cmd == '.') && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-	}
-	else if (*cmd == '\'' || *cmd == '\"')
-	{
-		ch = *cmd;
-		cmd++;
-		(*i)++;
-		while (*cmd != ch && *cmd != '\0')
-		{
-			cmd++;
-			(*i)++;
-		}
-		cmd++;
-		(*i)++;
-		if (*cmd == '\'' || *cmd == '\"')
-		{
-			ch = *cmd;
-			cmd++;
-			(*i)++;
-			while (*cmd != ch && *cmd != '\0')
-			{
-				cmd++;
-				(*i)++;
-			}
-			cmd++;
-			(*i)++;
-		}
-	}
-	else
-	{
-			cmd++;
-			(*i)++;
-	}
-	int s = 0;
-	printf("---------\n");
-	printf("cmd = %c\n", *cmd);
-	if (*cmd == ' ' || *cmd == '\0')
-	{
-		printf("-----if----\n");
-		str[s] = ft_substr(command, *start, *i);
-		*start = 0;
-		*i = 0;
-	}
-	printf("i = %zu\n", *i);
-	printf("start = %d\n", *start);
-	printf("cmd = %s\n", cmd);
-	printf("str = %s\n", str[s]);
-	s++;
-	printf("command = %s\n", command);
-	printf("---------\n");
+		is_digit(&cmd, &data->char_cnt);
+	else if (*cmd == CHAR_QOUTE || *cmd == CHAR_DQUOTE)
+		is_quort(&cmd, &data->char_cnt);
+	else if (*cmd == CHAR_PIPE || *cmd == CHAR_GREATER || *cmd == CHAR_LESSER)
+		is_else(&cmd, &data->char_cnt);
+	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
+	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
+	|| cmd[-1] == CHAR_GREATER) && ft_isalnum(*cmd)))
+		put_in_list(data, &command, &cmd);
 	if (*cmd != '\0')
-		command_line_sep(cmd, i, start);
+		sep_command_line(command, cmd, data);
 }
 
-int	main()
+void	character_separator(char *command, t_tokeniser *data)
+{
+	int		i;
+	char	*cmd;
+
+	cmd = command;
+	i = 0;
+	sep_command_line(command, cmd, data);
+	while (data->token != NULL)
+	{
+		printf("data->token->str[%d] = %s\n", i, data->token->str);
+		data->token = data->token->next;
+		i++;
+	}
+}
+
+void	lexer(char *command)
+{
+	t_tokeniser	data;
+
+	data.token = NULL;
+	init_datas(&data);
+	character_separator(command, &data);
+}
+
+int	main(void)
 {
 	char	*command;
-	int	start;
+	int		start;
 	size_t	i;
 
 	read_history(".my_history");
 	i = 0;
 	start = 0;
-	while(1)
+	while (1)
 	{
 		command = readline("minishell >> ");
 		printf("line is '%s'\n", command);
-		command_line_sep(command, &i, &start);
+		lexer(command);
 		add_history(command);
 		free(command);
 		write_history(".my_history");
