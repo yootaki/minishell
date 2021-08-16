@@ -1,9 +1,6 @@
 #include "../../libft/libft.h"
 
-/* compile command */
-/* $ gcc -o myecho echo.c ../../libft/libft.a */
-
-int	main(int argc, char **argv)
+int	my_echo(int argc, char **argv)
 {
 	int	display_return;
 
@@ -11,7 +8,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 	{
 		write(STDOUT_FILENO, "\n", 1);
-		return (0);
+		return (EXIT_SUCCESS);
 	}
 	argc--;
 	argv++;
@@ -31,5 +28,11 @@ int	main(int argc, char **argv)
 	}
 	if (display_return)
 		write(STDOUT_FILENO, "\n", 1);
+	return (EXIT_SUCCESS);
+}
+
+int	main(int argc, char **argv)
+{
+	my_echo(argc, argv);
 	return (EXIT_SUCCESS);
 }
