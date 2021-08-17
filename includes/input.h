@@ -7,6 +7,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
+//# include "parse.h"
 # include "libft.h"
 
 typedef enum e_tokentype
@@ -44,7 +45,7 @@ void	is_else(char **cmd, size_t *char_cnt);
 
 /* ./lexer/lst_function.c */
 t_token	*lst_new(char *str);
-void	lst_clear (t_token **lst, void (*del)(char*));
+void	lst_clear (t_token **lst, void (*del)(void*));
 t_token	*lst_last(t_token *lst);
 void	lstadd_back(t_token **lst, t_token *new_list);
 

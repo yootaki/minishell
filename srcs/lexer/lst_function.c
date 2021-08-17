@@ -13,7 +13,7 @@ t_token	*lst_new(char *str)
 	return (lst);
 }
 
-void	lst_clear (t_token **lst, void (*del)(char*))
+void	lst_clear (t_token **lst, void (*del)(void*))
 {
 	t_token	*ndlst;
 
