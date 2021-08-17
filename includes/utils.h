@@ -23,5 +23,9 @@ void		ft_init_envlst(t_envlist *lst);
 void		ft_envlstadd_back(t_envlist *top, t_envlist *new_lst);
 int			ft_envlstsize(t_envlist *lst);
 void		lst_free(t_envlist *lst);
+/* ./utils/get_envp.c */
+int	envp_lstmap(t_envlist *envp, char *key, char *value);
+int	create_envlst(t_envlist *lst, char **envp);
 int		get_envp(char **envp);
+
 #endif
