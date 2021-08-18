@@ -1,4 +1,3 @@
-#include "../../libft/libft.h"
 #include "builtin_cmd.h"
 
 t_envlist	*ft_envlstnew(char *key, char *value)
@@ -13,6 +12,18 @@ t_envlist	*ft_envlstnew(char *key, char *value)
 	lst->key = key;
 	lst->value = value;
 	return (lst);
+}
+
+void	ft_envlstdelone(t_envlist *lst)
+{
+	t_envlist	*prev;
+	t_envlist	*next;
+
+	prev = lst->prev;
+	next = lst->next;
+	prev->next = next;
+	next->prev = prev;
+	free(lst);
 }
 
 void	ft_envlstadd_back(t_envlist *top, t_envlist *new)
@@ -46,7 +57,7 @@ int	ft_envlstsize(t_envlist *lst)
 	return (count);
 }
 
-void	lst_free(t_envlist *lst)
+void	free_envlst(t_envlist *lst)
 {
 	t_envlist	*tmp;
 	int			n;
