@@ -29,7 +29,6 @@ int	create_envlst(t_envlist *lst, char **envp)
 	while (*envp != NULL)
 	{
 		str = *envp;
-		printf("envp = %s\n", *envp);
 		while (*str != '=')
 			str++;
 		*str = '\0';
@@ -43,13 +42,13 @@ int	create_envlst(t_envlist *lst, char **envp)
 	return (EXIT_SUCCESS);
 }
 
-int	get_envp(char **envp)
+t_envlist	*get_envp(char **envp)
 {
 	t_envlist *env_lst;
 
 	env_lst = init_envlist();
 	if (env_lst == NULL)
-		return (EXIT_FAILURE);
+		return (NULL);
 	create_envlst(env_lst, envp);
-	return (EXIT_SUCCESS);
+	return (env_lst);
 }

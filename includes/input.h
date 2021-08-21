@@ -7,8 +7,12 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
-//# include "parse.h"
 # include "libft.h"
+
+/*
+* HEAR_DOC = '>>'
+* DLESSER = '<<'
+*/
 
 typedef enum e_tokentype
 {
@@ -21,6 +25,8 @@ typedef enum e_tokentype
 	CHAR_ESCAPE = '\\',
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
+	HEAR_DOC,
+	DLESSER = 64,
 }		t_token_type;
 
 typedef struct s_token
@@ -55,5 +61,11 @@ void	init_datas(t_tokeniser *data);
 
 /* ./lexer/free_function.c */
 void	free_line(void *line);
+
+/* ./lexer/lexer.c */
+int		lexer(t_tokeniser *data, char *command);
+void	character_separator(char *command, t_tokeniser *data);
+void	sep_command_line(char *command, char *cmd, t_tokeniser *data);
+t_token_type	check_type(char *str);
 
 #endif

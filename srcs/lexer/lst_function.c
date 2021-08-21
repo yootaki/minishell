@@ -9,7 +9,7 @@ t_token	*lst_new(char *str)
 		return (NULL);
 	lst->str = str;
 	lst->next = NULL;
-	lst->type = 0;
+	lst->type = check_type(str);
 	return (lst);
 }
 
