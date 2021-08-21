@@ -1,4 +1,25 @@
 #include "input.h"
+t_token_type	check_type(char *str)
+{
+	int	size;
+
+	size = ft_strlen(str);
+	if (*str == CHAR_PIPE)
+		return (CHAR_PIPE);
+	if (*str == CHAR_QOUTE)
+		return (CHAR_QOUTE);
+	if (*str == CHAR_DQUOTE)
+		return (CHAR_DQUOTE);
+	if (ft_strncmp(str, "<<", 2) == 0)
+		return (DLESSER);
+	if (ft_strncmp(str, ">>", 2) == 0)
+		return (HEAR_DOC);
+	if (*str == CHAR_GREATER)
+		return (CHAR_GREATER);
+	if (*str == CHAR_LESSER)
+		return (CHAR_LESSER);
+	return (CHAR_GENERAL);
+}
 /*
 * 分割した文字列をft_substr()で作成
 * listに作成した文字列を追加
@@ -62,41 +83,19 @@ void	character_separator(char *command, t_tokeniser *data)
 	cmd = command;
 	i = 0;
 	sep_command_line(command, cmd, data);
-	while (data->token != NULL)
+	printf("command = %c\n", *command);
+	/*while (data->token != NULL)
 	{
 		printf("data->token->str[%d] = %s\n", i, data->token->str);
 		data->token = data->token->next;
 		i++;
-	}
+	}*/
 }
 
-void	lexer_and_parser(char *command)
+int	lexer(t_tokeniser *data, char *command)
 {
-	t_tokeniser	data;
-
-	data.token = NULL;
-	init_datas(&data);
-	character_separator(command, &data);
-	//parse_complete_command(&data.token);
-}
-
-int	main(void)
-{
-	char	*command;
-	int		start;
-	size_t	i;
-
-	read_history(".my_history");
-	i = 0;
-	start = 0;
-	while (1)
-	{
-		command = readline("minishell >> ");
-		printf("line is '%s'\n", command);
-		lexer_and_parser(command);
-		add_history(command);
-		free(command);
-		write_history(".my_history");
-	}
-	return (0);
+	init_data(data);
+	character_separator(command, data);
+	data->char_cnt = 42;
+	return (EXIT_SUCCESS);
 }

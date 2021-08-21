@@ -17,11 +17,16 @@ typedef struct	s_envlist
 }		t_envlist;
 
 /* ./utils/envp_lst.c */
-t_envlist	*init_dlist();
+t_envlist	*init_envlist();
 t_envlist	*ft_envlstnew(char *key, char *value);
 void		ft_init_envlst(t_envlist *lst);
 void		ft_envlstadd_back(t_envlist *top, t_envlist *new_lst);
 int			ft_envlstsize(t_envlist *lst);
-void		lst_free(t_envlist *lst);
-int		get_envp(char **envp);
+void		free_envplist(t_envlist *nil);
+
+/* ./utils/get_envp.c */
+int		envp_lstmap(t_envlist *envp, char *key, char *value);
+int		create_envlst(t_envlist *lst, char **envp);
+t_envlist	*get_envp(char **envp);
+
 #endif
