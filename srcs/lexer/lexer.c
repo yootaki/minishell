@@ -77,19 +77,10 @@ void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 
 void	character_separator(char *command, t_tokeniser *data)
 {
-	int		i;
 	char	*cmd;
 
 	cmd = command;
-	i = 0;
 	sep_command_line(command, cmd, data);
-	printf("command = %c\n", *command);
-	/*while (data->token != NULL)
-	{
-		printf("data->token->str[%d] = %s\n", i, data->token->str);
-		data->token = data->token->next;
-		i++;
-	}*/
 }
 
 int	lexer(t_tokeniser *data, char *command)
