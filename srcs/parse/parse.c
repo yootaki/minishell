@@ -41,45 +41,6 @@ bool	is_next_redirect(t_token *tokens)
 	return (false);
 }
 
-int	create_cmd_lst(t_cmd_lst *cmd, t_token *tokens)
-{
-	if (cmd_lst_add(cmd, tokens) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	create_redirect_lst(t_redirect *redirect, t_token *tokens)
-{
-	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	tokens = tokens->next;
-	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
-}
-
-int	create_node_lst(t_nlst *node, t_token *tokens)
-{
-	if (nlst_add(node) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	int i = 0;
-	while (1)
-	{
-		if (tokens->type == CHAR_PIPE)
-		{
-			if (tokens->next != NULL && tokens->next->type == CHAR_PIPE)
-				return (EXIT_FAILURE);
-			if (nlst_add(node) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
-		if (tokens->next == NULL)
-			break;
-		tokens = tokens->next;
-		i++;
-	}
-	return (EXIT_SUCCESS);
-}
-
 int	syntax＿analysis(t_nlst *node, t_token *tokens)
 {
 	t_nlst	*current;
@@ -111,21 +72,20 @@ int	syntax＿analysis(t_nlst *node, t_token *tokens)
 	return (EXIT_SUCCESS);
 }
 
-int	parse_separator(t_nlst *node, t_token *tokens)
+int	parse_separator(t_nlst *node, t_token *tokens, t_envlist *env)
 {
-	if (create_node_lst(node, tokens) == EXIT_FAILURE)
+	if (create_node_lst(node, tokens, env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (syntax＿analysis(node, tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-int	parse(t_nlst *node, t_token *tokens)
+int	parse(t_nlst *node, t_token *tokens, t_envlist *envp_lst)
 {
 	int	result = 0;
 
-	result = parse_separator(node, tokens);
-	check_lst(node);
+	result = parse_separator(node, tokens, envp_lst);
 	if (result == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (result);

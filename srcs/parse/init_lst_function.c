@@ -38,10 +38,6 @@ t_nlst	*init_node()
 	new = (t_nlst *)malloc(sizeof(t_nlst));
 	if (!new)
 		return (NULL);
-	/*new->redirect = init_redirect();
-	new->cmd = init_cmd_lst();
-	if (!new->redirect || !new->cmd)
-		return (NULL);*/
 	new->next = new;
 	new->prev = new;
 	return (new);
