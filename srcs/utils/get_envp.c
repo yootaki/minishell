@@ -10,7 +10,11 @@ int	envp_lstmap(t_envlist *envp, char *key, char *value)
 		free_envplist(envp);
 		return (EXIT_FAILURE);
 	}
-	ft_envlstadd_back(envp, new_lst);
+	envp->prev->next = new_lst;
+	new_lst->prev = envp->prev;
+	new_lst->next = envp;
+	envp->prev = new_lst;
+	//ft_envlstadd_back(envp, new_lst);
 	return (EXIT_SUCCESS);
 }
 
@@ -35,7 +39,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 		key = ft_strdup(*envp);
 		str++;
 		value = ft_strdup(str);
-		if (!envp_lstmap(current, key, value))
+		if (envp_lstmap(current, key, value) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		(envp)++;
 	}
