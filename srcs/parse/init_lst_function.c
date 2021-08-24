@@ -1,6 +1,6 @@
-# include "parse.h"
+#include "parse.h"
 
-t_cmd_lst	*init_cmd_lst()
+t_cmd_lst	*init_cmd_lst(void)
 {
 	t_cmd_lst	*new;
 
@@ -15,7 +15,7 @@ t_cmd_lst	*init_cmd_lst()
 	return (new);
 }
 
-t_redirect	*init_redirect()
+t_redirect	*init_redirect(void)
 {
 	t_redirect	*new;
 
@@ -31,7 +31,7 @@ t_redirect	*init_redirect()
 	return (new);
 }
 
-t_nlst	*init_node()
+t_nlst	*init_node(void)
 {
 	t_nlst	*new;
 
