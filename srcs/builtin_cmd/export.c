@@ -11,6 +11,8 @@ int	my_export(char **argv, t_envlist *lst)
 	char		*env_value;
 	int			char_cnt;
 
+	/* 数字の例外処理を忘れずに！！！ */
+
 	argv++;
 	char_cnt = 0;
 	while (argv[0][char_cnt] != '=' && argv[0][char_cnt])

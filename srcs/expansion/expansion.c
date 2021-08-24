@@ -1,21 +1,8 @@
 #include "../builtin_cmd/builtin_cmd.h"
+#include "../../includes/input.h"
+#include "../../includes/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef enum e_tokentype
-{
-	CHAR_GENERAL = -1,
-	CHAR_PIPE = '|',
-	CHAR_QOUTE = '\'',
-	CHAR_DQUOTE = '\"',
-	CHAR_WHITESPACE = ' ',
-	CHAR_TAB = '\t',
-	CHAR_ESCAPE = '\\',
-	CHAR_GREATER = '>',
-	CHAR_LESSER = '<',
-	HEAR_DOC,
-	DLESSER = 64,
-}		t_token_type;
 
 typedef struct s_cmd_lst
 {
@@ -24,36 +11,6 @@ typedef struct s_cmd_lst
 	t_token_type	c_type;
 	char	*str;
 }		t_cmd_lst;
-
-typedef struct	s_redirect
-{
-	struct s_redirect	*next;
-	struct s_redirect	*prev;
-	t_token_type	c_type;
-	char	*str;
-	char	*limmiter;
-}		t_redirect;
-
-typedef struct s_nlst
-{
-	t_cmd_lst	*cmd;
-	t_redirect	*redirect;
-	struct s_nlst	*next;
-	struct s_nlst	*prev;
-}		t_nlst;
-
-
-//==============================================================================
-
-//echo "Hello w$TEST yootaki" "Hello w"'orld' "Hello w" 'orld'
-/*
-
-1: Hello w\0 <- $を\0に置き換える
-2: TEST <- orldに置き換える
-3:  yootaki
-
-これを環境変数が来るたびに行う
-*/
 
 typedef struct s_expanser
 {
@@ -64,17 +21,17 @@ typedef struct s_expanser
 char	*get_var_name(char *str)
 {
 	char	*var_name;
-	int		i;
+	int		name_len;
 
-	i = 0;
-	while (str[i] != '\0' && str[i] != '$' && str[i] != ' ')//ここの条件もう少し考えるべき
-		i++;
-	var_name = (char*)malloc(sizeof(char) * (i + 1));
-	ft_strlcpy(var_name, str, i + 1);
+	name_len = 0;
+	while (str[name_len] != '\0' && str[name_len] != '$' && str[name_len] != ' ' && str[name_len] != '\"' && str[name_len] != '\'')
+		name_len++;
+	var_name = (char*)malloc(sizeof(char) * (++name_len));
+	ft_strlcpy(var_name, str, name_len);
 	return (var_name);
 }
 
-char	*get_env_var_value(char *str, t_envlist *env)
+char	*get_var_value(char *str, t_envlist *env)
 {
 	t_envlist	*now;
 	char		*var_value;
@@ -95,64 +52,106 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	char	*var_value;
 	char	*new_str;
 	char	*tmp;
-	/* ->"Hello w$TEST yootaki"
-	var[1] = "TEST(orld)"
-	var[2] = " yootaki"
-	var[3] = tmpとして使う
-	*/
 
-	//'$'->'\0' & 変数名を取得
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-	//変数の値を取得
-	var_value = ft_strdup(get_env_var_value(var_name, env));
-
-	//tmp = "Hello w\0"とvar_valueをjoin
+	var_value = ft_strdup(get_var_value(var_name, env));
 	tmp = ft_strjoin(expanser->str, var_value);
-	//tmpとexpanser->str[expanser->str_cnt]をjoin
-	//"Hello world yootaki" が完成
 	new_str = ft_strjoin(tmp, &expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-	//変数名の後までインデックスを進める( yootaki)
 	expanser->str_cnt += ft_strlen(var_value);
 	free(var_name);
 	free(var_value);
 	free(tmp);
 	free(expanser->str);
 	expanser->str = new_str;
-	// printf("%s,%zu\n", &expanser->str[expanser->str_cnt], ft_strlen(&expanser->str[expanser->str_cnt]));
-	// printf("%s,%zu\n", expanser->str, ft_strlen(expanser->str));
+}
+
+void	delete_dquote(t_expanser *expanser)
+{
+	char	*str_front;
+	char	*str_middle;
+	char	*str_back;
+	char	*new_str;
+	char	*tmp;
+
+	expanser->str[expanser->str_cnt] = '\0';
+	if (expanser->str_cnt > 0)
+		str_front = expanser->str;
+	else
+		str_front = " ";
+	expanser->str_cnt++;
+	str_middle = &expanser->str[expanser->str_cnt];
+	while (expanser->str[expanser->str_cnt] != '\"')
+		expanser->str_cnt++;
+	expanser->str[expanser->str_cnt] = '\0';
+	if (expanser->str[expanser->str_cnt + 1] != '\0')
+		str_back = &expanser->str[expanser->str_cnt + 1];
+	else
+		str_back = " ";
+
+	tmp = ft_strjoin(str_front, str_middle);
+	new_str = ft_strjoin(tmp, str_back);
+	free(tmp);
+	free(expanser->str);
+	expanser->str = new_str;
+	expanser->str_cnt -= 2;
+}
+
+void	delete_quote(t_expanser *expanser)
+{
+	char	*str_front;
+	char	*str_middle;
+	char	*str_back;
+	char	*new_str;
+	char	*tmp;
+
+	expanser->str[expanser->str_cnt] = '\0';
+	if (expanser->str_cnt > 0)
+		str_front = expanser->str;
+	else
+		str_front = " ";
+	expanser->str_cnt++;
+	str_middle = &expanser->str[expanser->str_cnt];
+	while (expanser->str[expanser->str_cnt] != '\'')
+		expanser->str_cnt++;
+	expanser->str[expanser->str_cnt] = '\0';
+	if (expanser->str[expanser->str_cnt + 1] != '\0')
+		str_back = &expanser->str[expanser->str_cnt + 1];
+	else
+		str_back = " ";
+
+	tmp = ft_strjoin(str_front, str_middle);
+	new_str = ft_strjoin(tmp, str_back);
+	free(tmp);
+	free(expanser->str);
+	expanser->str = new_str;
+	expanser->str_cnt--;
 }
 
 int	expanser(t_cmd_lst *cmd, t_envlist *env)
 {
-	/*
-		（"）もしくは（'）があったら削除
-		（"）の場合は展開してから削除
-		展開したものをlexerで分割する
-	*/
 	t_expanser	expanser;
 	t_cmd_lst	*now;
-	int			debug=0;
 
 	now = cmd->next;
-	while (now != cmd)//cmdの中身がNULLまで繰り返す（echo->Hello w$TEST->yootaki）
+	while (now != cmd)
 	{
-		/* init */
 		expanser.str = now->str;
 		expanser.str_cnt = 0;
-
-		while (expanser.str[expanser.str_cnt] != '\0')//\0まで繰り返す（e->c->h->o->\0）
+		while (expanser.str[expanser.str_cnt] != '\0')
 		{
-			// printf("%d\n", debug++);
-			//------------------------------------------
-			//1. 変数を展開
 			if (expanser.str[expanser.str_cnt] == '$')
 				expansion_var(&expanser, env);
-			//2. クォーテーションを削除
-			//3. lexer
-			//------------------------------------------
 			expanser.str_cnt++;
-			// printf("%s\n", &expanser.str[expanser.str_cnt]);
+		}
+		expanser.str_cnt = 0;
+		while (expanser.str[expanser.str_cnt] != '\0')
+		{
+			if (expanser.str[expanser.str_cnt] == '\"')
+				delete_dquote(&expanser);
+			else if (expanser.str[expanser.str_cnt] == '\'')
+				delete_quote(&expanser);
+			expanser.str_cnt++;
 		}
 		now->str = expanser.str;
 		now = now->next;
@@ -161,10 +160,10 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	return (EXIT_SUCCESS);
 }
 
-int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hello w" 'orld'
+int	main(void)
 {
 	t_cmd_lst cmd[6];
-	t_envlist env[3];
+	t_envlist env[4];
 
 	cmd[0].prev = &cmd[5];
 	cmd[0].next = &cmd[1];
@@ -176,11 +175,11 @@ int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hel
 
 	cmd[2].prev = &cmd[1];
 	cmd[2].next = &cmd[3];
-	cmd[2].str = ft_strdup("\"Hello w$TEST yootaki\"");
+	cmd[2].str = ft_strdup("\"Hello w$TEST yootaki=$USER\"");
 
 	cmd[3].prev = &cmd[2];
 	cmd[3].next = &cmd[4];
-	cmd[3].str = ft_strdup("\"Hello w\"\'orld\'");
+	cmd[3].str = ft_strdup("HeHeHe\"Hello w\"\'$TEST\'");
 
 	cmd[4].prev = &cmd[3];
 	cmd[4].next = &cmd[5];
@@ -188,7 +187,7 @@ int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hel
 
 	cmd[5].prev = &cmd[4];
 	cmd[5].next = &cmd[0];
-	cmd[5].str = ft_strdup("\'orld\'");
+	cmd[5].str = ft_strdup("\' $TEST \'");
 
 	env[0].prev = &env[2];
 	env[0].next = &env[1];
@@ -205,9 +204,25 @@ int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hel
 	env[2].key = "TEST";
 	env[2].value = "orld";
 
-	printf("展開前 : %s\n", cmd[2].str);
+	printf("before : ");
+	for (size_t i = 2; i < 6; i++)
+	{
+		printf("%s", cmd[i].str);
+		if (i < 5)
+			printf(" ");
+		else
+			printf("\n");
+	}
 	expanser(&cmd[0], &env[0]);
-	printf("展開後 : %s\n", cmd[2].str);
+	printf("after  : ");
+	for (size_t i = 2; i < 6; i++)
+	{
+		printf("%s", cmd[i].str);
+		if (i < 5)
+			printf(" ");
+		else
+			printf("\n");
+	}
 	free(cmd[0].str);
 	free(cmd[1].str);
 	free(cmd[2].str);
@@ -216,16 +231,23 @@ int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hel
 	return (EXIT_SUCCESS);
 }
 
-__attribute__((destructor))
-void    destructor(void)
-{
-    int    status;
+//============================================================
 
-    status = system("leaks a.out &> leaksout");
-    if (status)
-    {
-        write(2, "leak!!!\n", 8);
-        system("cat leaksout >/dev/stderr");
-        exit(1);
-    }
-}
+// [コンパイル]
+//$ gcc expansion.c ../../libft/libft.a -g -fsanitize=address
+
+// [デバッグ]
+// __attribute__((destructor))
+// void	destructor(void)
+// {
+// 	int	status;
+
+// 	status = system("leaks a.out &> leaksout");
+// 	if (status)
+// 	{
+// 		write(2, "leak!!!\n", 8);
+// 		system("cat leaksout >/dev/stderr");
+// 		exit(1);
+// 	}
+// }
+//============================================================

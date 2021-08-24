@@ -6,7 +6,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdbool.h>
-# include "libft.h"
+# include "../libft/libft.h"
 
 typedef struct	s_envlist
 {

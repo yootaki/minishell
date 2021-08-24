@@ -8,7 +8,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 //# include "parse.h"
-# include "libft.h"
+# include "../libft/libft.h"
 
 typedef enum e_tokentype
 {
