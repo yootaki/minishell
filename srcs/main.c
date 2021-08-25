@@ -1,35 +1,63 @@
-#include "utils.h"
-#include "parse.h"
 #include "input.h"
+#include "parse.h"
+#include "utils.h"
 
-/*void	check(t_nlst *node)
+/*void	check_env(t_envlist *envp)
 {
-	t_nlst	*ncurrent;
-	t_cmd_lst *ccurrent;
-	t_redirect *rcurrent;
-
-	printf("status = %d\n", node->status);
-	ncurrent = node->next;
-	printf("ncurrent = %d\n", ncurrent->status);
-	while (ncurrent != node)
+	int i = 0;
+	t_envlist	*e_tmp;
+	i = 0;
+	e_tmp = envp->next;
+	while (e_tmp != envp)
 	{
-		ccurrent = node->cmd->next;
-		while (ccurrent != node->cmd)
-		{
-			printf("ccurrent = %s\n", ccurrent->str);
-			ccurrent = ccurrent->next;
-		}
-		rcurrent = node->redirect->next;
-		while (rcurrent != node->redirect)
-		{
-			printf("rcurent = %s\n", rcurrent->str);
-			rcurrent = rcurrent->next;
-		}
-		ncurrent = ncurrent->next;
+		printf("e_value[%d] = %s\n", i, e_tmp->value);
+		printf("e_key[%d] = %s\n", i, e_tmp->key);
+		e_tmp = e_tmp->next;
+		i++;
 	}
 }*/
 
-int	get_cmdline_from_input_str(char *command)
+void	check(t_nlst *nil)
+{
+	int i = 0;
+	t_nlst	*current;
+	t_cmd_lst *c_tmp;
+	t_redirect	*r_tmp;
+	t_envlist	*e_tmp;
+
+	current = nil->next;
+	while (current != nil)
+	{
+		i = 0;
+		c_tmp = current->cmd->next;
+		while (c_tmp != current->cmd)
+		{
+			printf("c_str = %s\n", c_tmp->str);
+			c_tmp = c_tmp->next;
+			i++;
+		}
+		i = 0;
+		r_tmp = current->redirect->next;
+		while (r_tmp != current->redirect)
+		{
+			printf("r_str = %s\n", r_tmp->str);
+			r_tmp = r_tmp->next;
+			i++;
+		}
+		i = 0;
+		e_tmp = current->envp_lst->next;
+		while (e_tmp != current->envp_lst)
+		{
+			printf("e_value[%d] = %s\n", i, e_tmp->value);
+			printf("e_key[%d] = %s\n", i, e_tmp->key);
+			e_tmp = e_tmp->next;
+			i++;
+		}
+		current = current->next;
+	}
+}
+
+int	get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
 	t_tokeniser	data;
 	t_nlst		*node;
@@ -38,8 +66,12 @@ int	get_cmdline_from_input_str(char *command)
 	if (!node)
 		return (EXIT_FAILURE);
 	lexer(&data, command); //単語分割
-	parse(&node, data.token); //分割したものをlstに入れる
-	//check(node);
+	if (data.token == NULL)
+		return (EXIT_FAILURE);
+	parse(node, data.token, envp_lst); //分割したものをlstに入れる
+	check(node);
+	free_data(&data);
+	free_node(node);
 	return (EXIT_SUCCESS);
 }
 
@@ -54,15 +86,17 @@ void	loop_shell(char **envp)
 	read_history(".my_history");
 	i = 0;
 	start = 0;
-	while (1)
+	while (i < 1)
 	{
 		command = readline("minishell >> ");
-		printf("line is '%s'\n", command);
-		get_cmdline_from_input_str(command);
+		if (command[0] != '\0')
+			get_cmdline_from_input_str(command, envp_lst);
 		add_history(command);
 		free(command);
 		write_history(".my_history");
+		i++;
 	}
+	free_envplist(envp_lst);
 }
 
 int main(int argc, char *argv[], char **envp)
@@ -70,5 +104,7 @@ int main(int argc, char *argv[], char **envp)
 	argc = 0;
 	argv = NULL;
 	loop_shell(envp);
+	//free(envp);
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

@@ -1,6 +1,6 @@
 #include "utils.h"
 
-t_envlist	*init_envlist()
+t_envlist	*init_envlist(void)
 {
 	t_envlist	*nil;
 

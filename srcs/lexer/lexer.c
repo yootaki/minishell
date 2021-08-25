@@ -87,6 +87,5 @@ int	lexer(t_tokeniser *data, char *command)
 {
 	init_data(data);
 	character_separator(command, data);
-	data->char_cnt = 42;
 	return (EXIT_SUCCESS);
 }
