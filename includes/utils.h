@@ -1,12 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <stdbool.h>
-# include "libft.h"
+#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <stdbool.h>
 
 typedef struct	s_envlist
 {
@@ -17,7 +17,7 @@ typedef struct	s_envlist
 }		t_envlist;
 
 /* ./utils/envp_lst.c */
-t_envlist	*init_envlist();
+t_envlist	*init_envlist(void);
 t_envlist	*ft_envlstnew(char *key, char *value);
 void		ft_init_envlst(t_envlist *lst);
 void		ft_envlstadd_back(t_envlist *top, t_envlist *new_lst);
