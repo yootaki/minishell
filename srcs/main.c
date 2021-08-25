@@ -1,6 +1,6 @@
-#include "utils.h"
-#include "parse.h"
 #include "input.h"
+#include "parse.h"
+#include "utils.h"
 
 /*void	check_env(t_envlist *envp)
 {
