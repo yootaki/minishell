@@ -14,7 +14,6 @@ int	envp_lstmap(t_envlist *envp, char *key, char *value)
 	new_lst->prev = envp->prev;
 	new_lst->next = envp;
 	envp->prev = new_lst;
-	//ft_envlstadd_back(envp, new_lst);
 	return (EXIT_SUCCESS);
 }
 
