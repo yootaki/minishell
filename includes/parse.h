@@ -3,7 +3,7 @@
 
 #include "input.h"
 #include "utils.h"
-#include "libft.h"
+#include "../libft/libft.h"
 #include <stdbool.h>
 
 typedef struct s_cmd_lst

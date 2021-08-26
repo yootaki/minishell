@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "libft.h"
+#include "../libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>

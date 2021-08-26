@@ -18,7 +18,7 @@ SRCS_P = ${addprefix ${PARSER_DIR}, ${SRCS_PARSER}}
 
 SRCS_U = ${addprefix ${UTILS_DIR}, ${SRCS_UTILS}}
 
-SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_U}
+SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_U} ./srcs/expansion/expansion.c
 
 HEADER = ./includes
 
@@ -26,7 +26,7 @@ LIBFT_DIR = ./libft
 
 OBJS = ${SRCS_NAME:.c=.o}
 
-CC = gcc
+CC = gcc -g -fsanitize=address
 
 # -g -fsanitize=address
 

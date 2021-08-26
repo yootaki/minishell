@@ -57,26 +57,29 @@ void	check(t_nlst *nil)
 	}
 }
 
-int	get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
+t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
 	t_tokeniser	data;
 	t_nlst		*node;
 
 	node = init_node();
 	if (!node)
-		return (EXIT_FAILURE);
+		return (NULL);
 	lexer(&data, command); //単語分割
 	if (data.token == NULL)
-		return (EXIT_FAILURE);
+		return (NULL);
 	parse(node, data.token, envp_lst); //分割したものをlstに入れる
 	check(node);
-	free_data(&data);
-	free_node(node);
-	return (EXIT_SUCCESS);
+	// free_data(&data);
+	// free_node(node);
+	return (node);
 }
+
+int	expanser(t_cmd_lst *cmd, t_envlist *env);
 
 void	loop_shell(char **envp)
 {
+	t_nlst		*node;
 	t_envlist *envp_lst;
 	char	*command;
 	int		start;
@@ -90,7 +93,24 @@ void	loop_shell(char **envp)
 	{
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
-			get_cmdline_from_input_str(command, envp_lst);
+			node = get_cmdline_from_input_str(command, envp_lst);
+
+		//expanser
+		expanser(node->next->cmd, envp_lst);
+
+		t_cmd_lst *tmp;
+		tmp = node->next->cmd->next;
+		printf("after  : ");
+		for (size_t i = 1; i < 11; i++)
+		{
+			printf("%s", tmp->str);
+			if (i < 10)
+				printf(" ");
+			else
+				printf("\n");
+			tmp = tmp->next;
+		}
+
 		add_history(command);
 		free(command);
 		write_history(".my_history");
@@ -105,6 +125,6 @@ int main(int argc, char *argv[], char **envp)
 	argv = NULL;
 	loop_shell(envp);
 	//free(envp);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (EXIT_SUCCESS);
 }

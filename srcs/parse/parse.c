@@ -36,7 +36,7 @@ int	syntax＿analysis(t_nlst *node, t_token *tokens)
 		else
 		{
 			if (create_cmd_lst(current->cmd, tokens) == EXIT_FAILURE)
-				return (EXIT_FAILURE);	
+				return (EXIT_FAILURE);
 		}
 		if (tokens->next == NULL)
 			break;
