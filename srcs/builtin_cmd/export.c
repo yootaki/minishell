@@ -1,7 +1,4 @@
-#include "../../libft/libft.h"
 #include "builtin_cmd.h"
-#include <errno.h>
-#include <string.h>
 
 /*	コンパイルコマンド
 *	$ gcc -Wall -Wextra -Werror -o myexport export.c lst_func.c ../../libft/libft.a
@@ -28,8 +25,6 @@ int	my_export(char **argv, t_envlist *lst)
 	argv[0] += char_cnt + 1;
 	env_value = (char *)malloc(sizeof(char) * (ft_strlen(argv[0]) + 1));
 	ft_strlcpy(env_value, argv[0], ft_strlen(argv[0]) + 1);
-
-	/* リストに指定された環境変数があるか確認 */
 	tmp = lst->next;
 	while (tmp != lst)
 	{
@@ -37,21 +32,10 @@ int	my_export(char **argv, t_envlist *lst)
 			break ;
 		tmp = tmp->next;
 	}
-	if (tmp != lst)// 環境変数が存在する場合
-	{
+	if (tmp != lst)
 		tmp->value = argv[0];
-		printf("env_key   : %s\n", env_key);
-		printf("env_value : %s\n", env_value);
-		printf("$PWD      : %s\n", tmp->value);
-	}
 	else
-	{
 		ft_envlstadd_back(lst, ft_envlstnew(env_key, env_value));
-		printf("env_key : %s\n", env_key);
-		printf("env_value : %s\n", env_value);
-		printf("$%s : %s\n", lst->prev->key, lst->prev->value);
-	}
-
 	free(env_key);
 	free(env_value);
 	return (EXIT_SUCCESS);

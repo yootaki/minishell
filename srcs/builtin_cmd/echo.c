@@ -1,4 +1,4 @@
-#include "../../libft/libft.h"
+#include "builtin_cmd.h"
 
 int	my_echo(int argc, char **argv)
 {

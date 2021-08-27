@@ -1,70 +1,50 @@
-#include "../../libft/libft.h"
 #include "builtin_cmd.h"
-#include <errno.h>
-#include <string.h>
 
 # define CURRENTPATH_SIZE 512
 
-/*	コンパイルコマンド
-*	$ gcc -Wall -Wextra -Werror -o mycd cd.c ../../libft/libft.a
-*/
-
+/* !!!mallocして返してる!!! */
 int	my_cd(int argc, char **argv, t_envlist *lst)
 {
 	t_envlist	*tmp;
 	char		current_path[CURRENTPATH_SIZE];
-	char		*new_path;
+	char		*dir_path;
 
 	ft_memset(current_path, '\0', CURRENTPATH_SIZE);
-	new_path = NULL;
-
-	/* ディレクトリを変更 */
 	if (argc < 2)
-	{
-		if (chdir(getenv("HOME")))
-		{
-			printf("%s\n", strerror(errno));
-			return (EXIT_FAILURE);
-		}
-	}
+		dir_path = getenv("HOME");
 	else
 	{
 		argv++;
-		new_path = ft_strjoin("./", argv[0]);
-		if (chdir(new_path))
-		{
-			printf("%s\n", strerror(errno));
-			return (EXIT_FAILURE);
-		}
+		dir_path = argv[0];
 	}
-	getcwd(current_path, CURRENTPATH_SIZE);
-	printf("変更後DIR:%s\n", current_path);
+	if (chdir(dir_path))
+	{
+		perror(dir_path);
+		return (EXIT_FAILURE);
+	}
 
 	/* $PWDを書きかえ */
+	if (!getcwd(current_path, CURRENTPATH_SIZE))
+		return (EXIT_FAILURE);
 	tmp = lst->next;
 	while (ft_strncmp(tmp->key, "PWD", 4) && tmp != lst)
 		tmp = tmp->next;
-	tmp->value = current_path;
-	printf("環境変数%s:%s\n", tmp->key, tmp->value);
-
-	free(new_path);
+	tmp->value = ft_strdup(current_path);
 	return (EXIT_SUCCESS);
 }
 
 int	main(int argc, char **argv)
 {
-	t_envlist	lst_init;
-	t_envlist	lst;
+	t_envlist	*init_lst;
+	char		buf[512];
 
-	lst_init.prev = &lst;
-	lst_init.next = &lst;
-	lst_init.key = NULL;
-	lst_init.value = NULL;
-	lst.prev = &lst_init;
-	lst.next = &lst_init;
-	lst.key = "PWD";
-	lst.value = getenv("PWD");
-	if (my_cd(argc, argv, &lst_init))
+	init_lst = ft_envlstnew(NULL, NULL);
+	ft_envlstadd_back(init_lst, ft_envlstnew("PWD", getenv("PWD")));
+	if (my_cd(argc, argv, init_lst))
 		return (EXIT_FAILURE);
+	printf("変更後DIR:%s\n", getcwd(buf, 512));
+	printf("環境変数$PWD:%s\n", init_lst->next->value);
+	free(init_lst->next->value);
+	free_envlst(init_lst);
 	return (EXIT_SUCCESS);
 }

@@ -1,13 +1,13 @@
 #ifndef INPUT_H
 # define INPUT_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include "libft.h"
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include "../libft/libft.h"
 
 typedef enum e_tokentype
 {
@@ -20,6 +20,8 @@ typedef enum e_tokentype
 	CHAR_ESCAPE = '\\',
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
+	HEAR_DOC,
+	DLESSER = 64,
 }		t_token_type;
 
 typedef struct s_token
@@ -44,7 +46,7 @@ void	is_else(char **cmd, size_t *char_cnt);
 
 /* ./lexer/lst_function.c */
 t_token	*lst_new(char *str);
-void	lst_clear (t_token **lst, void (*del)(char*));
+void	lst_clear (t_token **lst, void (*del)(void*));
 t_token	*lst_last(t_token *lst);
 void	lstadd_back(t_token **lst, t_token *new_list);
 
@@ -54,5 +56,11 @@ void	init_datas(t_tokeniser *data);
 
 /* ./lexer/free_function.c */
 void	free_line(void *line);
+
+/* ./lexer/lexer.c */
+int		lexer(t_tokeniser *data, char *command);
+int	character_separator(char *command, t_tokeniser *data);
+int	sep_command_line(char *command, char *cmd, t_tokeniser *data);
+t_token_type	check_type(char *str);
 
 #endif

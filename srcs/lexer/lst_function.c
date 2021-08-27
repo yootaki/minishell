@@ -9,11 +9,11 @@ t_token	*lst_new(char *str)
 		return (NULL);
 	lst->str = str;
 	lst->next = NULL;
-	lst->type = 0;
+	lst->type = check_type(str);
 	return (lst);
 }
 
-void	lst_clear (t_token **lst, void (*del)(char*))
+void	lst_clear (t_token **lst, void (*del)(void*))
 {
 	t_token	*ndlst;
 

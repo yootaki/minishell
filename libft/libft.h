@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:52:45 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/27 09:40:36 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/08/16 17:57:02 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+
+typedef enum	e_bool
+{
+	FALSE,
+	TRUE
+}				t_bool;
 
 int		ft_atoi(char *str);
 void	ft_bzero(void *s, size_t n);
