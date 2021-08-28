@@ -32,7 +32,7 @@ int	create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env)
 				return (EXIT_FAILURE);
 		}
 		if (tokens->next == NULL)
-			break;
+			break ;
 		tokens = tokens->next;
 		i++;
 	}
