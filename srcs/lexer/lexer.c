@@ -65,10 +65,10 @@ int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 		data->start++;
 	}
 	if (*cmd == '\0')
-		return ;
-	if (ft_isalpha(*cmd))
+		return (EXIT_SUCCESS);
+	if (ft_isalpha(*cmd) || is_type(*cmd))
 		is_alnum(&cmd, &data->char_cnt);
-	else if (ft_isdigit(*cmd))
+	else if (ft_isdigit(*cmd) || is_type(*cmd))
 		is_digit(&cmd, &data->char_cnt);
 	else if (*cmd == CHAR_QOUTE || *cmd == CHAR_DQUOTE)
 		is_quort(&cmd, &data->char_cnt);
