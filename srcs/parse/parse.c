@@ -48,10 +48,7 @@ int	syntax＿analysis(t_nlst *node, t_token *tokens)
 int	parse_separator(t_nlst *node, t_token *tokens, t_envlist *env)
 {
 	if (create_node_lst(node, tokens, env) == EXIT_FAILURE)
-	{
-		free_lst(node);
 		return (EXIT_FAILURE);
-	}
 	if (syntax＿analysis(node, tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
