@@ -2,7 +2,7 @@
 
 bool	is_type(int c)
 {
-	if ( c == '$' || c == '.' || c == '/' || c == '-')
+	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '?')
 		return (true);
 	return (false);
 }
