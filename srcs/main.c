@@ -68,10 +68,15 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	lexer(&data, command); //単語分割
 	if (data.token == NULL)
 		return (NULL);
-	parse(node, data.token, envp_lst); //分割したものをlstに入れる
+	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)//分割したものをlstに入れる
+	{
+		free_data(&data);
+	 	free_node(node);
+		return (NULL);
+	}
 	check(node);
-	// free_data(&data);
-	// free_node(node);
+	free_data(&data);
+	free_node(node);
 	return (node);
 }
 
@@ -79,7 +84,7 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env);
 
 void	loop_shell(char **envp)
 {
-	t_nlst		*node;
+	//t_nlst		*node;
 	t_envlist *envp_lst;
 	char	*command;
 	int		start;
@@ -93,10 +98,10 @@ void	loop_shell(char **envp)
 	{
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
-			node = get_cmdline_from_input_str(command, envp_lst);
+			get_cmdline_from_input_str(command, envp_lst);
 
 		//expanser
-		expanser(node->next->cmd, envp_lst);
+		/*expanser(node->next->cmd, envp_lst);
 
 		t_cmd_lst *tmp;
 		tmp = node->next->cmd->next;
@@ -109,8 +114,7 @@ void	loop_shell(char **envp)
 			else
 				printf("\n");
 			tmp = tmp->next;
-		}
-
+		}*/
 		add_history(command);
 		free(command);
 		write_history(".my_history");
@@ -125,6 +129,6 @@ int main(int argc, char *argv[], char **envp)
 	argv = NULL;
 	loop_shell(envp);
 	//free(envp);
-	// system("leaks minishell");
+	system("leaks minishell");
 	return (EXIT_SUCCESS);
 }
