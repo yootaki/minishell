@@ -21,20 +21,26 @@ int	create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env)
 {
 	if (nlst_add(node, env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	int i = 0;
+	if (tokens->type == CHAR_PIPE)
+	{
+		ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+		return (EXIT_FAILURE);
+	}
 	while (1)
 	{
 		if (tokens->type == CHAR_PIPE)
 		{
 			if (tokens->next != NULL && tokens->next->type == CHAR_PIPE)
+			{
+				ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
 				return (EXIT_FAILURE);
+			}
 			if (nlst_add(node, env) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
 		if (tokens->next == NULL)
 			break ;
 		tokens = tokens->next;
-		i++;
 	}
 	return (EXIT_SUCCESS);
 }
