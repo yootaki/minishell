@@ -14,6 +14,33 @@ bool	is_next_redirect(t_token *tokens)
 	return (false);
 }
 
+int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
+{
+	if ((*tokens)->type == CHAR_PIPE)
+	{
+		*n_lst = (*n_lst)->next;
+		*tokens = (*tokens)->next;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	create_lst(t_nlst **n_lst, t_token **tokens)
+{
+	if ((*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
+	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DLESSER)
+	{
+		if (create_redirect_lst((*n_lst)->redirect, (*tokens)) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		*tokens = (*tokens)->next;
+	}
+	else
+	{
+		if (create_cmd_lst((*n_lst)->cmd, *tokens) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	syntax＿analysis(t_nlst *node, t_token *tokens)
 {
 	t_nlst	*current;
@@ -21,23 +48,10 @@ int	syntax＿analysis(t_nlst *node, t_token *tokens)
 	current = node->next;
 	while (current != node)
 	{
-		if (tokens->type == CHAR_PIPE)
-		{
-			current = current->next;
-			tokens = tokens->next;
-		}
-		if (tokens->type == CHAR_GREATER || tokens->type == CHAR_LESSER \
-		||tokens->type == HEAR_DOC || tokens->type == DLESSER)
-		{
-			if (create_redirect_lst(current->redirect, tokens) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-			tokens = tokens->next;
-		}
-		else
-		{
-			if (create_cmd_lst(current->cmd, tokens) == EXIT_FAILURE)
-				return (EXIT_FAILURE);
-		}
+		if (is_type_pipe(&current, &tokens) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
+		if (create_lst(&current, &tokens) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 		if (tokens->next == NULL)
 			break;
 		tokens = tokens->next;
