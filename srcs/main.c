@@ -76,6 +76,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 }
 
 int	expanser(t_cmd_lst *cmd, t_envlist *env);
+int	hear_doc(t_redirect *redirect, t_envlist *env);
 int	exection(t_nlst *node);
 
 void	loop_shell(char **envp)
@@ -90,22 +91,20 @@ void	loop_shell(char **envp)
 	read_history(".my_history");
 	i = 0;
 	start = 0;
-	while (1)//i < 1)
+	while (1)
 	{
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
 			node = get_cmdline_from_input_str(command, envp_lst);
 
+		printf("\n----------Debug----------\n");
 		//Expansion
 		expanser(node->next->cmd, envp_lst);
+		//hear_doc
+		hear_doc(node->next->redirect, envp_lst);
 
 		//Command exection
 		exection(node);
-
-		//[Debug]current dir======================
-		char current_path[512];
-		printf("%s\n", getcwd(current_path, 512));
-		//========================================
 
 		add_history(command);
 		free(command);

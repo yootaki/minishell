@@ -24,7 +24,7 @@ SRCS_B = ${addprefix ${BUILTIN_DIR}, ${SRCS_BUILTIN}}
 
 SRCS_U = ${addprefix ${UTILS_DIR}, ${SRCS_UTILS}}
 
-SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_B} ${SRCS_U} ./srcs/expansion/expansion.c ./srcs/exection/exection.c
+SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_B} ${SRCS_U} ./srcs/expansion/expansion.c ./srcs/expansion/hear_doc.c ./srcs/exection/exection.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 HEADER = ./includes
 

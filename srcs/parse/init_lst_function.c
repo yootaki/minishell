@@ -10,6 +10,7 @@ t_cmd_lst	*init_cmd_lst(void)
 	new->next = new;
 	new->prev = new;
 	new->c_type = 0;
+	new->category = 0;
 	new->status = 0;
 	new->str = NULL;
 	return (new);
