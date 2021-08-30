@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/uio.h>
+#include <stdbool.h>
 #include "../libft/libft.h"
 
 typedef enum e_tokentype
@@ -39,6 +40,7 @@ typedef struct s_tokeniser
 }				t_tokeniser;
 
 /* ./lexer/is_function.c */
+bool	is_type(int c);
 void	is_alnum(char **cmd, size_t *char_cnt);
 void	is_digit(char **cmd, size_t *char_cnt);
 void	is_quort(char **cmd, size_t *char_cnt);

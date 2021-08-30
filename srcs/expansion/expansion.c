@@ -1,22 +1,5 @@
 #include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/input.h"
-#include "../../includes/utils.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct s_cmd_lst
-{
-	struct	s_cmd_lst	*next;
-	struct	s_cmd_lst	*prev;
-	t_token_type	c_type;
-	char	*str;
-}		t_cmd_lst;
-
-typedef struct s_expanser
-{
-	char	*str;
-	int	str_cnt;
-}t_expanser;
+#include "expansion.h"
 
 //[expansion]=================================================================================
 char	*get_var_name(char *str)
@@ -196,6 +179,32 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 }
 //============================================================================================
 
+//[categorize]================================================================================
+int	categorize(t_cmd_lst *now)
+{
+	struct stat		buf;
+
+	//dirpディレクトリの情報を取得
+	if (stat(now->str, &buf))
+	{
+		printf("%s is str\n", now->str);
+		return (ISSTR);
+	}
+	//fileかdirectoryか判別
+	if (S_ISREG(buf.st_mode))
+	{
+		printf("%s is file\n", now->str);
+		return (ISFILE);
+	}
+	else if (S_ISDIR(buf.st_mode))
+	{
+		printf("%s is dir\n", now->str);
+		return (ISDIRECTORY);
+	}
+	return (ISSTR);
+}
+//============================================================================================
+
 int	expanser(t_cmd_lst *cmd, t_envlist *env)
 {
 	t_expanser	expanser;
@@ -230,107 +239,16 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		}
 
 		//3. lexer
-		//(分割数 - 1)個のcmd_lstを生成してnowとnow->nextの間に接続する。
-		//分割数をreturnして、(分割数-1)個nowを進める。
 		expanser.str_cnt = 0;
 		add_lst_cnt = sep_str(now, &expanser);
 
 		while (--add_lst_cnt >= 0)
+		{
+			now->category = categorize(now);//文字列かファイルかディレクトリかを判別
+			printf("[debug] category : %d\n", now->category);
 			now = now->next;
+		}
 	}
 
 	return (EXIT_SUCCESS);
 }
-
-// int	main(void)//想定入力 -> echo "Hello w$TEST yootaki" "Hello w"'orld' "Hello w" 'orld'
-// {
-// 	t_cmd_lst cmd[6], *tmp;
-// 	t_envlist env[4];
-
-// 	cmd[0].prev = &cmd[5];
-// 	cmd[0].next = &cmd[1];
-// 	cmd[0].str = NULL;
-
-// 	cmd[1].prev = &cmd[0];
-// 	cmd[1].next = &cmd[2];
-// 	cmd[1].str = ft_strdup("echo");
-
-// 	cmd[2].prev = &cmd[1];
-// 	cmd[2].next = &cmd[3];
-// 	cmd[2].str = ft_strdup("\"Hello w$TEST yootaki=$USER\"");
-
-// 	cmd[3].prev = &cmd[2];
-// 	cmd[3].next = &cmd[4];
-// 	cmd[3].str = ft_strdup("HeHeHe\"Hello w\"\'$TEST\'");
-
-// 	cmd[4].prev = &cmd[3];
-// 	cmd[4].next = &cmd[5];
-// 	cmd[4].str = ft_strdup("\"Hello w\"");
-
-// 	cmd[5].prev = &cmd[4];
-// 	cmd[5].next = &cmd[0];
-// 	cmd[5].str = ft_strdup("\' $TEST \'");
-
-// 	env[0].prev = &env[2];
-// 	env[0].next = &env[1];
-// 	env[0].key = NULL;
-// 	env[0].value = NULL;
-
-// 	env[1].prev = &env[0];
-// 	env[1].next = &env[2];
-// 	env[1].key = "USER";
-// 	env[1].value = "yootaki";
-
-// 	env[2].prev = &env[1];
-// 	env[2].next = &env[0];
-// 	env[2].key = "TEST";
-// 	env[2].value = "orld";
-
-// 	tmp = cmd;
-// 	printf("before : ");
-// 	for (size_t i = 1; i < 7; i++)
-// 	{
-// 		printf("%s", tmp->str);
-// 		if (i < 6)
-// 			printf(" ");
-// 		else
-// 			printf("\n");
-// 		tmp = tmp->next;
-// 	}
-// 	expanser(&cmd[0], &env[0]);
-// 	tmp = cmd;
-// 	printf("after  : ");
-// 	for (size_t i = 1; i < 11; i++)
-// 	{
-// 		printf("%s", tmp->str);
-// 		if (i < 10)
-// 			printf(" ");
-// 		else
-// 			printf("\n");
-// 		tmp = tmp->next;
-// 	}
-// 	free(cmd[0].str);
-// 	free(cmd[1].str);
-// 	free(cmd[2].str);
-// 	free(cmd[3].str);
-// 	free(cmd[4].str);
-// 	free(cmd[5].str);
-// 	return (EXIT_SUCCESS);
-// }
-
-// //[debug]=====================================================
-// //$ gcc expansion.c ../../libft/libft.a -g -fsanitize=address
-// __attribute__((destructor))
-// void    destructor(void)
-// {
-//     int    status;
-
-//     status = system("leaks a.out &> leaksout");
-//     if (status)
-//     {
-//         write(2, "leak!!!\n", 8);
-//         system("cat leaksout >/dev/stderr");
-//         exit(1);
-//     }
-// }
-// //============================================================

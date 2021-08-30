@@ -4,11 +4,15 @@ LEXER_DIR = ./srcs/lexer/
 
 PARSER_DIR = ./srcs/parse/
 
+BUILTIN_DIR = ./srcs/builtin_cmd/
+
 UTILS_DIR = ./srcs/utils/
 
 SRCS_LEXER = lexer.c is_function.c lst_function.c free_function.c init_datas.c
 
 SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c
+
+SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c
 
 SRCS_UTILS = envp_lst.c get_envp.c
 
@@ -16,9 +20,11 @@ SRCS_L = ${addprefix ${LEXER_DIR}, ${SRCS_LEXER}}
 
 SRCS_P = ${addprefix ${PARSER_DIR}, ${SRCS_PARSER}}
 
+SRCS_B = ${addprefix ${BUILTIN_DIR}, ${SRCS_BUILTIN}}
+
 SRCS_U = ${addprefix ${UTILS_DIR}, ${SRCS_UTILS}}
 
-SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_U} ./srcs/expansion/expansion.c
+SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_B} ${SRCS_U} ./srcs/expansion/expansion.c ./srcs/expansion/hear_doc.c ./srcs/exection/exection.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 HEADER = ./includes
 

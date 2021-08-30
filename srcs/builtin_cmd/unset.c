@@ -34,30 +34,30 @@ int	my_unset(char **argv, t_envlist *lst)
 	return (EXIT_SUCCESS);
 }
 
-int	main(int argc, char **argv)
-{
-	t_envlist	*init_lst;
+// int	main(int argc, char **argv)
+// {
+// 	t_envlist	*init_lst;
 
-	if (argc < 2)
-		return (EXIT_SUCCESS);
-	init_lst = ft_envlstnew(NULL, NULL);
-	ft_envlstadd_back(init_lst, ft_envlstnew("TEST", "example"));
-	ft_envlstadd_back(init_lst, ft_envlstnew("PWD", getenv("PWD")));
+// 	if (argc < 2)
+// 		return (EXIT_SUCCESS);
+// 	init_lst = ft_envlstnew(NULL, NULL);
+// 	ft_envlstadd_back(init_lst, ft_envlstnew("TEST", "example"));
+// 	ft_envlstadd_back(init_lst, ft_envlstnew("PWD", getenv("PWD")));
 
-	printf("\n---unset前---\n");
-	for (int j = 1; j < 4; j++)
-	{
-		printf("[%d]%s:%s\n", j, init_lst->key, init_lst->value);
-		init_lst = init_lst->next;
-	}
-	my_unset(argv, init_lst);
-	printf("\n---unset後---\n");
-	for (int j = 1; j < 4; j++)
-	{
-		printf("[%d]%s:%s\n", j, init_lst->key, init_lst->value);
-		init_lst = init_lst->next;
-	}
-	printf("\n");
-	free_envlst(init_lst);
-	return (EXIT_SUCCESS);
-}
+// 	printf("\n---unset前---\n");
+// 	for (int j = 1; j < 4; j++)
+// 	{
+// 		printf("[%d]%s:%s\n", j, init_lst->key, init_lst->value);
+// 		init_lst = init_lst->next;
+// 	}
+// 	my_unset(argv, init_lst);
+// 	printf("\n---unset後---\n");
+// 	for (int j = 1; j < 4; j++)
+// 	{
+// 		printf("[%d]%s:%s\n", j, init_lst->key, init_lst->value);
+// 		init_lst = init_lst->next;
+// 	}
+// 	printf("\n");
+// 	free_envlst(init_lst);
+// 	return (EXIT_SUCCESS);
+// }

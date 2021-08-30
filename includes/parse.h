@@ -10,9 +10,10 @@ typedef struct s_cmd_lst
 {
 	struct	s_cmd_lst	*next;
 	struct	s_cmd_lst	*prev;
-	t_token_type	c_type;
-	int	status;
-	char	*str;
+	t_token_type		c_type;
+	int					category;
+	int					status;
+	char				*str;
 }		t_cmd_lst;
 
 typedef struct	s_redirect

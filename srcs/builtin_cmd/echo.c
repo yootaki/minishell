@@ -1,38 +1,33 @@
 #include "builtin_cmd.h"
+#include "../../includes/input.h"
+#include "../../includes/parse.h"
+#include "../../includes/utils.h"
 
-int	my_echo(int argc, char **argv)
+int	echo(t_cmd_lst *cmd)
 {
-	int	display_return;
+	t_cmd_lst	*now;
+	int			display_return;
 
+	now = cmd->next->next;
 	display_return = 1;
-	if (argc < 2)
+	if (now->str == NULL)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
-	argc--;
-	argv++;
-	if (!ft_strncmp(argv[0], "-n", ft_strlen(argv[0])))
+	if (!ft_strncmp(now->str, "-n", ft_strlen(now->str)))
 	{
 		display_return = 0;
-		argc--;
-		argv++;
+		now = now->next;
 	}
-	while (argc > 0)
+	while (now != cmd)
 	{
-		ft_putstr_fd (argv[0], STDOUT_FILENO);
-		argc--;
-		argv++;
-		if (argc > 0)
+		ft_putstr_fd (now->str, STDOUT_FILENO);
+		now = now->next;
+		if (now != cmd)
 			write(STDOUT_FILENO, " ", 1);
 	}
 	if (display_return)
 		write(STDOUT_FILENO, "\n", 1);
-	return (EXIT_SUCCESS);
-}
-
-int	main(int argc, char **argv)
-{
-	my_echo(argc, argv);
 	return (EXIT_SUCCESS);
 }
