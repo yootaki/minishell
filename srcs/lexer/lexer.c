@@ -1,4 +1,5 @@
 #include "input.h"
+
 t_token_type	check_type(char *str)
 {
 	int	size;
@@ -26,22 +27,28 @@ t_token_type	check_type(char *str)
 * エラー対応していない
 * 17行目仮置き
 */
-void	put_in_list(t_tokeniser *data, char **command, char **cmd)
+int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 {
 	char	*str;
 	t_token	*new_list;
 
 	str = ft_substr(*command, data->start, data->char_cnt);
+	if (str == NULL)
+	{
+		lst_clear(&data->token, free_line);
+		return (EXIT_FAILURE);
+	}
 	new_list = lst_new(str);
 	if (new_list == NULL)
 	{
 		lst_clear(&data->token, free_line);
-		return ;
+		return (EXIT_FAILURE);
 	}
 	lstadd_back(&data->token, new_list);
 	data->start = 0;
 	data->char_cnt = 0;
 	*command = *cmd;
+	return (EXIT_SUCCESS);
 }
 
 /*
@@ -50,7 +57,7 @@ void	put_in_list(t_tokeniser *data, char **command, char **cmd)
 * エラー未対応
 * 39行目　仮置き
 */
-void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
+int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
 	while (*cmd == CHAR_WHITESPACE || *cmd == CHAR_TAB)
 	{
@@ -58,10 +65,10 @@ void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 		data->start++;
 	}
 	if (*cmd == '\0')
-		return ;
-	if (ft_isalpha(*cmd))
+		return (EXIT_SUCCESS);
+	if (ft_isalpha(*cmd) || is_type(*cmd))
 		is_alnum(&cmd, &data->char_cnt);
-	else if (ft_isdigit(*cmd))
+	else if (ft_isdigit(*cmd) || is_type(*cmd))
 		is_digit(&cmd, &data->char_cnt);
 	else if (*cmd == CHAR_QOUTE || *cmd == CHAR_DQUOTE)
 		is_quort(&cmd, &data->char_cnt);
@@ -70,22 +77,27 @@ void	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
 	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
 	|| cmd[-1] == CHAR_GREATER) && ft_isalnum(*cmd)))
-		put_in_list(data, &command, &cmd);
+		if (put_in_list(data, &command, &cmd) == EXIT_FAILURE)
+			return (EXIT_FAILURE);
 	if (*cmd != '\0')
 		sep_command_line(command, cmd, data);
+	return (EXIT_SUCCESS);
 }
 
-void	character_separator(char *command, t_tokeniser *data)
+int	character_separator(char *command, t_tokeniser *data)
 {
 	char	*cmd;
 
 	cmd = command;
-	sep_command_line(command, cmd, data);
+	if (sep_command_line(command, cmd, data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 int	lexer(t_tokeniser *data, char *command)
 {
 	init_data(data);
-	character_separator(command, data);
+	if (character_separator(command, data) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

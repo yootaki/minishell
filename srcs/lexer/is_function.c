@@ -1,8 +1,15 @@
 #include "input.h"
 
+bool	is_type(int c)
+{
+	if ( c == '$' || c == '.' || c == '/' || c == '-')
+		return (true);
+	return (false);
+}
+
 void	is_alnum(char **cmd, size_t *char_cnt)
 {
-	while (ft_isalnum(**cmd) && **cmd != '\0')
+	while ((ft_isalnum(**cmd) || is_type(**cmd)) && **cmd != '\0')
 	{
 		(*cmd)++;
 		(*char_cnt)++;
@@ -11,7 +18,7 @@ void	is_alnum(char **cmd, size_t *char_cnt)
 
 void	is_digit(char **cmd, size_t *char_cnt)
 {
-	while ((ft_isdigit(**cmd) || **cmd == '.') && **cmd != '\0')
+	while ((ft_isdigit(**cmd) || is_type(**cmd)) && **cmd != '\0')
 	{
 		(*cmd)++;
 		(*char_cnt)++;

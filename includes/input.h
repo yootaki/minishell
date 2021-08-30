@@ -59,8 +59,8 @@ void	free_line(void *line);
 
 /* ./lexer/lexer.c */
 int		lexer(t_tokeniser *data, char *command);
-void	character_separator(char *command, t_tokeniser *data);
-void	sep_command_line(char *command, char *cmd, t_tokeniser *data);
+int	character_separator(char *command, t_tokeniser *data);
+int	sep_command_line(char *command, char *cmd, t_tokeniser *data);
 t_token_type	check_type(char *str);
 
 #endif
