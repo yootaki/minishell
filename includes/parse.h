@@ -20,11 +20,15 @@ typedef struct	s_redirect
 {
 	struct s_redirect	*next;
 	struct s_redirect	*prev;
-	int	status;
-	t_token_type	c_type;
-	char	*str;
-	char	*limmiter;
+	t_token_type		c_type;
+	int					status;
+	int					*heardoc_fd;
+	int					redirect_fd;
+	char				*str;
+	char				*limmiter;
 }		t_redirect;
+
+//リダイレクト先ファイルのopenとfdを構造体に持たせる。
 
 typedef struct s_nlst
 {
