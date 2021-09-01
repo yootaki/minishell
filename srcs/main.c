@@ -69,7 +69,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	if (data.token == NULL)
 		return (NULL);
 	parse(node, data.token, envp_lst); //分割したものをlstに入れる
-	check(node);
+	// check(node);
 	// free_data(&data);
 	// free_node(node);
 	return (node);
@@ -97,7 +97,6 @@ void	loop_shell(char **envp)
 		if (command[0] != '\0')
 			node = get_cmdline_from_input_str(command, envp_lst);
 
-		printf("\n----------Debug----------\n");
 		//Expansion
 		expanser(node->next->cmd, envp_lst);
 		//hear_docとredirect

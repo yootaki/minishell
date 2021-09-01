@@ -11,12 +11,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 typedef struct s_expanser
 {
 	char	*str;
-	int	str_cnt;
+	int		str_cnt;
 }t_expanser;
 
 enum
@@ -35,6 +35,6 @@ void	delete_dquote(t_expanser *expanser);
 void	delete_quote(t_expanser *expanser);
 
 /* sepalate_str */
-int	sep_str(t_cmd_lst *now, t_expanser *expanser);
+int		sep_str(t_cmd_lst *now, t_expanser *expanser);
 
 #endif

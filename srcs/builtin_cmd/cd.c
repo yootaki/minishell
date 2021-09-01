@@ -1,20 +1,28 @@
 #include "builtin_cmd.h"
-#include "../../includes/input.h"
-#include "../../includes/parse.h"
-#include "../../includes/utils.h"
 
-# define CURRENTPATH_SIZE 512
+#define CURRENTPATH_SIZE 512
+
+int	change_current_path(t_envlist *envp_lst)
+{
+	char		current_path[CURRENTPATH_SIZE];
+
+	ft_memset(current_path, '\0', CURRENTPATH_SIZE);
+	if (!getcwd(current_path, CURRENTPATH_SIZE))
+		return (EXIT_FAILURE);
+	while (envp_lst->key != NULL && ft_strncmp(envp_lst->key, "PWD", 4))
+		envp_lst = envp_lst->next;
+	envp_lst->value = ft_strdup(current_path);
+	return (EXIT_SUCCESS);
+}
 
 /* !!!mallocして返してる!!! */
 int	cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
 	t_envlist	*tmp;
-	char		current_path[CURRENTPATH_SIZE];
 	char		*dir_path;
 
 	now = cmd->next->next;
-	ft_memset(current_path, '\0', CURRENTPATH_SIZE);
 	if (now->str == NULL)
 	{
 		tmp = envp_lst->next;
@@ -29,12 +37,9 @@ int	cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 		perror(dir_path);
 		return (EXIT_FAILURE);
 	}
-	/* $PWDを書きかえ */
-	if (!getcwd(current_path, CURRENTPATH_SIZE))
-		return (EXIT_FAILURE);
+	change_current_path(envp_lst->next);
 	tmp = envp_lst->next;
 	while (ft_strncmp(tmp->key, "PWD", 4) && tmp != envp_lst)
 		tmp = tmp->next;
-	tmp->value = ft_strdup(current_path);
 	return (EXIT_SUCCESS);
 }
