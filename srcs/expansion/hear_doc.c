@@ -38,106 +38,68 @@ void	ft_putstr_endl(char *line, int *pipe_fd)
 	ft_putendl_fd(line, pipe_fd[WRITE]);
 }
 
-/*
-見つかったら1、見つからなければ0を返す。
-この関数だとカレントディレクトリには対応できているけど、
-(../srcs/file1)みたいな相対パスもしくは絶対パスには対応できていない。
-パスに対応するにはft_strrchr使えばいけそうな気がする。
-*/
-int	find_and_create_file(char *file_name)
+int	hear_doc(t_redirect *now, t_envlist *env)
 {
-	char			pathname[512];
-	DIR				*dp;
-	struct dirent	*dirp;
-	struct stat		buf;
-
-	getcwd(pathname, 512);
-	dp = opendir(pathname);
-	while (1)
-	{
-		dirp = readdir(dp);
-		if (dirp == NULL)
-			break ;
-		stat(dirp->d_name, &buf);
-		if (S_ISREG(buf.st_mode) && dirp->d_name == file_name)
-			return (1);
-	}
-	/* ファイルが見つからなかった場合作成する */
-
-	closedir(dp);
-	return (0);
-}
-
-int	hear_doc(t_redirect *redirect, t_envlist *env)
-{
-	t_redirect	*now;
-	//hear_doc--------------------
 	int			pipe_fd[FD_NUM];
 	char		*expanded_line;
 	char		*line;
 	char		*separator;
 	int			status;
-	//----------------------------
+
+	if (pipe(pipe_fd) == -1)
+	{
+		perror("pipe");
+		return(EXIT_FAILURE);
+	}
+	separator = now->str;
+	ft_putstr_fd("> ", 1);
+	while (1)
+	{
+		status = get_next_line(0, &line);
+		if (!ft_strncmp(line, separator, ft_strlen(separator) + 1))
+			break ;
+		expanded_line = expansion_hear_doc(line, env);
+		if (status == 1)
+			ft_putstr_endl(expanded_line, pipe_fd);
+		if (status == 0)
+			ft_putstr_fd(expanded_line, pipe_fd[WRITE]);
+		free(line);
+		if (status == -1)
+		{
+			perror("malloc");
+			return(EXIT_FAILURE);
+		}
+	}
+	free(line);
+	now->heardoc_fd = pipe_fd;
+	return(EXIT_SUCCESS);
+}
+
+//expanded_lineがmallocしてる
+int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
+{
+	t_redirect	*now;
 
 	now = redirect->next;
-	//heardocもリダイレクトもない場合は終了
 	if (now->str == NULL)
 		return (EXIT_SUCCESS);
-
 	while (now != redirect)
 	{
-		//heardocの処理
 		if (!ft_strncmp(now->str, "<<", ft_strlen(now->str)))
 		{
 			now = now->next;
-			if (now->str == NULL)//このエラー文はこの出し方が正解？
+			if (now->str == NULL)
 				printf("bash: syntax error near unexpected token `newline'\n");
-			if (pipe(pipe_fd) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}
-			separator = now->str;
-			ft_putstr_fd("> ", 1);
-			while (1)
-			{
-				status = get_next_line(0, &line);
-				if (!ft_strncmp(line, separator, ft_strlen(separator) + 1))
-					break ;
-
-				//読み込んだlineの変数を展開する（mallocしてる）
-				expanded_line = expansion_hear_doc(line, env);
-				printf("%s\n", expanded_line);
-
-				if (status == 1)
-					ft_putstr_endl(expanded_line, pipe_fd);
-				if (status == 0)
-					ft_putstr_fd(expanded_line, pipe_fd[WRITE]);
-				free(line);
-				// free(expanded_line);
-				if (status == -1)
-				{
-					perror("malloc");
-					exit(EXIT_FAILURE);
-				}
-			}
-			free(line);
-			// free(expanded_line);
+			hear_doc(now, env);
 		}
-
-		//redirectの処理
 		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)) || !ft_strncmp(now->str, ">>", ft_strlen(now->str)))
 		{
 			now = now->next;
 			if (now->str == NULL)
 				printf("bash: syntax error near unexpected token `newline'\n");
-			//ファイルを探す
-			if (find_and_create_file(now->str))//みつからなければファイルを作成する
-				printf("no such file or directory\n");
+			now->redirect_fd = open(now->str, O_CREAT);
 		}
-
 		now = now->next;
 	}
-
 	return (EXIT_SUCCESS);
 }

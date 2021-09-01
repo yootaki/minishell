@@ -11,6 +11,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+#include <fcntl.h>
 
 typedef struct s_expanser
 {
@@ -28,5 +29,12 @@ enum
 /* expansion.c */
 char	*get_var_name(char *str);
 char	*get_var_value(char *str, t_envlist *env);
+
+/* delete_quote */
+void	delete_dquote(t_expanser *expanser);
+void	delete_quote(t_expanser *expanser);
+
+/* sepalate_str */
+int	sep_str(t_cmd_lst *now, t_expanser *expanser);
 
 #endif

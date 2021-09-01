@@ -76,7 +76,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 }
 
 int	expanser(t_cmd_lst *cmd, t_envlist *env);
-int	hear_doc(t_redirect *redirect, t_envlist *env);
+int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 int	exection(t_nlst *node);
 
 void	loop_shell(char **envp)
@@ -100,8 +100,8 @@ void	loop_shell(char **envp)
 		printf("\n----------Debug----------\n");
 		//Expansion
 		expanser(node->next->cmd, envp_lst);
-		//hear_doc
-		hear_doc(node->next->redirect, envp_lst);
+		//hear_docとredirect
+		heardoc_and_redirect(node->next->redirect, envp_lst);
 
 		//Command exection
 		exection(node);
