@@ -91,16 +91,18 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 		return (NULL);
 	}
 	check(node);
-	free_data(&data);
-	free_node(node);
+	// free_data(&data);
+	// free_node(node);
 	return (node);
 }
 
+
 //int	expanser(t_cmd_lst *cmd, t_envlist *env);
+
 
 void	loop_shell(char **envp)
 {
-	//t_nlst		*node;
+	t_nlst		*node;
 	t_envlist *envp_lst;
 	char	*command;
 	int		start;
@@ -110,11 +112,11 @@ void	loop_shell(char **envp)
 	read_history(".my_history");
 	i = 0;
 	start = 0;
-	while (i < 1)
+	while (1)
 	{
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
-			get_cmdline_from_input_str(command, envp_lst);
+			node = get_cmdline_from_input_str(command, envp_lst);
 
 		//expanser
 		/*expanser(node->next->cmd, envp_lst);
@@ -131,6 +133,7 @@ void	loop_shell(char **envp)
 				printf("\n");
 			tmp = tmp->next;
 		}*/
+
 		add_history(command);
 		free(command);
 		write_history(".my_history");
