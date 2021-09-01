@@ -33,6 +33,7 @@ void	check(t_nlst *nil)
 		while (c_tmp != current->cmd)
 		{
 			printf("c_str = %s\n", c_tmp->str);
+			printf("c_type = %d\n", c_tmp->c_type);
 			c_tmp = c_tmp->next;
 			i++;
 		}
@@ -41,6 +42,7 @@ void	check(t_nlst *nil)
 		while (r_tmp != current->redirect)
 		{
 			printf("r_str = %s\n", r_tmp->str);
+			//printf("c_type = %d\n", r_tmp->c_type);
 			r_tmp = r_tmp->next;
 			i++;
 		}
@@ -49,7 +51,7 @@ void	check(t_nlst *nil)
 		while (e_tmp != current->envp_lst)
 		{
 			printf("e_value[%d] = %s\n", i, e_tmp->value);
-			printf("e_key[%d] = %s\n", i, e_tmp->key);
+			//printf("e_key[%d] = %s\n", i, e_tmp->key);
 			e_tmp = e_tmp->next;
 			i++;
 		}
@@ -61,6 +63,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
 	t_tokeniser	data;
 	t_nlst		*node;
+	//t_token	*tokens;
 
 	node = init_node();
 	if (!node)
@@ -68,6 +71,19 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	lexer(&data, command); //単語分割
 	if (data.token == NULL)
 		return (NULL);
+	/*tokens = data.token;
+	int i = 0;
+	while (i < 12)
+	{
+		printf("str = %s\n", data.token->str);
+		if (data.token->type == CHAR_PIPE)
+		{
+			printf("pipe!\n");
+		}
+		data.token = data.token->next;
+		i++;
+	}
+	data.token = tokens;*/
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)//分割したものをlstに入れる
 	{
 		free_data(&data);
@@ -80,7 +96,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	return (node);
 }
 
-int	expanser(t_cmd_lst *cmd, t_envlist *env);
+//int	expanser(t_cmd_lst *cmd, t_envlist *env);
 
 void	loop_shell(char **envp)
 {
@@ -102,7 +118,7 @@ void	loop_shell(char **envp)
 
 		//expanser
 		/*expanser(node->next->cmd, envp_lst);
-
+		hear_docとredirect
 		t_cmd_lst *tmp;
 		tmp = node->next->cmd->next;
 		printf("after  : ");
@@ -129,6 +145,6 @@ int main(int argc, char *argv[], char **envp)
 	argv = NULL;
 	loop_shell(envp);
 	//free(envp);
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (EXIT_SUCCESS);
 }
