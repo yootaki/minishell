@@ -49,7 +49,7 @@ int	hear_doc(t_redirect *now, t_envlist *env)
 	if (pipe(pipe_fd) == -1)
 	{
 		perror("pipe");
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	separator = now->str;
 	ft_putstr_fd("> ", 1);
@@ -67,12 +67,12 @@ int	hear_doc(t_redirect *now, t_envlist *env)
 		if (status == -1)
 		{
 			perror("malloc");
-			return(EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		}
 	}
 	free(line);
 	now->heardoc_fd = pipe_fd;
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 //expanded_lineがmallocしてる
@@ -85,6 +85,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
+		/* fear_doc */
 		if (!ft_strncmp(now->str, "<<", ft_strlen(now->str)))
 		{
 			now = now->next;
@@ -92,12 +93,21 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 				printf("bash: syntax error near unexpected token `newline'\n");
 			hear_doc(now, env);
 		}
-		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)) || !ft_strncmp(now->str, ">>", ft_strlen(now->str)))
+
+		/* redirect */
+		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)))
 		{
 			now = now->next;
 			if (now->str == NULL)
 				printf("bash: syntax error near unexpected token `newline'\n");
-			now->redirect_fd = open(now->str, O_CREAT);
+			now->redirect_fd = open(now->str, O_CREAT | O_TRUNC | O_RDWR, S_IWUSR);
+		}
+		else if (!ft_strncmp(now->str, ">>", ft_strlen(now->str)))
+		{
+			now = now->next;
+			if (now->str == NULL)
+				printf("bash: syntax error near unexpected token `newline'\n");
+			now->redirect_fd = open(now->str, O_CREAT | O_APPEND | O_WRONLY, S_IWUSR);
 		}
 		now = now->next;
 	}
