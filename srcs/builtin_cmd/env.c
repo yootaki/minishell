@@ -1,9 +1,5 @@
 #include "builtin_cmd.h"
 
-/*
-現在設定されている環境変数の一覧が表示
-*/
-
 int	env(t_envlist *envp_lst)
 {
 	t_envlist	*tmp;
