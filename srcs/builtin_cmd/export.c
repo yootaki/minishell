@@ -1,7 +1,4 @@
 #include "builtin_cmd.h"
-#include "../../includes/input.h"
-#include "../../includes/parse.h"
-#include "../../includes/utils.h"
 
 /*	コンパイルコマンド
 *	$ gcc -Wall -Wextra -Werror -o myexport export.c lst_func.c ../../libft/libft.a

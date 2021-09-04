@@ -1,9 +1,4 @@
 #include "builtin_cmd.h"
-#include "../../includes/input.h"
-#include "../../includes/parse.h"
-#include "../../includes/utils.h"
-
-# define CURRENTPATH_SIZE 512
 
 /* !!!mallocして返してる!!! */
 int	cd(t_cmd_lst *cmd, t_envlist *envp_lst)

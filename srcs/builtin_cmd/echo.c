@@ -1,7 +1,4 @@
 #include "builtin_cmd.h"
-#include "../../includes/input.h"
-#include "../../includes/parse.h"
-#include "../../includes/utils.h"
 
 int	echo(t_cmd_lst *cmd)
 {
