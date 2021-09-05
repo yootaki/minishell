@@ -6,10 +6,10 @@ char	*get_var_name(char *str)
 	int		name_len;
 
 	name_len = 0;
-	//ここの条件もう少し考えるべき
-	while (str[name_len] != '\0' && str[name_len] != '$' && str[name_len] != ' ' && str[name_len] != '\"' && str[name_len] != '\'')
+	while (str[name_len] != '\0' && str[name_len] != '$' && str[name_len] != ' ' \
+	&& str[name_len] != '\"' && str[name_len] != '\'')
 		name_len++;
-	var_name = (char*)malloc(sizeof(char) * (++name_len));
+	var_name = (char *)malloc(sizeof(char) * (++name_len));
 	ft_strlcpy(var_name, str, name_len);
 	return (var_name);
 }
@@ -53,20 +53,11 @@ int	categorize(t_cmd_lst *now)
 	struct stat		buf;
 
 	if (stat(now->str, &buf))
-	{
-		printf("%s is str\n", now->str);
 		return (ISSTR);
-	}
 	if (S_ISREG(buf.st_mode))
-	{
-		printf("%s is file\n", now->str);
 		return (ISFILE);
-	}
 	else if (S_ISDIR(buf.st_mode))
-	{
-		printf("%s is dir\n", now->str);
 		return (ISDIRECTORY);
-	}
 	return (ISSTR);
 }
 
@@ -106,7 +97,6 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		while (--add_lst_cnt >= 0)
 		{
 			now->category = categorize(now);
-			printf("[debug] category : %d\n", now->category);
 			now = now->next;
 		}
 	}

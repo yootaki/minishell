@@ -73,6 +73,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	lexer(&data, command); //単語分割
 	if (data.token == NULL)
 		return (NULL);
+
 	/*tokens = data.token;
 	int i = 0;
 	while (i < 12)

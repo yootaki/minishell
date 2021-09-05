@@ -1,15 +1,49 @@
 #include "builtin_cmd.h"
 
-int	echo(t_cmd_lst *cmd)
+int	get_redirect_fd(t_redirect *redirect)
+{
+	t_redirect	*now;
+	int			fd;
+
+	fd = STDOUT_FILENO;
+	now = redirect->next;
+	while (now != redirect)
+	{
+		if ((!ft_strncmp(now->str, ">", ft_strlen(now->str) + 1) \
+		|| !ft_strncmp(now->str, ">>", ft_strlen(now->str) + 1)) \
+		&& now->next->redirect_fd > 2)
+		{
+			now = now->next;
+			fd = now->redirect_fd;
+		}
+		now = now->next;
+	}
+	return (fd);
+}
+
+void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
+{
+	while (now != cmd)
+	{
+		ft_putstr_fd (now->str, redirect_fd);
+		now = now->next;
+		if (now != cmd)
+			write(redirect_fd, " ", 1);
+	}
+}
+
+int	echo(t_cmd_lst *cmd, t_redirect *redirect)
 {
 	t_cmd_lst	*now;
 	int			display_return;
+	int			redirect_fd;
 
 	now = cmd->next->next;
+	redirect_fd = get_redirect_fd(redirect);
 	display_return = 1;
 	if (now->str == NULL)
 	{
-		write(STDOUT_FILENO, "\n", 1);
+		write(redirect_fd, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	if (!ft_strncmp(now->str, "-n", ft_strlen(now->str)))
@@ -17,14 +51,10 @@ int	echo(t_cmd_lst *cmd)
 		display_return = 0;
 		now = now->next;
 	}
-	while (now != cmd)
-	{
-		ft_putstr_fd (now->str, STDOUT_FILENO);
-		now = now->next;
-		if (now != cmd)
-			write(STDOUT_FILENO, " ", 1);
-	}
+	print_args(now, cmd, redirect_fd);
 	if (display_return)
-		write(STDOUT_FILENO, "\n", 1);
+		write(redirect_fd, "\n", 1);
+	if (redirect_fd > 2)
+		close(redirect_fd);
 	return (EXIT_SUCCESS);
 }
