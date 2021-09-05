@@ -102,7 +102,6 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 
 int	expanser(t_cmd_lst *cmd, t_envlist *env);
 int heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
-int	exec_builtin(t_nlst *node);
 
 void	loop_shell(char **envp)
 {

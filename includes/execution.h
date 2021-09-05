@@ -1,7 +1,7 @@
 #ifndef EXECUTION_H
 #define EXECUTION_H
 
-#include "builtin_cmd.h"
+#include "../srcs/builtin_cmd/builtin_cmd.h"
 #include "input.h"
 #include "parse.h"
 #include "../libft/libft.h"
@@ -25,6 +25,7 @@ char	**create_cmd_array(t_nlst *node, t_data *data);
 
 /* execution.c */
 int	exection(t_nlst *node);
+int	exec_builtin(t_nlst *node);
 
 /* execution_free.c */
 void	free_path_lst(t_data *data);
