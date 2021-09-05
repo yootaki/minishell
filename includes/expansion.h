@@ -1,10 +1,11 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-# include "../../get_next_line/get_next_line.h"
-# include "../../includes/input.h"
-# include "../../includes/parse.h"
-# include "../../includes/utils.h"
+# include "../get_next_line/get_next_line.h"
+# include "input.h"
+# include "parse.h"
+# include "utils.h"
+# include "builtin_cmd.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <dirent.h>
@@ -29,6 +30,10 @@ enum
 /* expansion.c */
 char	*get_var_name(char *str);
 char	*get_var_value(char *str, t_envlist *env);
+int	expanser(t_cmd_lst *cmd, t_envlist *env);
+
+/* here_doc.c */
+int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 
 /* delete_quote */
 void	delete_dquote(t_expanser *expanser);

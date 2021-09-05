@@ -1,6 +1,8 @@
 #include "input.h"
 #include "parse.h"
 #include "utils.h"
+#include "expansion.h"
+#include "execution.h"
 
 /*void	check_env(t_envlist *envp)
 {
@@ -20,8 +22,8 @@
 void	check(t_nlst *nil)
 {
 	int i = 0;
-	t_nlst	*current;
-	t_cmd_lst *c_tmp;
+	t_nlst		*current;
+	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
 	t_envlist	*e_tmp;
 
@@ -120,9 +122,8 @@ void	loop_shell(char **envp)
 			node = get_cmdline_from_input_str(command, envp_lst);
 
 		//expanser
-		/*expanser(node->next->cmd, envp_lst);
-		hear_docとredirect
-		t_cmd_lst *tmp;
+		expanser(node->next->cmd, envp_lst);
+		/* t_cmd_lst *tmp;
 		tmp = node->next->cmd->next;
 		printf("after  : ");
 		for (size_t i = 1; i < 11; i++)
@@ -133,8 +134,9 @@ void	loop_shell(char **envp)
 			else
 				printf("\n");
 			tmp = tmp->next;
-		}*/
-
+		} */
+		printf("node_str = %s\n",node->next->cmd->next->str);
+		exection(node);
 		add_history(command);
 		free(command);
 		write_history(".my_history");

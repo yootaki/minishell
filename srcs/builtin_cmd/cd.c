@@ -1,20 +1,5 @@
 #include "builtin_cmd.h"
 
-#define CURRENTPATH_SIZE 512
-
-int	change_current_path(t_envlist *envp_lst)
-{
-	char		current_path[CURRENTPATH_SIZE];
-
-	ft_memset(current_path, '\0', CURRENTPATH_SIZE);
-	if (!getcwd(current_path, CURRENTPATH_SIZE))
-		return (EXIT_FAILURE);
-	while (envp_lst->key != NULL && ft_strncmp(envp_lst->key, "PWD", 4))
-		envp_lst = envp_lst->next;
-	envp_lst->value = ft_strdup(current_path);
-	return (EXIT_SUCCESS);
-}
-
 /* !!!mallocして返してる!!! */
 int	cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
