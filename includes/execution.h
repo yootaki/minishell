@@ -1,7 +1,7 @@
 #ifndef EXECUTION_H
 #define EXECUTION_H
 
-#include "builtin_cmd.h"
+#include "../srcs/builtin_cmd/builtin_cmd.h"
 #include "input.h"
 #include "parse.h"
 #include "../libft/libft.h"
@@ -16,13 +16,6 @@ typedef struct s_data
 	int	backup_stdout;
 }		t_data;
 
-enum	e_fd
-{
-	READ,
-	WRITE,
-	FD_NUM
-};
-
 /* cmd_lst_len.c */
 int	cmd_lst_len(t_cmd_lst *cmd);
 char	**get_cmd_str(t_nlst *node);
@@ -32,6 +25,7 @@ char	**create_cmd_array(t_nlst *node, t_data *data);
 
 /* execution.c */
 int	exection(t_nlst *node);
+int	exec_builtin(t_nlst *node);
 
 /* execution_free.c */
 void	free_path_lst(t_data *data);

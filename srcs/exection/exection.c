@@ -6,11 +6,6 @@
 #include <time.h>
 #include <sys/stat.h>
 
-int	echo(t_cmd_lst *cmd);
-int	cd(t_cmd_lst *cmd, t_envlist *envp_lst);
-int	env(t_envlist *envp_lst);
-int	export(t_cmd_lst *cmd, t_envlist *envp_lst);
-
 typedef struct s_data
 {
 	char	**path_list;
@@ -171,7 +166,7 @@ int	ft_call_child(t_nlst *node, t_data *data, int pipefd)
 	cmd_array = create_cmd_array(node, data);
 	if (execve(cmd_array[0], cmd_array, NULL) == -1)
 		perror("exeve");
-	
+
 }
 
 /*
@@ -195,25 +190,4 @@ void	exection_process(t_nlst *node, t_data *data)
 		if (pid == 0)
 			fd_call_child();
 	}
-}
-
-int	exection(t_nlst *node)
-{
-	t_data	data;
-	char	*cmd;
-
-	cmd = node->next->cmd->next->str;
-	//コマンドがビルトインかどうか判定
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		echo(node->next->cmd);
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		cd(node->next->cmd, node->next->envp_lst);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-		env(node->next->envp_lst);
-	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-		export(node->next->cmd, node->next->envp_lst);
-	else
-		exection_process(node, data);
-	
-	return (EXIT_SUCCESS);
 }

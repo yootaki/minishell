@@ -1,4 +1,5 @@
 #include "execution.h"
+#include "../builtin_cmd/builtin_cmd.h"
 
 void	init_execution(t_data *data)
 {
@@ -17,13 +18,13 @@ int	exection(t_nlst *node)
 	init_execution(&data);
 	printf("-----------exection_start--------\n");
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		echo(node->next->cmd);
+		my_echo(node->next->cmd, node->next->redirect);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
-		cd(node->next->cmd, node->next->envp_lst);
+		my_cd(node->next->cmd, node->next->envp_lst);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
-		env(node->next->envp_lst);
+		my_env(node->next->envp_lst);
 	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
-		export(node->next->cmd, node->next->envp_lst);
+		my_export(node->next->cmd, node->next->envp_lst);
 	else
 		execution_process(node, &data);
 	printf("-----------exection_end--------\n");

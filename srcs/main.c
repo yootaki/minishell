@@ -100,8 +100,8 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 }
 
 
-//int	expanser(t_cmd_lst *cmd, t_envlist *env);
-
+int	expanser(t_cmd_lst *cmd, t_envlist *env);
+int heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 
 void	loop_shell(char **envp)
 {
@@ -121,20 +121,13 @@ void	loop_shell(char **envp)
 		if (command[0] != '\0')
 			node = get_cmdline_from_input_str(command, envp_lst);
 
-		//expanser
+		//Expansion
 		expanser(node->next->cmd, envp_lst);
-		/* t_cmd_lst *tmp;
-		tmp = node->next->cmd->next;
-		printf("after  : ");
-		for (size_t i = 1; i < 11; i++)
-		{
-			printf("%s", tmp->str);
-			if (i < 10)
-				printf(" ");
-			else
-				printf("\n");
-			tmp = tmp->next;
-		} */
+		//Hear_doc & Redirect
+		heardoc_and_redirect(node->next->redirect, envp_lst);
+		//Command exection
+		exec_builtin(node);
+
 		printf("node_str = %s\n",node->next->cmd->next->str);
 		exection(node);
 		add_history(command);
