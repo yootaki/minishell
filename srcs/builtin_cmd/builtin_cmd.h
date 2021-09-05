@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cmd.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 11:42:05 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BUILTIN_CMD_H
 # define BUILTIN_CMD_H
 
@@ -9,6 +21,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <string.h>
+# include <limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 11:42:17 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin_cmd.h"
 
 #define CURRENTPATH_SIZE 512
@@ -16,7 +28,7 @@ int	change_current_path(t_envlist *envp_lst)
 }
 
 /* !!!mallocして返してる!!! */
-int	cd(t_cmd_lst *cmd, t_envlist *envp_lst)
+int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
 	t_envlist	*tmp;

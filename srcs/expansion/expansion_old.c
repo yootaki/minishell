@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expansion.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/04 14:21:03 by yootaki          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../builtin_cmd/builtin_cmd.h"
 #include "expansion.h"
 
@@ -38,7 +26,7 @@ char	*get_var_value(char *str, t_envlist *env)
 			return (now->value);
 		now = now->next;
 	}
-	return (NULL);
+	return ("");
 }
 
 static void	expansion_var(t_expanser *expanser, t_envlist *env)
@@ -74,12 +62,14 @@ int	categorize(t_cmd_lst *now)
 	return (ISSTR);
 }
 
+//(\")か(\')が見つかったらフラグを立てる。
+//もし見つかった際にどちらかのフラグが立っていたらフラグは立てない
+//フラグが立っている状態でもう一度見つかったらフラグを取り消す
+//(\')だった場合は展開しない！！！
 int	expanser(t_cmd_lst *cmd, t_envlist *env)
 {
 	t_expanser	expanser;
 	t_cmd_lst	*now;
-	int			dquote_flag;
-	int			quote_flag;
 	int			add_lst_cnt;
 
 	now = cmd->next;
@@ -87,23 +77,11 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	{
 		expanser.str = now->str;
 		expanser.str_cnt = 0;
-		dquote_flag = 0;
-		quote_flag = 0;
 		add_lst_cnt = 1;
 		//1. 変数を展開
 		while (expanser.str[expanser.str_cnt] != '\0')
 		{
-			//ダブルクォートかシングルクオートかの判定等
-			if (expanser.str[expanser.str_cnt] == '\"' && !dquote_flag && !quote_flag)
-				dquote_flag = 1;
-			else if (expanser.str[expanser.str_cnt] == '\"' && dquote_flag)
-				dquote_flag = 0;
-			else if (expanser.str[expanser.str_cnt] == '\'' && !quote_flag && !dquote_flag)
-				quote_flag = 1;
-			else if (expanser.str[expanser.str_cnt] == '\'' && quote_flag)
-				quote_flag = 0;
-
-			if (expanser.str[expanser.str_cnt] == '$' && !quote_flag)
+			if (expanser.str[expanser.str_cnt] == '$')
 				expansion_var(&expanser, env);
 			else
 				expanser.str_cnt++;

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:43:01 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 11:43:02 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin_cmd.h"
 
-int	unset(t_cmd_lst *cmd, t_envlist *envp_lst)
+int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_envlist	*tmp;
 	char		*unset_obj;
