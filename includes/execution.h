@@ -16,13 +16,6 @@ typedef struct s_data
 	int	backup_stdout;
 }		t_data;
 
-enum	e_fd
-{
-	READ,
-	WRITE,
-	FD_NUM
-};
-
 /* cmd_lst_len.c */
 int	cmd_lst_len(t_cmd_lst *cmd);
 char	**get_cmd_str(t_nlst *node);
