@@ -1,6 +1,8 @@
 #include "input.h"
 #include "parse.h"
 #include "utils.h"
+#include "expansion.h"
+#include "execution.h"
 
 /*void	check_env(t_envlist *envp)
 {
@@ -20,8 +22,8 @@
 void	check(t_nlst *nil)
 {
 	int i = 0;
-	t_nlst	*current;
-	t_cmd_lst *c_tmp;
+	t_nlst		*current;
+	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
 	t_envlist	*e_tmp;
 
@@ -119,12 +121,16 @@ void	loop_shell(char **envp)
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
 			node = get_cmdline_from_input_str(command, envp_lst);
+
 		//Expansion
 		expanser(node->next->cmd, envp_lst);
 		//Hear_doc & Redirect
 		heardoc_and_redirect(node->next->redirect, envp_lst);
 		//Command exection
 		exec_builtin(node);
+
+		printf("node_str = %s\n",node->next->cmd->next->str);
+		exection(node);
 		add_history(command);
 		free(command);
 		write_history(".my_history");
