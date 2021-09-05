@@ -28,7 +28,12 @@ typedef struct	s_redirect
 	char				*limmiter;
 }		t_redirect;
 
-//リダイレクト先ファイルのopenとfdを構造体に持たせる。
+enum	e_fd
+{
+	READ,
+	WRITE,
+	FD_NUM
+};
 
 typedef struct s_nlst
 {

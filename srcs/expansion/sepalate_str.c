@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sepalate_str.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 14:14:16 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../builtin_cmd/builtin_cmd.h"
 #include "expansion.h"
 
@@ -22,13 +34,10 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 	count = 0;
 	while (1)
 	{
-		while (expanser->str[expanser->str_cnt] == '$')
-			expanser->str_cnt++;
 		if (expanser->str[expanser->str_cnt] == '\0')
 			return (count);
 		start = expanser->str_cnt;
-		while (expanser->str[expanser->str_cnt] != '\0' \
-		&& expanser->str[expanser->str_cnt] != '$')
+		while (expanser->str[expanser->str_cnt] != ' ' && expanser->str[expanser->str_cnt] != '\t' && expanser->str[expanser->str_cnt] != '\0')
 			expanser->str_cnt++;
 		end = expanser->str_cnt;
 		extract_str = ft_substr(expanser->str, start, end - start);
@@ -42,4 +51,27 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		}
 		count++;
 	}
+
+	// while (1)
+	// {
+	// 	while (expanser->str[expanser->str_cnt] == '$')
+	// 		expanser->str_cnt++;
+	// 	if (expanser->str[expanser->str_cnt] == '\0')
+	// 		return (count);
+	// 	start = expanser->str_cnt;
+	// 	while (expanser->str[expanser->str_cnt] != '\0' \
+	// 	&& expanser->str[expanser->str_cnt] != '$')
+	// 		expanser->str_cnt++;
+	// 	end = expanser->str_cnt;
+	// 	extract_str = ft_substr(expanser->str, start, end - start);
+	// 	if (count == 0)
+	// 		now->str = extract_str;
+	// 	else
+	// 	{
+	// 		add_cmd_lst(now);
+	// 		now = now->next;
+	// 		now->str = extract_str;
+	// 	}
+	// 	count++;
+	// }
 }

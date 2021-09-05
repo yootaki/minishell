@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:42:40 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 11:42:41 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin_cmd.h"
 
 char	*malloc_and_copy(char *str, int size)
@@ -14,7 +26,7 @@ char	*malloc_and_copy(char *str, int size)
 	return (new_str);
 }
 
-int	export(t_cmd_lst *cmd, t_envlist *envp_lst)
+int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
 	t_envlist	*tmp;

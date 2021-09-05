@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 11:42:22 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "builtin_cmd.h"
 
 int	get_redirect_fd(t_redirect *redirect)
@@ -32,7 +44,7 @@ void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
 	}
 }
 
-int	echo(t_cmd_lst *cmd, t_redirect *redirect)
+int	my_echo(t_cmd_lst *cmd, t_redirect *redirect)
 {
 	t_cmd_lst	*now;
 	int			display_return;

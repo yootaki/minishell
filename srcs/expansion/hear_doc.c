@@ -1,14 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hear_doc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
+/*   Updated: 2021/09/04 18:15:41 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../builtin_cmd/builtin_cmd.h"
 #include "expansion.h"
 
-enum	e_fd
-{
-	READ,
-	WRITE,
-	FD_NUM
-};
-
-char	*expansion_hear_doc(char *line, t_envlist *env)
+static char	*expansion_var(char *line, t_envlist *env)
 {
 	char	*var_name;
 	char	*var_value;
@@ -32,12 +37,12 @@ char	*expansion_hear_doc(char *line, t_envlist *env)
 	return (newline);
 }
 
-void	ft_putstr_endl(char *line, int *pipe_fd)
+/* hear doc */
+static void	ft_putstr_endl(char *line, int *pipe_fd)
 {
 	ft_putstr_fd("> ", 1);
 	ft_putendl_fd(line, pipe_fd[WRITE]);
 }
-
 int	hear_doc(t_redirect *now, t_envlist *env)
 {
 	int			pipe_fd[FD_NUM];
@@ -58,7 +63,7 @@ int	hear_doc(t_redirect *now, t_envlist *env)
 		status = get_next_line(0, &line);
 		if (!ft_strncmp(line, separator, ft_strlen(separator) + 1))
 			break ;
-		expanded_line = expansion_hear_doc(line, env);
+		expanded_line = expansion_var(line, env);
 		if (status == 1)
 			ft_putstr_endl(expanded_line, pipe_fd);
 		if (status == 0)
@@ -75,6 +80,27 @@ int	hear_doc(t_redirect *now, t_envlist *env)
 	return (EXIT_SUCCESS);
 }
 
+/* redirect */
+int	redirect_file_open(t_redirect *now, t_envlist *env)
+{
+	char		*file_name;
+
+	file_name = expansion_var(now->str, env);
+	if (!ft_strncmp(now->prev->str, ">", ft_strlen(now->prev->str)))
+		now->redirect_fd = open(file_name, O_CREAT | O_TRUNC | O_RDWR, S_IWUSR);
+	else if (!ft_strncmp(now->prev->str, ">>", ft_strlen(now->prev->str)))
+		now->redirect_fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, S_IWUSR);
+	else//">>>"などのエラー出力
+		printf("parse error near `>'\n");
+	if (now->redirect_fd == -1)
+	{
+		perror("open");
+		return (EXIT_FAILURE);
+	}
+	free(file_name);
+	return(EXIT_SUCCESS);
+}
+
 //expanded_lineがmallocしてる
 int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 {
@@ -85,7 +111,6 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
-		/* fear_doc */
 		if (!ft_strncmp(now->str, "<<", ft_strlen(now->str)))
 		{
 			now = now->next;
@@ -93,21 +118,13 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 				printf("bash: syntax error near unexpected token `newline'\n");
 			hear_doc(now, env);
 		}
-
-		/* redirect */
-		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)))
+		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)) \
+		|| !ft_strncmp(now->str, ">>", ft_strlen(now->str)))
 		{
 			now = now->next;
 			if (now->str == NULL)
 				printf("bash: syntax error near unexpected token `newline'\n");
-			now->redirect_fd = open(now->str, O_CREAT | O_TRUNC | O_RDWR, S_IWUSR);
-		}
-		else if (!ft_strncmp(now->str, ">>", ft_strlen(now->str)))
-		{
-			now = now->next;
-			if (now->str == NULL)
-				printf("bash: syntax error near unexpected token `newline'\n");
-			now->redirect_fd = open(now->str, O_CREAT | O_APPEND | O_WRONLY, S_IWUSR);
+			redirect_file_open(now, env);
 		}
 		now = now->next;
 	}
