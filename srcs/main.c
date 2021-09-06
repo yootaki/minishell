@@ -127,7 +127,6 @@ void	loop_shell(char **envp)
 		heardoc_and_redirect(node->next->redirect, envp_lst);
 		//Command exection
 		exec_builtin(node);
-
 		printf("node_str = %s\n",node->next->cmd->next->str);
 		exection(node);
 		add_history(command);

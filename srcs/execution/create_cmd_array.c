@@ -29,6 +29,7 @@ char	**get_cmd_str(t_nlst *node)
 	while (current != node->cmd)
 	{
 		cmd_array[i] = current->str;
+		//printf("current->str = %s\n", current->str);
 		current = current->next;
 		i++;
 	}
@@ -83,7 +84,7 @@ char	**create_cmd_array(t_nlst *node, t_data *data)
 	char	**cmd_array;
 	char	*tmp_cmd;
 
-	printf("------create_cmd_array_start------\n");
+	//printf("------create_cmd_array_start------\n");
 	get_path(node, data);
 	cmd_array = get_cmd_str(node);
 	if (cmd_array == NULL)
@@ -94,9 +95,9 @@ char	**create_cmd_array(t_nlst *node, t_data *data)
 	if (tmp_cmd == NULL) // malloc失敗した場合
 		free_all(cmd_array, node, data); //とりあえずNULL (exit()で終了予定)
 	cmd_array[0] = tmp_cmd; // cmd_pathをcmd_array[0]に代入
-	printf("cmd_array[0] = %s\n", cmd_array[0]);
+	/* printf("cmd_array[0] = %s\n", cmd_array[0]);
 	printf("cmd_array[1] = %s\n", cmd_array[1]);
 	printf("------create_cmd_array_end------\n");
-	printf("\n");
+	printf("\n");  */
 	return (cmd_array);
 }
