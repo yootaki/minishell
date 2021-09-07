@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hear_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/05 21:22:16 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/07 19:34:02 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	redirect_file_open(t_redirect *now, t_envlist *env)
 
 	file_name = expansion_var(now->str, env);
 	if (!ft_strncmp(now->prev->str, ">", ft_strlen(now->prev->str)))
-		now->redirect_fd = open(file_name, O_CREAT | O_TRUNC | O_RDWR, S_IWUSR);
+		now->redirect_fd = open(file_name, O_CREAT | O_TRUNC | O_RDWR, S_IRWXU);
 	else if (!ft_strncmp(now->prev->str, ">>", ft_strlen(now->prev->str)))
 		now->redirect_fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, S_IWUSR);
 	else//">>>"などのエラー出力
