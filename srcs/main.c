@@ -118,9 +118,10 @@ void	loop_shell(char **envp)
 	while (1)
 	{
 		command = readline("minishell >> ");
-		if (command[0] != '\0')
+		if (command == NULL)
+			break;
+		else
 			node = get_cmdline_from_input_str(command, envp_lst);
-
 		//Expansion
 		expanser(node->next->cmd, envp_lst);
 		//Hear_doc & Redirect
