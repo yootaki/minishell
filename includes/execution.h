@@ -14,6 +14,7 @@ typedef struct s_data
 	char	**path_list;
 	char	**cmd_array;
 	int	backup_stdout;
+	t_nlst	*top;
 }		t_data;
 
 /* cmd_lst_len.c */
@@ -33,7 +34,7 @@ void	free_data_lst(t_data *data);
 void	free_all(char **cmd_array, t_nlst *node, t_data *data);
 
 /* execution_process.c */
-void	ft_call_child(t_nlst *node, t_data *data, t_nlst *nil, int *pipefd);
+//void	ft_call_child(t_nlst *node, t_data *data, int *pipefd);
 int	execution_process(t_nlst *node, t_data *data);
 
 /* get_path.c */
