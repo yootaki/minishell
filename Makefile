@@ -71,6 +71,6 @@ fclean: clean
 re: fclean all
 
 check:
-	@cd minishell-helper && bash check.sh
+	@cd testcase && bash check.sh
 
 .PHONY: all clean fclean re
