@@ -54,7 +54,6 @@ void	lstadd_back(t_token **lst, t_token *new_list);
 
 /* ./lexer/init_datas.c */
 void	init_data(t_tokeniser *data);
-void	init_datas(t_tokeniser *data);
 
 /* ./lexer/free_function.c */
 void	free_line(void *line);

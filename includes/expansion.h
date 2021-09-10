@@ -30,15 +30,16 @@ enum
 };
 
 /* expansion */
-void	init_expanser(t_expanser *expanser, char *str);
 void	quotation_flag_check(t_expanser *expanser);
 int		expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env);
 void	expansion_var(t_expanser *expanser, t_envlist *env);
 int		expanser(t_cmd_lst *cmd, t_envlist *env);
+int		expansion(t_nlst *node, t_envlist *envp_lst);
 
 /* expansion_utils */
 char	*get_var_name(char *str);
 char	*get_var_value(char *str, t_envlist *env);
+void	init_expanser(t_expanser *expanser, char *str);
 int		categorize(t_cmd_lst *now);
 
 /* heardoc.c */

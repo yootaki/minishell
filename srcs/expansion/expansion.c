@@ -6,20 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/07 15:59:47 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/08 22:45:26 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
-
-void	init_expanser(t_expanser *expanser, char *str)
-{
-	expanser->str = str;
-	expanser->str_cnt = 0;
-	expanser->dquote_flag = 0;
-	expanser->quote_flag = 0;
-}
 
 void	expansion_var(t_expanser *expanser, t_envlist *env)
 {
@@ -99,6 +91,22 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 			now->category = categorize(now);
 			now = now->next;
 		}
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	expansion(t_nlst *node, t_envlist *envp_lst)
+{
+	t_nlst	*now;
+
+	now = node->next;
+	while (now != node)
+	{
+		//Expansion
+		expanser(now->cmd, envp_lst);
+		//Hear_doc & Redirect
+		heardoc_and_redirect(now->redirect, envp_lst);
+		now = now->next;
 	}
 	return (EXIT_SUCCESS);
 }

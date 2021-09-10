@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/05 21:39:29 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/10 13:02:20 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,18 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-int	my_echo(t_cmd_lst *cmd, t_redirect *redirect);
-int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst);
-int	my_env(t_envlist *envp_lst);
-int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst);
-int	my_pwd(t_envlist *envp_lst);
-int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst);
-int	my_exit(t_cmd_lst *cmd);
+/* builtin command */
+int		my_echo(t_cmd_lst *cmd, t_redirect *redirect);
+int		my_cd(t_cmd_lst *cmd, t_envlist *envp_lst);
+int		my_env(t_envlist *envp_lst);
+int		my_export(t_cmd_lst *cmd, t_envlist *envp_lst);
+int		my_pwd(t_envlist *envp_lst);
+int		my_unset(t_cmd_lst *cmd, t_envlist *envp_lst);
+int		my_exit(t_cmd_lst *cmd);
 
-char		*malloc_and_copy(char *str, int size);
-
-// t_envlist	*ft_envlstnew(char *key, char *value);
-void		ft_envlstdelone(t_envlist *lst);
-// void		ft_envlstadd_back(t_envlist *top, t_envlist *new);
-// int			ft_envlstsize(t_envlist *lst);
-void		free_envlst(t_envlist *lst);
+/* util function */
+char	*malloc_and_copy(char *str, int size);
+void	ft_envlstdelone(t_envlist *lst);
+void	free_envlst(t_envlist *lst);
 
 #endif

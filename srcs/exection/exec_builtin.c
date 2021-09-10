@@ -28,6 +28,6 @@ int	exec_builtin(t_nlst *node)
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 		my_unset(node->next->cmd, node->next->envp_lst);
 	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
-		printf("debug:%d\n", my_exit(node->next->cmd));
+		my_exit(node->next->cmd);
 	return (EXIT_SUCCESS);
 }

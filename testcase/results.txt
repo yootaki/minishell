@@ -1,0 +1,55 @@
+
+[OK]  |
+[OK]  <
+[OK]  | |
+[OK]  | echo
+[OK]  echo > <
+[OK]  echo | |
+[OK]  echo hello > |
+[OK]  echo hello >> |
+[OK]  echo hello >
+[OK]  echo hello >>
+[OK]  echo hello > > test1.txt
+[OK]  echo hello >> >> test1.txt
+[OK]  echo hello > >> test1.txt
+[OK]  echo hello > < test1.txt
+[KO]  unknowncommand
+
+
+
+[KO]  unknowncommand | commandunknown
+
+
+
+[KO]  echo | cat -e
+
+$
+
+[KO]  echo 1 | cat -e
+
+1$
+
+[KO]  echo 1 2 3 | cat -e
+
+1 2 3$
+
+[KO]  echo 1 2 3 | cat -e
+
+1 2 3$
+
+[KO]  echo 1 2 3 | cat -e
+
+1 2 3$
+
+[KO]  echo -n | cat -e
+
+
+
+[KO]  echo -""n | cat -e
+
+
+
+[KO]  echo ""-""n"" | cat -e
+
+
+

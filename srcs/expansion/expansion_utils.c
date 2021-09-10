@@ -6,12 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/07 15:59:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/08 14:05:22 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
+
+void	init_expanser(t_expanser *expanser, char *str)
+{
+	expanser->str = str;
+	expanser->str_cnt = 0;
+	expanser->dquote_flag = 0;
+	expanser->quote_flag = 0;
+}
 
 char	*get_var_name(char *str)
 {
