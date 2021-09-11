@@ -3,16 +3,16 @@
 [OK]  <
 [OK]  | |
 [OK]  | echo
-[OK]  echo > <
+[KO]  echo > <
 [OK]  echo | |
-[OK]  echo hello > |
-[OK]  echo hello >> |
+[KO]  echo hello > |
+[KO]  echo hello >> |
 [OK]  echo hello >
 [OK]  echo hello >>
-[OK]  echo hello > > test1.txt
-[OK]  echo hello >> >> test1.txt
-[OK]  echo hello > >> test1.txt
-[OK]  echo hello > < test1.txt
+[KO]  echo hello > > test1.txt
+[KO]  echo hello >> >> test1.txt
+[KO]  echo hello > >> test1.txt
+[KO]  echo hello > < test1.txt
 [KO]  unknowncommand
 
 
@@ -48,4 +48,96 @@ $
 [KO]  echo -""n | cat -e
 
 
+
+[KO]  echo ""-""n"" | cat -e
+
+
+
+[KO]  echo -n hello | cat -e
+
+hello
+
+[KO]  echo -n ""h""el""""lo | cat -e
+
+hello
+
+[KO]  echo -nnnnnnnn hello | cat -e
+
+hello
+
+[KO]  echo ""-nn""n""""nnn""nn hello | cat -e
+
+hello
+
+[KO]  echo -n1 | cat -e
+
+-n1$
+
+[KO]  echo -n -n | cat -e
+
+
+
+[KO]  echo -n -n hello | cat -e
+
+hello
+
+[KO]  echo -n -nnnnn hello | cat -e
+
+hello
+
+[KO]  echo -nnnnn -nnnnn hello | cat -e
+
+hello
+
+[KO]  echo -n -n -n | cat -e
+
+
+
+[KO]  echo -n -n -n hello | cat -e
+
+hello
+
+[KO]  echo -n -nnnn -n hello -n -nnnnn -n | cat -e
+
+hello -n -nnnnn -n
+
+[KO]  echo -nnnn -nnnn -n hello -n -nnnnn -n | cat -e
+
+hello -n -nnnnn -n
+
+[KO]  echo -n -nnnn -n hello -n -nnnnn -n world | cat -e
+
+hello -n -nnnnn -n world
+
+[KO]  echo -""n -nnnn -n hello -n -nnnnn -n world | cat -e
+
+hello -n -nnnnn -n world
+
+[KO]  echo - n1 | cat -e
+
+- n1$
+
+[KO]  echo - n 1 | cat -e
+
+- n 1$
+
+[KO]  echo -n 1 | cat -e
+
+1
+
+[KO]  echo -n 1 2 3 | cat -e
+
+1 2 3
+
+[KO]  echo -n 1 2 3 | cat -e
+
+1 2 3
+
+[KO]  echo 1 2 3 -n | cat -e
+
+1 2 3 -n$
+
+[KO]  echo -n 1 2 3 -n | cat -e
+
+1 2 3 -n
 

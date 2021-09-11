@@ -83,21 +83,10 @@ test_redirections () {
     # < redirection shoud fail if file does not exist
     run_test 'cat < nonexistingfile'
 
-    # > redirection should redirect output to file
-
-    # > redirection should create non-existing file
-
-    # redirection should work with multiple files
-
-    # redirections should work in mix
-
-    # redirections and pipes
-
-    # redirections with quotes
-
-    # redirections with variables
-
-    # redirections should fail when permission denied
+    # > redirection
+    run_test 'echo hello >>>> file'
+    run_test 'cat test1 > test2 > test3'
+    run_test '> f0 echo > f1 > f2 > f3 abc'
 }
 
 test_quotes () {
