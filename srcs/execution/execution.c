@@ -16,17 +16,23 @@ int	exection(t_nlst *node)
 	cmd = node->next->cmd->next->str;
 	//コマンドがビルトインかどうか判定
 	init_execution(&data);
-	printf("-----------exection_start--------\n");
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	// printf("-----------exection_start--------\n");
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd) + 1))
 		my_echo(node->next->cmd, node->next->redirect);
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd) + 1))
 		my_cd(node->next->cmd, node->next->envp_lst);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd) + 1))
 		my_env(node->next->envp_lst);
-	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd) + 1))
 		my_export(node->next->cmd, node->next->envp_lst);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		my_pwd(node->next->envp_lst);
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		my_unset(node->next->cmd, node->next->envp_lst);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		my_exit(node->next->cmd);
 	else
 		execution_process(node, &data);
-	printf("-----------exection_end--------\n");
+	// printf("-----------exection_end--------\n");
 	return (EXIT_SUCCESS);
 }

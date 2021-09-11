@@ -65,51 +65,32 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
 	t_tokeniser	data;
 	t_nlst		*node;
-	//t_token	*tokens;
 
 	node = init_node();
 	if (!node)
 		return (NULL);
-	lexer(&data, command); //単語分割
+	lexer(&data, command);//コマンドライン文字列
 	if (data.token == NULL)
 		return (NULL);
-
-	/*tokens = data.token;
-	int i = 0;
-	while (i < 12)
-	{
-		printf("str = %s\n", data.token->str);
-		if (data.token->type == CHAR_PIPE)
-		{
-			printf("pipe!\n");
-		}
-		data.token = data.token->next;
-		i++;
-	}
-	data.token = tokens;*/
-	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)//分割したものをlstに入れる
+	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)
 	{
 		free_data(&data);
 	 	free_node(node);
 		return (NULL);
 	}
-	check(node);
+	// check(node);
 	// free_data(&data);
 	// free_node(node);
 	return (node);
 }
 
-
-int	expanser(t_cmd_lst *cmd, t_envlist *env);
-int heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
-
 void	loop_shell(char **envp)
 {
 	t_nlst		*node;
-	t_envlist *envp_lst;
-	char	*command;
-	int		start;
-	size_t	i;
+	t_envlist	*envp_lst;
+	char		*command;
+	int			start;
+	size_t		i;
 
 	envp_lst = get_envp(envp);
 	read_history(".my_history");
@@ -120,15 +101,10 @@ void	loop_shell(char **envp)
 		command = readline("minishell >> ");
 		if (command[0] != '\0')
 			node = get_cmdline_from_input_str(command, envp_lst);
-
-		//Expansion
-		expanser(node->next->cmd, envp_lst);
-		//Hear_doc & Redirect
-		heardoc_and_redirect(node->next->redirect, envp_lst);
-		//Command exection
-		exec_builtin(node);
-
-		printf("node_str = %s\n",node->next->cmd->next->str);
+		/* expansion */
+		expansion(node, envp_lst);
+		/* Command exection */
+		// exec_builtin(node);
 		exection(node);
 		add_history(command);
 		free(command);
