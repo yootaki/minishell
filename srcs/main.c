@@ -71,6 +71,40 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	return (node);
 }
 
+//signal----------------------------------
+//ctrl + c
+void	sig_int_input()
+{
+	ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
+	ft_putstr_fd("minishell >> ", STDERR_FILENO);
+}
+//killコマンド
+void	sig_term_input(){}
+//ctrl + バックスラッシュ
+void	sig_quit_input()
+{
+	ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
+}
+
+void	signal_proc()
+{
+	if (signal(SIGINT, sig_int_input) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGTERM, sig_term_input) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGQUIT, sig_quit_input) == SIG_ERR)
+		perror("signal");
+}
+
+void	signal_ign()
+{
+	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		perror("signal");
+}
+//----------------------------------------
+
 void	loop_shell(char **envp)
 {
 	t_nlst		*node;
@@ -85,13 +119,19 @@ void	loop_shell(char **envp)
 	start = 0;
 	while (1)
 	{
+		signal_proc();//signal
 		command = readline("minishell >> ");
 		if (command == NULL)
-			break;
-		else
-			node = get_cmdline_from_input_str(command, envp_lst);
+		{
+			free_envplist(envp_lst);
+			ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
+			printf("See you again!!!\n");
+			return ;
+		}
+		node = get_cmdline_from_input_str(command, envp_lst);
 		expansion(node, envp_lst);
 		exection(node);
+		signal_ign();//signal
 		add_history(command);
 		free(command);
 		write_history(".my_history");

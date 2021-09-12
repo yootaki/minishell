@@ -275,10 +275,9 @@ test_export () {
 # }
 
 test_env () {
-    # env
     run_test 'env | sort | grep -v SHLVL | grep -v _='
     run_test 'unset USER HOME AAA; env | sort | grep -v SHLVL | grep -v _='
-    # run_test "export _ABC ; env | grep _ABC ; export _DEF= ; env | grep _DEF ; export _GHI='hello there' ; env | grep _GHI"
+
 }
 
 test_exit () {
@@ -292,6 +291,8 @@ test_exit () {
     run_test 'exit -0'
     run_test 'exit -1'
     run_test "exit ' 3'"
+    run_test "exit a a"
+    run_test "exit 1 1"
     run_test "exit '\t\f\r 3'"
     run_test "exit 4294967296"
     run_test "exit -4294967297"
@@ -320,17 +321,7 @@ test_exit () {
     run_test 'exit --++-+-21'
     run_test 'exit 255'
     run_test 'exit exit'
-    # run_test 'exit what ; echo $?'
     run_test 'exit 00000000'
-    # run_test 'echo | exit > exit.txt ; file exit.txt ; rm exit.txt'
-    # run_test 'echo 9 > exit.txt ; exit < exit.txt | cat ; rm exit.txt '
-    # run_test 'echo | exit 99 ; echo $?'
-    # run_test 'echo | exit 42 | exit 21 ; echo $?'
-    # run_test 'echo | exit 999999999999999999 ; echo $?'
-    # run_test 'echo | exit -12345 ; echo $?'
-    # run_test 'echo | exit 0 ; echo $?'
-    # run_test 'echo 123 | exit ; echo $?'
-    # run_test 'echo -123 | exit ; echo $?'
 }
 
 test_builtins ()

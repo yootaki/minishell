@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/08 22:02:10 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/12 14:25:16 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,37 @@ static void	ft_putstr_endl(char *line, int *pipe_fd)
 	ft_putendl_fd(line, pipe_fd[WRITE]);
 }
 
-int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
+//redirect_signal----------------------------------
+void	redirect_sig_int_input()
+{
+	exit (EXIT_FAILURE);
+}
+void	redirect_sig_term_input()
+{
+}
+void	redirect_sig_quit_input()
+{
+	ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
+}
+
+void	redirect_signal_proc()
+{
+	if (signal(SIGINT, redirect_sig_int_input) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGTERM, redirect_sig_term_input) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGQUIT, redirect_sig_quit_input) == SIG_ERR)
+		perror("signal");
+}
+//----------------------------------------
+
+void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 {
 	char	*expanded_line;
 	char	*line;
-	int		pipe_fd[FD_NUM];
 	int		status;
 
-	if (pipe(pipe_fd) == -1)
-		return (print_error_func("pipe"));
+	redirect_signal_proc();
 	ft_putstr_fd("> ", 1);
 	while (1)
 	{
@@ -65,9 +87,39 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 			ft_putstr_fd(expanded_line, pipe_fd[WRITE]);
 		free(line);
 		if (status == -1)
-			return (print_error_func("malloc"));
+			exit (print_error_func("malloc"));
 	}
 	free(line);
+}
+
+int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
+{
+	int		pipe_fd[FD_NUM];
+	int		pid;
+	int		wait_pid;
+	int		status;
+
+	status = 0;
+	if (pipe(pipe_fd) == -1)
+		return (print_error_func("pipe"));
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		return (EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		read_and_expansion_line(env, separator, pipe_fd);
+		exit (EXIT_SUCCESS);
+	}
+	else
+		wait_pid = wait(&status);
+	if (wait_pid == -1)
+	{
+		perror("wait");
+		return (EXIT_FAILURE);
+	}
 	now->heardoc_fd = pipe_fd;
 	return (EXIT_SUCCESS);
 }

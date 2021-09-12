@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/07 14:25:46 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/12 12:58:43 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
-		if (!ft_strncmp(now->str, "<<", ft_strlen(now->str)))
+		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
 		{
 			now = now->next;
 			if (now->str == NULL)
 				printf("bash: syntax error near unexpected token `newline'\n");
 			hear_doc(now, env, now->str);
 		}
-		if (!ft_strncmp(now->str, ">", ft_strlen(now->str)) \
-		|| !ft_strncmp(now->str, ">>", ft_strlen(now->str)))
+		if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
+		|| !ft_strncmp(now->str, ">", ft_strlen(">") + 1) \
+		|| !ft_strncmp(now->str, ">>", ft_strlen(">>") + 1))
 		{
 			now = now->next;
 			if (now->str == NULL)
