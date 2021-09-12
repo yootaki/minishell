@@ -2,61 +2,82 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-static void	ft_call_child(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
+void	check_redirect(t_nlst *node)
 {
 	t_redirect	*current;
-	int	redirect_flg;
 
-	//dup2(prev_read_fd, STDIN_FILENO);
-	printf("prev_read_fd = %d\n", prev_read_fd);
-	dup2(prev_read_fd, STDIN_FILENO);
-	close(pipefd[READ]);
-	redirect_flg = -1;
 	if (node->redirect->next != NULL)
 	{
 		current = node->redirect->next;
 		while (current != node->redirect)
 		{
+			if (current->c_type == HEAR_DOC)
+			{
+				dup2(current->next->heardoc_fd[READ], STDIN_FILENO);
+				close(current->next->heardoc_fd[READ]);
+			}
+			if (current->c_type == CHAR_LESSER)
+			{
+				dup2(current->next->redirect_fd, STDIN_FILENO);
+				close(current->next->redirect_fd);
+			}
 			if (current->c_type == CHAR_GREATER || current->c_type == DGREATER)
 			{
-				printf("-------c_type-----\n");
-				printf("current->redirect->str = %s\n", current->str);
-				printf("current->redirect_fd = %d\n", current->next->redirect_fd);
 				dup2(current->next->redirect_fd, STDOUT_FILENO);
-				//close(current->next->redirect_fd);
-				redirect_flg = 1;
+				close(current->next->redirect_fd);
 			}
 			current = current->next;
 		}
 	}
-	if (node->next != data->top && redirect_flg == -1)
-		dup2(pipefd[WRITE], STDOUT_FILENO);
-	close(pipefd[WRITE]);
-	data->cmd_array = create_cmd_array(node, data);
-	printf("---------------\n");
-	int i = 0;
-	while (data->cmd_array[i] != NULL)
-	{
-		printf("data->cmd_array[%d] = %s\n", i, data->cmd_array[i]);
-		i++;
-	}
-	printf("data->cmd_array = %s\n", data->cmd_array[1]);
-	if (execve(data->cmd_array[0], data->cmd_array, NULL) == -1)
-		perror("");
 }
 
-static int	ft_call_parent(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
+void	no_built_cmd(t_nlst *node, t_data *data)
+{
+	check_redirect(node);
+	data->cmd_array = create_cmd_array(node, data);
+	if (execve(data->cmd_array[0], data->cmd_array, NULL) == -1)
+		perror(data->cmd_array[0]);
+}
+
+void	execute_command(t_nlst *node, t_data *data)
+{
+	char	*cmd;
+
+	cmd = node->cmd->next->str;
+	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+		my_echo(node->cmd, node->redirect);
+	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+		my_cd(node->cmd, node->envp_lst);
+	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+		my_env(node->envp_lst);
+	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+		my_export(node->cmd, node->envp_lst);
+	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+		my_pwd(node->envp_lst);
+	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+		my_unset(node->cmd, node->envp_lst);
+	else
+		no_built_cmd(node, data);
+}
+
+void	ft_call_child(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
+{
+	dup2(prev_read_fd, STDIN_FILENO);
+	close(pipefd[READ]);
+	if (node->next != data->top)
+		dup2(pipefd[WRITE], STDOUT_FILENO);
+	close(pipefd[WRITE]);
+	execute_command(node, data);
+	exit(0);
+}
+
+int	ft_call_parent(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
 {
 	close(pipefd[WRITE]);
-	printf("pipefd[READ] = %d\n", pipefd[READ]);
 	if (prev_read_fd != STDIN_FILENO)
 		close(prev_read_fd);
 	if (node->next == data->top)
-	{
-		printf("------last----\n");
 		close(pipefd[READ]);
-		printf("pipefd[READ] = %d\n", pipefd[READ]);
-	}
 	return (pipefd[READ]);
 }
 
@@ -69,13 +90,9 @@ int	execution_process(t_nlst *node, t_data *data)
 	t_nlst	*current;
 	int	pipefd[FD_NUM];
 	int	pid;
-	int	backup_stdin;
 	int	prev_read_fd;
-	int			wstatus;
 
-	data->backup_stdout = dup(STDOUT_FILENO);
 	prev_read_fd = STDIN_FILENO;
-	backup_stdin = dup(STDIN_FILENO);
 	current = node->next;
 	int i = 0;
 	while (current != node)
@@ -93,8 +110,6 @@ int	execution_process(t_nlst *node, t_data *data)
 			perror("fork");
 			return (EXIT_FAILURE);
 		}
-		/* printf("pid = %d\n", pid);
-		printf("str = %s\n", current->cmd->next->str); */
 		if (pid == 0)
 		{
 			printf("prev_read_fd = %d\n", prev_read_fd);
@@ -116,21 +131,5 @@ int	execution_process(t_nlst *node, t_data *data)
 		printf("----while_end[%d]-----\n\n", i);
 		i++;
 	}
-	printf("current = %p\n", current);
-	dup2(data->backup_stdout, STDOUT_FILENO);
-	close(data->backup_stdout);
-	dup2(backup_stdin, STDIN_FILENO);
-	close(backup_stdin);
-	printf("\n");
-	printf("-----execution_process_end-------\n");
-	waitpid(pid, &wstatus, 0);
-	//*(data->status) = WEXITSTATUS(wstatus);
-	current = node->next;
-	while (current != node)
-	{
-		//waitpid(0, NULL, 0);
-		wait(0);
-		current = current->next;
-	}
-	return (EXIT_SUCCESS);
+	return (pid);
 }
