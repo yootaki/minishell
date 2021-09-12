@@ -25,6 +25,6 @@ int	get_path(t_nlst *node, t_data *data)
 {
 	data->path_list = search_path(node->envp_lst);
 	if (data->path_list == NULL)
-		return (EXIT_FAILURE);
+		free_function(data, 1);
 	return (EXIT_SUCCESS);
 }

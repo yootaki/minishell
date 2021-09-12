@@ -9,7 +9,7 @@ bool	is_next_redirect(t_token *tokens)
 		return (true);
 	if (tokens->next->type == HEAR_DOC)
 		return (true);
-	if (tokens->next->type == DLESSER)
+	if (tokens->next->type == DGREATER)
 		return (true);
 	return (false);
 }
@@ -27,7 +27,7 @@ int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 int	create_lst(t_nlst **n_lst, t_token **tokens)
 {
 	if ((*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
-	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DLESSER)
+	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
 	{
 		if (create_redirect_lst((*n_lst)->redirect, (*tokens)) == EXIT_FAILURE)
 			return (EXIT_FAILURE);

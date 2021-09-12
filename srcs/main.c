@@ -25,7 +25,6 @@ void	check(t_nlst *nil)
 	t_nlst		*current;
 	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
-	t_envlist	*e_tmp;
 
 	current = nil->next;
 	while (current != nil)
@@ -44,17 +43,8 @@ void	check(t_nlst *nil)
 		while (r_tmp != current->redirect)
 		{
 			printf("r_str = %s\n", r_tmp->str);
-			//printf("c_type = %d\n", r_tmp->c_type);
+			printf("r_type = %d\n", r_tmp->c_type);
 			r_tmp = r_tmp->next;
-			i++;
-		}
-		i = 0;
-		e_tmp = current->envp_lst->next;
-		while (e_tmp != current->envp_lst)
-		{
-			printf("e_value[%d] = %s\n", i, e_tmp->value);
-			//printf("e_key[%d] = %s\n", i, e_tmp->key);
-			e_tmp = e_tmp->next;
 			i++;
 		}
 		current = current->next;
@@ -63,8 +53,8 @@ void	check(t_nlst *nil)
 
 t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
-	t_tokeniser	data;
 	t_nlst		*node;
+	t_tokeniser	data;
 
 	node = init_node();
 	if (!node)
@@ -72,15 +62,12 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	lexer(&data, command);//コマンドライン文字列
 	if (data.token == NULL)
 		return (NULL);
-	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)
+	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)//分割したものをlstに入れる
 	{
-		free_data(&data);
 	 	free_node(node);
 		return (NULL);
 	}
-	// check(node);
-	// free_data(&data);
-	// free_node(node);
+	check(node);
 	return (node);
 }
 
@@ -142,15 +129,13 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		/* expansion */
 		expansion(node, envp_lst);
-		/* Command exection */
-		// exec_builtin(node);
 		exection(node);
 		signal_ign();//signal
 		add_history(command);
 		free(command);
 		write_history(".my_history");
+		//system("leaks minishell");
 		i++;
 	}
 	free_envplist(envp_lst);

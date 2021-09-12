@@ -12,9 +12,9 @@ t_token_type	check_type(char *str)
 	if (*str == CHAR_DQUOTE)
 		return (CHAR_DQUOTE);
 	if (ft_strncmp(str, "<<", 2) == 0)
-		return (DLESSER);
-	if (ft_strncmp(str, ">>", 2) == 0)
 		return (HEAR_DOC);
+	if (ft_strncmp(str, ">>", 2) == 0)
+		return (DGREATER);
 	if (*str == CHAR_GREATER)
 		return (CHAR_GREATER);
 	if (*str == CHAR_LESSER)
