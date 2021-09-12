@@ -16,7 +16,7 @@ SRCS_LEXER = lexer.c is_function.c lst_function.c free_function.c init_datas.c
 
 SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c
 
-SRCS_EXPANSION = expansion.c hear_doc.c delete_quote.c sepalate_str.c
+SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.c heardoc.c redirect.c expansion_utils.c
 
 SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c
 
@@ -69,5 +69,8 @@ fclean: clean
 	${RM} ${NAME}
 
 re: fclean all
+
+check:
+	@cd testcase && bash check.sh
 
 .PHONY: all clean fclean re

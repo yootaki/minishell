@@ -6,42 +6,14 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/05 21:22:05 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/08 22:45:26 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
-#include "expansion.h"
+#include "../../includes/expansion.h"
 
-char	*get_var_name(char *str)
-{
-	char	*var_name;
-	int		name_len;
-
-	name_len = 0;
-	while (str[name_len] != '\0' && str[name_len] != '$' && str[name_len] != ' ' \
-	&& str[name_len] != '\"' && str[name_len] != '\'')
-		name_len++;
-	var_name = (char *)malloc(sizeof(char) * (++name_len));
-	ft_strlcpy(var_name, str, name_len);
-	return (var_name);
-}
-
-char	*get_var_value(char *str, t_envlist *env)
-{
-	t_envlist	*now;
-
-	now = env->next;
-	while (now != env)
-	{
-		if (!ft_strncmp(now->key, str, ft_strlen(str)))
-			return (now->value);
-		now = now->next;
-	}
-	return (NULL);
-}
-
-static void	expansion_var(t_expanser *expanser, t_envlist *env)
+void	expansion_var(t_expanser *expanser, t_envlist *env)
 {
 	char	*var_name;
 	char	*var_value;
@@ -52,7 +24,8 @@ static void	expansion_var(t_expanser *expanser, t_envlist *env)
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
 	var_value = ft_strdup(get_var_value(var_name, env));
 	tmp = ft_strjoin(expanser->str, var_value);
-	new_str = ft_strjoin(tmp, &expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
+	new_str = ft_strjoin(tmp, \
+	&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 	expanser->str_cnt += ft_strlen(var_value);
 	free(var_name);
 	free(var_value);
@@ -61,64 +34,56 @@ static void	expansion_var(t_expanser *expanser, t_envlist *env)
 	expanser->str = new_str;
 }
 
-int	categorize(t_cmd_lst *now)
+void	quotation_flag_check(t_expanser *expanser)
 {
-	struct stat		buf;
+	if (expanser->str[expanser->str_cnt] == '\"' \
+	&& !expanser->dquote_flag && !expanser->quote_flag)
+		expanser->dquote_flag = 1;
+	else if (expanser->str[expanser->str_cnt] == '\"' \
+	&& expanser->dquote_flag)
+		expanser->dquote_flag = 0;
+	else if (expanser->str[expanser->str_cnt] == '\'' \
+	&& !expanser->quote_flag && !expanser->dquote_flag)
+		expanser->quote_flag = 1;
+	else if (expanser->str[expanser->str_cnt] == '\'' \
+	&& expanser->quote_flag)
+		expanser->quote_flag = 0;
+}
 
-	if (stat(now->str, &buf))
-		return (ISSTR);
-	if (S_ISREG(buf.st_mode))
-		return (ISFILE);
-	else if (S_ISDIR(buf.st_mode))
-		return (ISDIRECTORY);
-	return (ISSTR);
+int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
+{
+	while (expanser->str[expanser->str_cnt] != '\0')
+	{
+		quotation_flag_check(expanser);
+		if (expanser->str[expanser->str_cnt] == '$' && !expanser->quote_flag)
+			expansion_var(expanser, env);
+		else
+			expanser->str_cnt++;
+	}
+	expanser->str_cnt = 0;
+	while (expanser->str[expanser->str_cnt] != '\0')
+	{
+		if (expanser->str[expanser->str_cnt] == '\"')
+			delete_dquote(expanser);
+		else if (expanser->str[expanser->str_cnt] == '\'')
+			delete_quote(expanser);
+		expanser->str_cnt++;
+	}
+	return (EXIT_SUCCESS);
 }
 
 int	expanser(t_cmd_lst *cmd, t_envlist *env)
 {
 	t_expanser	expanser;
 	t_cmd_lst	*now;
-	int			dquote_flag;
-	int			quote_flag;
 	int			add_lst_cnt;
 
 	now = cmd->next;
 	while (now != cmd)
 	{
-		expanser.str = now->str;
-		expanser.str_cnt = 0;
-		dquote_flag = 0;
-		quote_flag = 0;
+		init_expanser(&expanser, now->str);
 		add_lst_cnt = 1;
-		//1. 変数を展開
-		while (expanser.str[expanser.str_cnt] != '\0')
-		{
-			//ダブルクォートかシングルクオートかの判定等
-			if (expanser.str[expanser.str_cnt] == '\"' && !dquote_flag && !quote_flag)
-				dquote_flag = 1;
-			else if (expanser.str[expanser.str_cnt] == '\"' && dquote_flag)
-				dquote_flag = 0;
-			else if (expanser.str[expanser.str_cnt] == '\'' && !quote_flag && !dquote_flag)
-				quote_flag = 1;
-			else if (expanser.str[expanser.str_cnt] == '\'' && quote_flag)
-				quote_flag = 0;
-
-			if (expanser.str[expanser.str_cnt] == '$' && !quote_flag)
-				expansion_var(&expanser, env);
-			else
-				expanser.str_cnt++;
-		}
-		//2. クォーテーションを削除
-		expanser.str_cnt = 0;
-		while (expanser.str[expanser.str_cnt] != '\0')
-		{
-			if (expanser.str[expanser.str_cnt] == '\"')
-				delete_dquote(&expanser);
-			else if (expanser.str[expanser.str_cnt] == '\'')
-				delete_quote(&expanser);
-			expanser.str_cnt++;
-		}
-		//3. lexer & categorize
+		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
 		add_lst_cnt = sep_str(now, &expanser);
 		while (--add_lst_cnt >= 0)
@@ -126,6 +91,22 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 			now->category = categorize(now);
 			now = now->next;
 		}
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	expansion(t_nlst *node, t_envlist *envp_lst)
+{
+	t_nlst	*now;
+
+	now = node->next;
+	while (now != node)
+	{
+		//Expansion
+		expanser(now->cmd, envp_lst);
+		//Hear_doc & Redirect
+		heardoc_and_redirect(now->redirect, envp_lst);
+		now = now->next;
 	}
 	return (EXIT_SUCCESS);
 }

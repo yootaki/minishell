@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/12 18:28:44 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/12 19:40:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,9 @@ int	my_pwd(t_envlist *envp_lst);
 int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst);
 int	my_exit(t_cmd_lst *cmd);
 
-char		*malloc_and_copy(char *str, int size);
-
-// t_envlist	*ft_envlstnew(char *key, char *value);
-void		ft_envlstdelone(t_envlist *lst);
-// void		ft_envlstadd_back(t_envlist *top, t_envlist *new);
-// int			ft_envlstsize(t_envlist *lst);
-void		free_envlst(t_envlist *lst);
+/* util function */
+char	*malloc_and_copy(char *str, int size);
+void	ft_envlstdelone(t_envlist *lst);
+void	free_envlst(t_envlist *lst);
 
 #endif
