@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/07 19:34:02 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/12 18:47:18 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	hear_doc(t_redirect *now, t_envlist *env)
 		}
 	}
 	free(line);
-	now->heardoc_fd = pipe_fd;
+	now->heardoc_fd[READ] = pipe_fd[READ];
+	close(pipe_fd[WRITE]);
 	return (EXIT_SUCCESS);
 }
-
 /* redirect */
 int	redirect_file_open(t_redirect *now, t_envlist *env)
 {
@@ -89,7 +89,7 @@ int	redirect_file_open(t_redirect *now, t_envlist *env)
 	if (!ft_strncmp(now->prev->str, ">", ft_strlen(now->prev->str)))
 		now->redirect_fd = open(file_name, O_CREAT | O_TRUNC | O_RDWR, S_IRWXU);
 	else if (!ft_strncmp(now->prev->str, ">>", ft_strlen(now->prev->str)))
-		now->redirect_fd = open(file_name, O_CREAT | O_APPEND | O_WRONLY, S_IWUSR);
+		now->redirect_fd = open(file_name, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU);
 	else//">>>"などのエラー出力
 		printf("parse error near `>'\n");
 	if (now->redirect_fd == -1)
