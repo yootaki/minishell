@@ -6,6 +6,13 @@
 #include "../libft/libft.h"
 #include <stdbool.h>
 
+enum	e_fd
+{
+	READ,
+	WRITE,
+	FD_NUM
+};
+
 typedef struct s_cmd_lst
 {
 	struct	s_cmd_lst	*next;
@@ -27,13 +34,6 @@ typedef struct	s_redirect
 	char				*str;
 	char				*limmiter;
 }		t_redirect;
-
-enum	e_fd
-{
-	READ,
-	WRITE,
-	FD_NUM
-};
 
 typedef struct s_nlst
 {

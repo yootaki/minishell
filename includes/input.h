@@ -23,6 +23,7 @@ typedef enum e_tokentype
 	CHAR_LESSER = '<',
 	HEAR_DOC,
 	DLESSER = 64,
+	DGREATER = 65,
 }		t_token_type;
 
 typedef struct s_token
