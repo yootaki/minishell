@@ -132,13 +132,13 @@ void	loop_shell(char **envp)
 	start = 0;
 	while (1)
 	{
-	signal_proc();//signal
+		signal_proc();//signal
 		command = readline("minishell >> ");
 		if (command == NULL)
 		{
 			free_envplist(envp_lst);
-			ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
-			printf("\nSee you again!!!\n");
+			ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
+			printf("See you again!!!\n");
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
