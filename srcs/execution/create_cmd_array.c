@@ -29,7 +29,6 @@ char	**get_cmd_str(t_nlst *node)
 	while (current != node->cmd)
 	{
 		cmd_array[i] = current->str;
-		//printf("current->str = %s\n", current->str);
 		current = current->next;
 		i++;
 	}
@@ -79,25 +78,54 @@ char	*search_cmd(char *cmd, t_data *data)
 	return (path_cmd);
 }
 
+static void	free_path_list(char **path_list)
+{
+	int	i;
+
+	i = 0;
+	if (path_list == NULL)
+		return ;
+	while (path_list[i] != NULL)
+	{
+		free(path_list[i]);
+		i++;
+	}
+	free(path_list);
+	path_list = NULL;
+}
+
+void	free_function(t_data *data, int pattern)
+{
+	if (pattern == 1)
+	{
+		free_node(data->top);
+	}
+	if (pattern == 2)
+	{
+		free_path_list(data->path_list);
+		free_node(data->top);
+	}
+	if (pattern == 3)
+	{
+		free(data->cmd);
+		data->cmd = NULL;
+		free_path_list(data->path_list);
+		free_node(data->top);
+	}
+	exit(1);
+}
+
 char	**create_cmd_array(t_nlst *node, t_data *data)
 {
-	char	**cmd_array;
 	char	*tmp_cmd;
 
-	//printf("------create_cmd_array_start------\n");
 	get_path(node, data);
-	cmd_array = get_cmd_str(node);
-	if (cmd_array == NULL)
-		return (NULL); // mallocエラー
-	tmp_cmd = search_cmd(cmd_array[0], data);
-	/*if (tmp_cmd == cmd_array[0]) // cmd_pathがない場合
-		free_no_cmd(cmd_array, node, data);*/ //とりあえずNULL (exit()で終了予定)
-	if (tmp_cmd == NULL) // malloc失敗した場合
-		free_all(cmd_array, node, data); //とりあえずNULL (exit()で終了予定)
-	cmd_array[0] = tmp_cmd; // cmd_pathをcmd_array[0]に代入
-	/* printf("cmd_array[0] = %s\n", cmd_array[0]);
-	printf("cmd_array[1] = %s\n", cmd_array[1]);
-	printf("------create_cmd_array_end------\n");
-	printf("\n");  */
-	return (cmd_array);
+	data->cmd = get_cmd_str(node);
+	if (data->cmd == NULL)
+		free_function(data, 2);
+	tmp_cmd = search_cmd(data->cmd[0], data);
+	if (tmp_cmd == NULL)
+		free_function(data, 3);
+	data->cmd[0] = tmp_cmd;
+	return (data->cmd);
 }
