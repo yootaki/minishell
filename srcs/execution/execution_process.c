@@ -97,8 +97,8 @@ int	execution_process(t_nlst *node, t_data *data)
 	int i = 0;
 	while (current != node)
 	{
-		// printf("top%p = node %p\n", data->top, node);
-		// printf("----while_start[%d]-----\n", i);
+		printf("top%p = node %p\n", data->top, node);
+		printf("----while_start[%d]-----\n", i);
 		if (pipe(pipefd) == -1)
 		{
 			perror("pipe");
@@ -112,23 +112,23 @@ int	execution_process(t_nlst *node, t_data *data)
 		}
 		if (pid == 0)
 		{
-			// printf("prev_read_fd = %d\n", prev_read_fd);
-			// printf("[%d]回目 [CHILD_PID_1 = %d]\n", i, getpid());
+			printf("prev_read_fd = %d\n", prev_read_fd);
+			printf("[%d]回目 [CHILD_PID_1 = %d]\n", i, getpid());
 			ft_call_child(current, data, prev_read_fd, pipefd);
-			// printf("-------child_end[%d]---\n", i);
+			printf("-------child_end[%d]---\n", i);
 		}
 		else
 		{
-			// printf("-------parent_start[%d]---\n", i);
-			// printf("prev_read_fd = %d\n", prev_read_fd);
-			// printf("[%d]回目 [pid = %d][PARENT_PID_1 = %d]\n", i, pid, getpid());
+			printf("-------parent_start[%d]---\n", i);
+			printf("prev_read_fd = %d\n", prev_read_fd);
+			printf("[%d]回目 [pid = %d][PARENT_PID_1 = %d]\n", i, pid, getpid());
 			prev_read_fd = ft_call_parent(current, data, prev_read_fd, pipefd);
-			// printf("prev_read_fd = %d\n", prev_read_fd);
-			// printf("-------parent_end[%d]---\n", i);
+			printf("prev_read_fd = %d\n", prev_read_fd);
+			printf("-------parent_end[%d]---\n", i);
 		}
 		free_data_lst(data);
 		current = current->next;
-		// printf("----while_end[%d]-----\n\n", i);
+		printf("----while_end[%d]-----\n\n", i);
 		i++;
 	}
 	return (pid);

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/13 17:30:36 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/13 20:33:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	quotation_flag_check(t_expanser *expanser)
 
 int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 {
-	while (expanser->str[expanser->str_cnt] != '\0')
+	//'\n'の条件は無限ループに入らないように一旦書いているだけです
+	while (expanser->str[expanser->str_cnt] != '\0' \
+	|| expanser->str[expanser->str_cnt] != '\n')
 	{
 		quotation_flag_check(expanser);
 		if (expanser->str[expanser->str_cnt] == '$' && !expanser->quote_flag)
@@ -64,7 +66,8 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 			expanser->str_cnt++;
 	}
 	expanser->str_cnt = 0;
-	while (expanser->str[expanser->str_cnt] != '\0')
+	while (expanser->str[expanser->str_cnt] != '\0' \
+	|| expanser->str[expanser->str_cnt] != '\n')
 	{
 		if (expanser->str[expanser->str_cnt] == '\"')
 			delete_dquote(expanser);
@@ -84,6 +87,8 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
+		printf("%s\n", now->str);
+		printf("hello\n");
 		init_expanser(&expanser, now->str);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);

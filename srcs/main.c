@@ -52,7 +52,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	 	free_node(node);
 		return (NULL);
 	}
-	// check(node);
+	check(node);
 	return (node);
 }
 
