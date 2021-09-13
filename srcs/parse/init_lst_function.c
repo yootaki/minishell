@@ -27,6 +27,8 @@ t_redirect	*init_redirect(void)
 	new->prev = new;
 	new->str = NULL;
 	new->c_type = 0;
+	new->heardoc_fd = NULL;
+	new->redirect_fd = 0;
 	new->limmiter = NULL;
 	new->status = 0;
 	return (new);

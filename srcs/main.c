@@ -19,22 +19,6 @@
 	}
 }*/
 
-int    expansion(t_nlst *node, t_envlist *envp_lst)
-{
-    t_nlst *now;
-
-    now = node->next;
-    while (now != node)
-    {
-        //Expansion
-        expanser(now->cmd, envp_lst);
-        //Hear_doc & Redirect
-        heardoc_and_redirect(now->redirect, envp_lst);
-	now = now->next;
-    }
-    return (EXIT_SUCCESS);
-}
-
 void	check(t_nlst *nil)
 {
 	int i = 0;
@@ -70,12 +54,12 @@ void	check(t_nlst *nil)
 t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 {
 	t_nlst		*node;
-	t_tokeniser data;
+	t_tokeniser	data;
 
 	node = init_node();
 	if (!node)
 		return (NULL);
-	lexer(&data, command); //単語分割
+	lexer(&data, command);//コマンドライン文字列
 	if (data.token == NULL)
 		return (NULL);
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)//分割したものをlstに入れる
@@ -87,17 +71,13 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	return (node);
 }
 
-
-int	expanser(t_cmd_lst *cmd, t_envlist *env);
-int heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
-
 void	loop_shell(char **envp)
 {
 	t_nlst		*node;
-	t_envlist *envp_lst;
-	char	*command;
-	int		start;
-	size_t	i;
+	t_envlist	*envp_lst;
+	char		*command;
+	int			start;
+	size_t		i;
 
 	envp_lst = get_envp(envp);
 	read_history(".my_history");
