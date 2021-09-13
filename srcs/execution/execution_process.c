@@ -36,7 +36,10 @@ void	no_built_cmd(t_nlst *node, t_data *data)
 	check_redirect(node);
 	data->cmd_array = create_cmd_array(node, data);
 	if (execve(data->cmd_array[0], data->cmd_array, NULL) == -1)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
 		perror(data->cmd_array[0]);
+	}
 }
 
 void	execute_command(t_nlst *node, t_data *data)
