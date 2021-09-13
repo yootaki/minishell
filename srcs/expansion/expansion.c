@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/08 22:45:26 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/12 20:32:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-	var_value = ft_strdup(get_var_value(var_name, env));
+	if (*var_name == '?')
+		var_value = ft_itoa(g_status);
+	else
+		var_value = ft_strdup(get_var_value(var_name, env));
 	tmp = ft_strjoin(expanser->str, var_value);
 	new_str = ft_strjoin(tmp, \
 	&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
@@ -102,9 +105,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
-		//Expansion
 		expanser(now->cmd, envp_lst);
-		//Hear_doc & Redirect
 		heardoc_and_redirect(now->redirect, envp_lst);
 		now = now->next;
 	}

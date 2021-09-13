@@ -87,6 +87,12 @@ test_redirections () {
     run_test 'echo hello >>>> file'
     run_test 'cat test1 > test2 > test3'
     run_test '> f0 echo > f1 > f2 > f3 abc'
+    #最後のhelloが書き込まれる
+    run_test 'cat file1 > file | echo hello >> file'
+    # file1の内容にhelloが追記される
+    run_test 'cat file1 > file | cat file2 >> file'
+    # 何も書かれない
+    run_test 'cat file1 > file | echo hello >> file | cat'
 }
 
 test_quotes () {

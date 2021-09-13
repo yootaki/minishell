@@ -22,7 +22,7 @@ SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c
 
 SRCS_EXECUTION = execution.c create_cmd_array.c execution_free.c execution_process.c get_path.c
 
-SRCS_UTILS = envp_lst.c get_envp.c
+SRCS_UTILS = envp_lst.c get_envp.c signal_main.c signal_heardoc.c
 
 SRCS_L = ${addprefix ${LEXER_DIR}, ${SRCS_LEXER}}
 
@@ -44,7 +44,7 @@ LIBFT_DIR = ./libft
 
 OBJS = ${SRCS_NAME:.c=.o}
 
-CC = gcc
+CC = gcc -g -fsanitize=address
 
 # -g -fsanitize=address
 

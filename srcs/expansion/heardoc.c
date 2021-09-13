@@ -6,12 +6,13 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/12 14:25:16 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/13 16:18:52 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
+#include "../../includes/utils.h"
 
 char	*heardoc_expansion_var(char *line, t_envlist *env)
 {
@@ -43,30 +44,6 @@ static void	ft_putstr_endl(char *line, int *pipe_fd)
 	ft_putendl_fd(line, pipe_fd[WRITE]);
 }
 
-//redirect_signal----------------------------------
-void	redirect_sig_int_input()
-{
-	exit (EXIT_FAILURE);
-}
-void	redirect_sig_term_input()
-{
-}
-void	redirect_sig_quit_input()
-{
-	ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
-}
-
-void	redirect_signal_proc()
-{
-	if (signal(SIGINT, redirect_sig_int_input) == SIG_ERR)
-		perror("signal");
-	else if (signal(SIGTERM, redirect_sig_term_input) == SIG_ERR)
-		perror("signal");
-	else if (signal(SIGQUIT, redirect_sig_quit_input) == SIG_ERR)
-		perror("signal");
-}
-//----------------------------------------
-
 void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 {
 	char	*expanded_line;
@@ -94,10 +71,10 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 
 int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 {
-	int		pipe_fd[FD_NUM];
-	int		pid;
-	int		wait_pid;
-	int		status;
+	int	pipe_fd[FD_NUM];
+	int	pid;
+	int	wait_pid;
+	int	status;
 
 	status = 0;
 	if (pipe(pipe_fd) == -1)
