@@ -82,7 +82,6 @@ int	exection(t_nlst *node)
 	{
 		backup_std_fd(&data, STD_BACKUP);
 		waitpid(execution_process(node, &data), &wstatus, 0);
-		//g_status = 
 		current = node->next;
 		while (current != node)
 		{
