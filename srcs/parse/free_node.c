@@ -9,7 +9,8 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	while (c_lst != cmd)
 	{
 		c_tmp = c_lst->next;
-		free(c_tmp->str);
+		/* '$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています */
+		// free(c_tmp->str);
 		free(c_lst);
 		c_lst = NULL;
 		c_lst = c_tmp;

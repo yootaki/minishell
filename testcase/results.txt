@@ -14,143 +14,143 @@
 [OK]  echo hello > >> test1.txt
 [OK]  echo hello > < test1.txt
 [KO]  unknowncommand
-
+See you again!!!
 
 
 [KO]  unknowncommand | commandunknown
-
+See you again!!!
 
 
 [KO]  echo | cat -e
-
+See you again!!!
 $
 
 [KO]  echo 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  echo 1 2 3 | cat -e
-
+See you again!!!
 1 2 3$
 
 [KO]  echo 1 2 3 | cat -e
-
+See you again!!!
 1 2 3$
 
 [KO]  echo 1 2 3 | cat -e
-
+See you again!!!
 1 2 3$
 
 [KO]  echo -n | cat -e
-
+See you again!!!
 
 
 [KO]  echo -""n | cat -e
-
+See you again!!!
 
 
 [KO]  echo ""-""n"" | cat -e
-
+See you again!!!
 
 
 [KO]  echo -n hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -n ""h""el""""lo | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -nnnnnnnn hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo ""-nn""n""""nnn""nn hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -n1 | cat -e
-
+See you again!!!
 -n1$
 
 [KO]  echo -n -n | cat -e
-
+See you again!!!
 
 
 [KO]  echo -n -n hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -n -nnnnn hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -nnnnn -nnnnn hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -n -n -n | cat -e
-
+See you again!!!
 
 
 [KO]  echo -n -n -n hello | cat -e
-
+See you again!!!
 hello
 
 [KO]  echo -n -nnnn -n hello -n -nnnnn -n | cat -e
-
+See you again!!!
 hello -n -nnnnn -n
 
 [KO]  echo -nnnn -nnnn -n hello -n -nnnnn -n | cat -e
-
+See you again!!!
 hello -n -nnnnn -n
 
 [KO]  echo -n -nnnn -n hello -n -nnnnn -n world | cat -e
-
+See you again!!!
 hello -n -nnnnn -n world
 
 [KO]  echo -""n -nnnn -n hello -n -nnnnn -n world | cat -e
-
+See you again!!!
 hello -n -nnnnn -n world
 
 [KO]  echo - n1 | cat -e
-
+See you again!!!
 - n1$
 
 [KO]  echo - n 1 | cat -e
-
+See you again!!!
 - n 1$
 
 [KO]  echo -n 1 | cat -e
-
+See you again!!!
 1
 
 [KO]  echo -n 1 2 3 | cat -e
-
+See you again!!!
 1 2 3
 
 [KO]  echo -n 1 2 3 | cat -e
-
+See you again!!!
 1 2 3
 
 [KO]  echo 1 2 3 -n | cat -e
-
+See you again!!!
 1 2 3 -n$
 
 [KO]  echo -n 1 2 3 -n | cat -e
-
+See you again!!!
 1 2 3 -n
 
 [KO]  echo -n 1 2 -n 3 -n | cat -e
-
+See you again!!!
 1 2 -n 3 -n
 
 [KO]  echo 1 2 3 -n | cat -e
-
+See you again!!!
 1 2 3 -n$
 
 [KO]  echo -n 1 2 3 -n | cat -e
-
+See you again!!!
 1 2 3 -n
 
 [KO]  echo a '' b '' c '' d | cat -e
@@ -174,51 +174,51 @@ a b c d
 Echo 1$
 
 [KO]  eCho 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ecHo 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  echO 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  EchO 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  eCHo 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  EcHo 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  eChO 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ECHO 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ''e''c''h''o'' 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ''e''c''h''o'''''' 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ""e""c""h""o"" 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  ""e""c""h""o"""""" 1 | cat -e
-
+See you again!!!
 1$
 
 [KO]  echo "" "" "" a
@@ -226,11 +226,11 @@ Echo 1$
 a
 
 [KO]  pwd
-
+/Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase See you again!!!
 /Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase
 
 [KO]  pwd | cat -e
-
+See you again!!!
 /Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase$
 
 [KO]  export | sort | grep -v SHLVL | grep -v _=
@@ -246,19 +246,19 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd.9VpEjIRfCz/org.xquartz:0 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh LANG=ja_JP.UTF-8 LESS=-R LOGNAME=youheiootaki LSCOLORS=Gxfxcxdxbxegedabagacad ORIGINAL_XDG_CURRENT_DESKTOP=undefined PAGER=less PATH=/Users/youheiootaki/.nodebrew/current/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/youheiootaki/.nodebrew/current/bin PWD=/Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase SHELL=/bin/zsh SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.voIPCzthW8/Listeners TERM=xterm-256color TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.60.0 TMPDIR=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/ VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) VSCODE_GIT_IPC_HANDLE=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/vscode-git-4ffb4ac3d7.sock XPC_FLAGS=0x0 XPC_SERVICE_NAME=0 ZSH=/Users/youheiootaki/.oh-my-zsh __CFBundleIdentifier=com.microsoft.VSCode __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
 
 [KO]  echo hello
-
+hello ; exit See you again!!!
 hello
 
 [KO]  echo hello world
-
+hello world ; exit See you again!!!
 hello world
 
 [KO]  ls | wc | wc
-
+0 0 0 total See you again!!!
 1 3 25
 
 [KO]  cat /dev/urandom | head -c 100 | wc -c
-
+0 total See you again!!!
 100
 
 [KO]  <test1.txt
@@ -270,7 +270,7 @@ hello world
 
 
 [KO]  cat < nonexistingfile
-
+See you again!!!
 
 
 [KO]  echo hello >>>> file
@@ -298,7 +298,7 @@ hello world
 
 
 [KO]  echo hello'world'foo
-
+helloworldfoo ; exit See you again!!!
 helloworldfoo
 
 [KO]  echo '' | cat -e
@@ -312,32 +312,4 @@ $
 [KO]  echo '' '''' | cat -e
 
 $
-
-[KO]  echo ' ' | cat -e
-
-$
-
-[KO]  echo ' '' '' ' | cat -e
-
-$
-
-[KO]  'echo hello'
-
-
-
-[KO]  echo $
-
-$
-
-[KO]  echo $ $ $ $ $ $ $
-
-$ $ $ $ $ $ $
-
-[KO]  export B=bbb | echo $B | cat -e
-
-$
-
-[KO]  echo $B | export B=bbb | cat -e
-
-
 
