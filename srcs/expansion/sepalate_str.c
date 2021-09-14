@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/14 14:41:29 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:37:42 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 	int		end;
 	int		count;
 
-	count = 0;//ここ1からじゃないと echo "" でセグフォする
+	count = 0;
 	while (1)
 	{
 		if (expanser->str[expanser->str_cnt] == '\0')
@@ -49,6 +49,13 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
 			expanser->str_cnt++;
 		end = expanser->str_cnt;
+		/* ここの条件タブとか入れるか要検討。現在はスペースのみ対応 */
+		if (expanser->str[expanser->str_cnt] == ' ' && start == end)
+		{
+			while (expanser->str[expanser->str_cnt] == ' ')
+				expanser->str_cnt++;
+			end = expanser->str_cnt;
+		}
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
 			now->str = extract_str;

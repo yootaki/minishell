@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/14 14:44:30 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:41:33 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
 		add_lst_cnt = sep_str(now, &expanser);
+		//これがないとecho""がセグフォする
+		if (add_lst_cnt == 0)
+			now = now->next;
 		while (--add_lst_cnt >= 0)
 		{
 			now->category = categorize(now);

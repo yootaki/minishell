@@ -52,7 +52,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	 	free_node(node);
 		return (NULL);
 	}
-	check(node);
+	// check(node);
 	return (node);
 }
 
@@ -76,7 +76,6 @@ void	loop_shell(char **envp)
 		{
 			free_envplist(envp_lst);
 			ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
-			printf("See you again!!!\n");
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);

@@ -332,7 +332,7 @@ test_builtins ()
     test_export
     test_unset
     test_env
-    test_exit
+    # test_exit
 
     # builtins should work in pipe
     # run_test 'pwd ; cd .. | pwd'
