@@ -56,6 +56,8 @@ void	execute_command(t_nlst *node, t_data *data)
 		my_pwd(node->envp_lst);
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 		my_unset(node->cmd, node->envp_lst);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		my_exit(node->cmd);
 	else
 		no_built_cmd(node, data);
 }
