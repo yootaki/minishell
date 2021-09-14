@@ -17,6 +17,17 @@ test_syntax_error () {
     run_syntax_test 'echo hello > >> test1.txt'
     run_syntax_test 'echo hello > < test1.txt'
     # run_syntax_test 'cat < < test1.txt'
+
+
+    # pipe中でbashを起動するテスト
+    run_syntax_test 'echo exit | bash'
+
+    run_syntax_test 'echo -n -n -n -n hello'
+    run_syntax_test 'ls > a| echo > b > c'
+
+
+    # bashでctrl+d押すとexitを出力して終わる
+    # bash-3.2$ exit
 }
 
 test_command_not_found () {

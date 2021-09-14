@@ -28,7 +28,7 @@ void	free_redirect_lst(t_redirect *redirect)
 	while (r_lst != redirect)
 	{
 		r_tmp = r_lst->next;
-		free(r_lst->str);
+		// free(r_lst->str);
 		free(r_lst);
 		r_lst = NULL;
 		r_lst = r_tmp;
