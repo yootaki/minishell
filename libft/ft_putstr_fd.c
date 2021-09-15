@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 00:54:23 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/21 04:27:24 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:57:29 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd (char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	if (s == NULL)
 		return ;

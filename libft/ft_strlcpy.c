@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 17:57:58 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/24 16:02:47 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:01:53 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy (char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 

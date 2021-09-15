@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:52:45 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/09/12 20:31:10 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:01:16 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef enum	e_bool
+typedef enum e_bool
 {
 	FALSE,
 	TRUE
-}				t_bool;
+}t_bool;
 
 int		ft_atoi(char *str);
 void	ft_bzero(void *s, size_t n);
@@ -51,7 +51,7 @@ size_t	ft_strlen(const	char *str);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *str, const char *to_find, size_t len);
-char	*ft_strrchr (const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int str);
