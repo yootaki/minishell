@@ -3,6 +3,7 @@ on: [push]
 defaults:
   run:
     shell: bash
+    working-directory: scripts
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
