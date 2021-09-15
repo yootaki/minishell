@@ -2,9 +2,6 @@
 
 t_token_type	check_type(char *str)
 {
-	int	size;
-
-	size = ft_strlen(str);
 	if (*str == CHAR_PIPE)
 		return (CHAR_PIPE);
 	if (*str == CHAR_QOUTE)
