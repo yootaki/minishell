@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 10:40:37 by hryuuta           #+#    #+#              #
-#    Updated: 2021/04/24 16:28:52 by hryuuta          ###   ########.fr        #
+#    Updated: 2021/09/15 16:50:55 by yootaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ BONUS_SRCS = ft_lstnew.c\
 			 ft_lstclear.c\
 			 ft_lstiter.c\
 			 ft_lstmap.c
-	   
+
 REG_OBJS = $(SRCS:%.c=%.o)
 
 BONUS_OBJS = $(BONUS_SRCS:%.c=%.o)
@@ -70,7 +70,7 @@ RM = rm -f
 
 
 .c.o:
-	$(CC) $(CFLAGS) -c $< -I libft.h
+	$(CC) $(CFLAGS) -c $<
 
 
 all:	$(NAME)
@@ -81,7 +81,7 @@ bonus:	$(BONUS_OBJS) $(REG_OBJS)
 $(NAME):	$(REG_OBJS)
 			 ar rc $(NAME) $(REG_OBJS)
 
-clean: 
+clean:
 	$(RM) $(REG_OBJS) $(BONUS_OBJS)
 fclean:		clean
 	$(RM) $(NAME)
