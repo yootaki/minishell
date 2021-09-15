@@ -51,12 +51,65 @@ test_echo ()
     run_test '""e""c""h""o"" 1 | cat -e'
     run_test '""e""c""h""o"""""" 1 | cat -e'
     run_test 'echo "" "" "" a'
-    # run_test '1 | echo $_'
-    # run_test '1 | echo $_ | echo $_'
-    # run_test 'echo $_ | echo $_'
+    run_test '1 | echo $_'
+    run_test '1 | echo $_ | echo $_'
+    run_test 'echo $_ | echo $_'
 }
 
 # test_cd () {
+    run_test 'cd /.//'
+    run_test 'cd /./////././////'
+    run_test 'cd //'
+    run_test 'cd //...........//////'
+    run_test 'cd //'
+    run_test 'cd //'
+    run_test 'cd ///'
+    run_test 'cd //.'
+    run_test 'cd //./'
+    run_test 'cd //.///./././////'
+    run_test 'cd ///'
+    run_test 'cd ///.///'
+    run_test 'cd ////'
+    run_test 'cd ////./././//////'
+    run_test 'cd /////'
+    run_test 'cd /bin'
+    run_test 'cd /usr/bin'
+    run_test 'cd /home'
+    run_test 'cd //home'
+    run_test 'cd //./home'
+    run_test 'cd "//home"'
+    run_test 'cd $OLDPWD'
+    run_test 'cd $WWW'
+    run_test 'cd $WWW$WWW../../'
+    run_test 'cd $WWW./$WWW../$WWW'
+    run_test 'cd ../../../../../../../'
+    run_test 'cd ../.././.././.././.././.././../'
+    run_test '""c""d"" .'
+    run_test 'cd .'
+    run_test 'cd ..'
+    run_test 'cd ..""""'
+    run_test 'cd ""."".""""'
+    run_test 'cd ...'
+    run_test 'cd ../..'
+    run_test 'cd ../.'
+    run_test 'cd ./.'
+    run_test 'cd /'
+    run_test 'cd //'
+    run_test 'cd //home'
+    run_test 'cd "//home"'
+    run_test 'cd aaaaaa'
+    run_test 'cd ""'
+    run_test 'cd " "'
+    run_test 'cd ./'
+    run_test 'cd /.'
+    run_test 'cd /..'
+    run_test 'cd'
+    run_test 'cd                    '
+    run_test 'cd        ""    ""        '
+    run_test 'cd        " "        '
+    # run_test 'cd ~ ; pwd'
+    # run_test 'cd ~/ ; pwd'
+    # run_test 'cd ~/. ; pwd'
 #     run_test 'mkdir a b ; cd a ; cd ../b ; pwd ; cd .. ; pwd ; echo $PWD ; echo $OLDPWD ; rm -rf a b'
 #     run_test 'mkdir -p a/aa b ; cd a/aa ; cd ../../b/bb ; pwd ; echo $PWD ; echo $OLDPWD ; cd ../.. ; rm -fr a b'
 #     run_test 'mkdir a ; ln -s a aa ; cd aa ; rm ../aa ; cd . ; pwd ; echo $PWD ; echo $OLDPWD ; rm -fr a'
@@ -117,19 +170,14 @@ test_echo ()
 #     run_test 'export HOME= ; export PWD= ; export OLDPWD= ; cd ; echo $HOME ; echo $PWD ; echo $OLDPWD ; echo $?'
 #     run_test 'export HOME= ; cd ; echo $HOME ; echo $PWD ; echo $OLDPWD ; echo $?'
 #     run_test 'export HOME= ; export PWD= ; export OLDPWD= ; cd "" ; echo $HOME ; echo $PWD ; echo $OLDPWD ; echo $?'
-#     run_test 'cd aaaaaa'
 #     run_test 'cd aaaaaa ; pwd'
 #     run_test 'echo $PWD ; echo $OLDPWD ; cd aaaaaa ; echo $PWD ; echo $OLDPWD'
-#     run_test 'cd ""'
 #     run_test 'cd "" ; pwd'
 #     run_test 'echo $PWD ; echo $OLDPWD ; cd "" ; echo $PWD ; echo $OLDPWD'
-#     run_test 'cd " "'
 #     run_test 'cd " " ; pwd'
 #     run_test 'echo $PWD ; echo $OLDPWD ; cd " " ; echo $PWD ; echo $OLDPWD'
-#     run_test 'cd ./'
 #     run_test 'cd ./ ; pwd'
 #     run_test 'echo $PWD ; echo $OLDPWD ; cd ./ ; echo $PWD ; echo $OLDPWD'
-#     run_test 'echo $OLDPWD'
 #     run_test 'cd $OLDPWD ; pwd'
 #     run_test 'cd $OLDPWD ; cd $OLDPWD ; pwd'
 #     run_test 'unset OLDPWD ; cd $OLDPWD ; pwd ; echo $PWD ; echo $OLDPWD'
@@ -265,19 +313,16 @@ test_export () {
     # run_test "export A=aaa ; export A+=bbb ; echo \$A"
 }
 
-# test_unset () {
-#     run_test "unset '   ' ; echo \$?"
-#     run_test "unset '' '' ; echo \$?"
-#     run_test "unset \"     USER\" ; echo \$USER ; echo \$?"
-#     run_test "unset \"     USER\" \" '  USER  '    \" ; unset USER ; echo \$USER ; echo \$?"
-#     run_test 'unset ; echo $?'
-#     run_test 'unset ; unset ; unset ; echo $?'
-# }
+test_unset () {
+    run_test "unset '   '"
+    run_test "unset '' ''"
+    run_test "unset \"     USER\""
+    run_test "unset \"     USER\" \" '  USER  '    \""
+    run_test 'unset'
+}
 
 test_env () {
     run_test 'env | sort | grep -v SHLVL | grep -v _='
-    run_test 'unset USER HOME AAA; env | sort | grep -v SHLVL | grep -v _='
-
 }
 
 test_exit () {
@@ -332,7 +377,7 @@ test_builtins ()
     test_export
     test_unset
     test_env
-    # test_exit
+    test_exit
 
     # builtins should work in pipe
     # run_test 'pwd ; cd .. | pwd'

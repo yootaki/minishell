@@ -30,4 +30,17 @@ int		envp_lstmap(t_envlist *envp, char *key, char *value);
 int		create_envlst(t_envlist *lst, char **envp);
 t_envlist	*get_envp(char **envp);
 
+/* signal_main.c */
+void	sig_int_input();
+void	sig_term_input();
+void	sig_quit_input();
+void	signal_proc();
+void	signal_ign();
+
+/* signal_heardoc.c */
+void	redirect_sig_int_input();
+void	redirect_sig_term_input();
+void	redirect_sig_quit_input();
+void	redirect_signal_proc();
+
 #endif

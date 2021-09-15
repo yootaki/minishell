@@ -29,6 +29,8 @@ enum	e_built
 	OTHER
 };
 
+int	g_status;
+
 int	is_builtin_cmd(char *cmd)
 {
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))

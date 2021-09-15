@@ -9,7 +9,8 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	while (c_lst != cmd)
 	{
 		c_tmp = c_lst->next;
-		free(c_tmp->str);
+		/* '$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています */
+		// free(c_tmp->str);
 		free(c_lst);
 		c_lst = NULL;
 		c_lst = c_tmp;
@@ -27,7 +28,7 @@ void	free_redirect_lst(t_redirect *redirect)
 	while (r_lst != redirect)
 	{
 		r_tmp = r_lst->next;
-		free(r_lst->str);
+		// free(r_lst->str);
 		free(r_lst);
 		r_lst = NULL;
 		r_lst = r_tmp;

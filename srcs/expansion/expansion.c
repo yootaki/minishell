@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/08 22:45:26 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/14 17:06:13 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-	var_value = ft_strdup(get_var_value(var_name, env));
+	if (*var_name == '?')
+		var_value = ft_itoa(g_status);
+	else
+		var_value = ft_strdup(get_var_value(var_name, env));
 	tmp = ft_strjoin(expanser->str, var_value);
 	new_str = ft_strjoin(tmp, \
 	&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
@@ -52,16 +55,20 @@ void	quotation_flag_check(t_expanser *expanser)
 
 int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 {
-	while (expanser->str[expanser->str_cnt] != '\0')
+	//'\n'の条件は無限ループに入らないように一旦書いているだけです
+	while (expanser->str[expanser->str_cnt] != '\0' \
+	&& expanser->str[expanser->str_cnt] != '\n')
 	{
 		quotation_flag_check(expanser);
-		if (expanser->str[expanser->str_cnt] == '$' && !expanser->quote_flag)
+		if (expanser->str[expanser->str_cnt] == '$' \
+		&& !expanser->quote_flag)
 			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
 	}
 	expanser->str_cnt = 0;
-	while (expanser->str[expanser->str_cnt] != '\0')
+	while (expanser->str[expanser->str_cnt] != '\0' \
+	&& expanser->str[expanser->str_cnt] != '\n')
 	{
 		if (expanser->str[expanser->str_cnt] == '\"')
 			delete_dquote(expanser);
@@ -86,6 +93,9 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
 		add_lst_cnt = sep_str(now, &expanser);
+		//これがないとecho""がセグフォする
+		if (add_lst_cnt == 0)
+			now = now->next;
 		while (--add_lst_cnt >= 0)
 		{
 			now->category = categorize(now);
@@ -102,9 +112,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
-		//Expansion
 		expanser(now->cmd, envp_lst);
-		//Hear_doc & Redirect
 		heardoc_and_redirect(now->redirect, envp_lst);
 		now = now->next;
 	}
