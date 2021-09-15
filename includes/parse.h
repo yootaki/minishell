@@ -1,10 +1,10 @@
 #ifndef PARSE_H
-#define PARSE_H
+# define PARSE_H
 
-#include "input.h"
-#include "utils.h"
-#include "../libft/libft.h"
-#include <stdbool.h>
+# include "input.h"
+# include "utils.h"
+# include "../libft/libft.h"
+# include <stdbool.h>
 
 enum	e_fd
 {

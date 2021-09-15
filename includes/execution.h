@@ -1,13 +1,14 @@
 #ifndef EXECUTION_H
-#define EXECUTION_H
+# define EXECUTION_H
 
-#include "../srcs/builtin_cmd/builtin_cmd.h"
-#include "input.h"
-#include "parse.h"
-#include "../libft/libft.h"
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
+# include "../srcs/builtin_cmd/builtin_cmd.h"
+# include "input.h"
+# include "parse.h"
+# include "../libft/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 typedef struct s_data
 {
