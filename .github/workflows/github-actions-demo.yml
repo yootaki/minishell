@@ -15,7 +15,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
-      - run: norminette
       - run: make check
       - run: make
       - run: make re
