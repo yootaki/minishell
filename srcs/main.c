@@ -89,8 +89,10 @@ void	loop_shell(char **envp)
 	free_envplist(envp_lst);
 }
 
-int main(char **envp)
+int main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
 	loop_shell(envp);
 	//free(envp);
 	//system("leaks minishell");
