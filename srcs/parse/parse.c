@@ -41,7 +41,7 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 	return (EXIT_SUCCESS);
 }
 
-int	syntax＿analysis(t_nlst *node, t_token *tokens)
+int	syntax_analysis(t_nlst *node, t_token *tokens)
 {
 	t_nlst	*current;
 
@@ -63,7 +63,7 @@ int	parse_separator(t_nlst *node, t_token *tokens, t_envlist *env)
 {
 	if (create_node_lst(node, tokens, env) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	if (syntax＿analysis(node, tokens) == EXIT_FAILURE)
+	if (syntax_analysis(node, tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

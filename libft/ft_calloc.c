@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 16:48:45 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/21 07:50:56 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:58:17 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_calloc (size_t count, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
 	unsigned char	*ptr;
 

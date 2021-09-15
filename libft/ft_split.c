@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 23:59:06 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/24 15:24:49 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 17:00:07 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	is_separater(char s, char c)
+static int	is_separater(char s, char c)
 {
 	if (s == c || s == '\0')
 		return (1);
@@ -89,7 +89,7 @@ static	size_t	count_array(char const *s, char c)
 	return (j);
 }
 
-char 	**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	size_t		array_size;
 	char		**ptr;

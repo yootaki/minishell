@@ -4,10 +4,8 @@ char	**search_path(t_envlist	*envp)
 {
 	t_envlist	*current;
 	char	**path;
-	int	i;
 
 	current = envp->next;
-	i = 0;
 	while (ft_strncmp(current->key, "PATH", 4) != 0 && current != envp)
 		current = current->next;
 	if (current == envp)

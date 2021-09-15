@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:30:56 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/24 16:19:59 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:58:33 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-#define	LLONG_MAX 9223372036854775807L
+#define LLONG_MAX 9223372036854775807L
 
 static	long	over_num(int sign)
 {

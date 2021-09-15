@@ -1,13 +1,13 @@
 #ifndef UTILS_H
-#define UTILS_H
+# define UTILS_H
 
-#include "../libft/libft.h"
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <stdbool.h>
+# include "../libft/libft.h"
+# include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <stdbool.h>
 
 typedef struct	s_envlist
 {

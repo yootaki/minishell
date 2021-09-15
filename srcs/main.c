@@ -61,13 +61,11 @@ void	loop_shell(char **envp)
 	t_nlst		*node;
 	t_envlist	*envp_lst;
 	char		*command;
-	int			start;
 	size_t		i;
 
 	envp_lst = get_envp(envp);
 	read_history(".my_history");
 	i = 0;
-	start = 0;
 	while (1)
 	{
 		signal_proc();
@@ -91,10 +89,10 @@ void	loop_shell(char **envp)
 	free_envplist(envp_lst);
 }
 
-int main(int argc, char *argv[], char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	argc = 0;
-	argv = NULL;
+	(void)argc;
+	(void)argv;
 	loop_shell(envp);
 	//free(envp);
 	//system("leaks minishell");

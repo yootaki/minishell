@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/13 16:18:52 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:59:20 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 
 int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 {
-	int	pipe_fd[FD_NUM];
-	int	pid;
-	int	wait_pid;
-	int	status;
+	pid_t	pid;
+	pid_t	wait_pid;
+	int		pipe_fd[FD_NUM];
+	int		status;
 
 	status = 0;
 	if (pipe(pipe_fd) == -1)

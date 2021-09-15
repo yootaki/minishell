@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 11:25:19 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/22 12:51:27 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/15 16:56:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static	size_t	trim_len_check(char const *s1, char const *set)
 	if (s1[j] == '\0')
 		return (len);
 	j = 0;
-	while ((ft_strlen(s1) - (j + 1)) >= 0)
+	while ((int)(ft_strlen(s1) - (j + 1)) >= 0)
 	{
 		if (trim_c_check(set, s1[ft_strlen(s1) - (j + 1)]) == 1)
 			len-- ;
