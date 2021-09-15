@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/15 20:19:22 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/21 11:22:45 by hryuuta          ###   ########.fr       */
+/*   Created: 2021/04/09 10:09:32 by yootaki           #+#    #+#             */
+/*   Updated: 2021/04/24 12:15:10 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*str;
-	size_t	i;
+	unsigned int	i;
+	size_t			j;
+	size_t			s_len;
+	char			*ans;
 
-	i = 0;
-	if (len < 0)
+	if (s == NULL)
+		return ((void *)0);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
 		len = 0;
-	if (!s)
-		return (NULL);
-	str = (char *)malloc(sizeof(char) * (len + 1));
-	if (!str)
-		return (NULL);
-	if (start >= ft_strlen(s))
-	{
-		str[i] = '\0';
-		return (str);
-	}
-	while (i < len)
-	{
-		str[i] = s[start];
-		start++;
+	if (len > s_len - (size_t)start)
+		len = s_len - (size_t)start;
+	ans = (char *)malloc(sizeof(char) * (len + 1));
+	if (ans == NULL)
+		return ((void *)0);
+	i = 0;
+	while (i < start)
 		i++;
-	}
-	str[i] = '\0';
-	return (str);
+	j = 0;
+	while (j < len && s[i] != '\0')
+		ans[j++] = s[i++];
+	ans[j] = '\0';
+	return (ans);
 }
