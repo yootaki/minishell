@@ -10,6 +10,8 @@
 # include <stdbool.h>
 # include "../libft/libft.h"
 
+extern int g_status;
+
 typedef enum e_tokentype
 {
 	CHAR_GENERAL = -1,
