@@ -20,9 +20,9 @@ SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.
 
 SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c
 
-SRCS_EXECUTION = execution.c create_cmd_array.c execution_free.c execution_process.c get_path.c
+SRCS_EXECUTION = create_cmd_array.c exe_free_function.c execution_utils1.c execute_command.c execution_free.c execution.c get_path.c no_built_cmd.c process_function.c search_cmd.c
 
-SRCS_UTILS = envp_lst.c get_envp.c signal_main.c signal_heardoc.c
+SRCS_UTILS = envp_lst.c get_envp.c signal_main.c signal_heardoc.c x_function.c x_function2.c
 
 SRCS_L = ${addprefix ${LEXER_DIR}, ${SRCS_LEXER}}
 

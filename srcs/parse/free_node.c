@@ -6,11 +6,16 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	t_cmd_lst	*c_tmp;
 
 	c_lst = cmd->next;
+	printf("c_lst->str = %s\n", c_lst->str);
 	while (c_lst != cmd)
 	{
+		printf("------------\n");
 		c_tmp = c_lst->next;
 		/* '$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています */
-		// free(c_tmp->str);
+		printf("c_lst->str = %p\n", c_lst->str);
+		printf("c_lst->str = %s\n", c_lst->str);
+		free(c_lst->str);
+		c_lst->str = NULL;
 		free(c_lst);
 		c_lst = NULL;
 		c_lst = c_tmp;
@@ -28,7 +33,8 @@ void	free_redirect_lst(t_redirect *redirect)
 	while (r_lst != redirect)
 	{
 		r_tmp = r_lst->next;
-		// free(r_lst->str);
+		free(r_lst->str);
+		r_lst->str = NULL;
 		free(r_lst);
 		r_lst = NULL;
 		r_lst = r_tmp;
@@ -64,8 +70,8 @@ void	free_data(t_tokeniser *data)
 	while (data->token != NULL)
 	{
 		tlst = data->token->next;
-		if (data->token->str != NULL)
-			free(data->token->str);
+		//if (data->token->str != NULL)
+			//free(data->token->str);
 		free(data->token);
 		data->token = tlst;
 	}
