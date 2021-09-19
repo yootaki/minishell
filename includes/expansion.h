@@ -42,6 +42,7 @@ char	*get_var_name(char *str);
 char	*get_var_value(char *str, t_envlist *env);
 void	init_expanser(t_expanser *expanser, char *str);
 int		categorize(t_cmd_lst *now);
+int		is_var_name(int c);
 
 /* heardoc.c */
 int	hear_doc(t_redirect *now, t_envlist *env, char *separator);

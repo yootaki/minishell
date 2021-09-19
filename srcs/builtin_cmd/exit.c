@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/14 19:53:37 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/17 15:58:25 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ static int	longlong_over_check(const char *str)
 	return (0);
 }
 
+//returnで戻っていってmainのreturnで終了すべきか
+//ここでexitしても大丈夫か
 int	my_exit(t_cmd_lst *cmd)
 {
 	t_cmd_lst	*now;
@@ -81,12 +83,12 @@ int	my_exit(t_cmd_lst *cmd)
 	{
 		count++;
 		if (count > 2)
-			return (255);
+			exit (255);
 		now = now->next;
 	}
 	now = cmd->next->next;
 	if (count == 2 && is_str_digit(now->str) \
 	&& !longlong_over_check(now->str) && !is_str_digit(now->next->str))
-		return (255);
-	return (1);
+		exit (255);
+	exit (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/13 15:47:23 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:15:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ int	categorize(t_cmd_lst *now)
 	else if (S_ISDIR(buf.st_mode))
 		return (ISDIRECTORY);
 	return (ISSTR);
+}
+
+/* この判定関数は別の部分でも使用する */
+/* 変数名に使用可能な文字以外がきたら0を返す(false) */
+int	is_var_name(int c)
+{
+	if (ft_isalnum(c) || ft_isdigit(c) || c == '_')
+		return (1);
+	else
+		return (0);
 }

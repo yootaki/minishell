@@ -9,7 +9,8 @@ run_test () {
     if [ $CREATE_FILES -eq 1 ]; then
         prepare_test_files
     fi
-	MSH_RESULT=$(echo $@ "; exit" | ./minishell 2> /dev/null)
+	# MSH_RESULT=$(echo $@ "; exit" | ./minishell 2> /dev/null)
+	MSH_RESULT=$(echo $@ | ./minishell 2> /dev/null)
 	MSH_STATUS=$?
     if [ $CREATE_FILES -eq 1 ]; then
         rm test[1-6].txt
@@ -18,7 +19,8 @@ run_test () {
     if [ $CREATE_FILES -eq 1 ]; then
         prepare_test_files
     fi
-	BASH_RESULT=$(echo $@ "; exit" | bash 2> /dev/null)
+	# BASH_RESULT=$(echo $@ "; exit" | bash 2> /dev/null)
+	BASH_RESULT=$(echo $@ | bash 2> /dev/null)
 	BASH_STATUS=$?
     if [ $CREATE_FILES -eq 1 ]; then
         rm test[1-6].txt
@@ -97,4 +99,3 @@ run_syntax_test () {
 	echo
 	sleep 0.03
 }
-

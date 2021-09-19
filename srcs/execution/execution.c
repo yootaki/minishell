@@ -26,6 +26,7 @@ enum	e_built
 	EXPORT,
 	PWD,
 	UNSET,
+	EXIT,
 	OTHER
 };
 
@@ -45,6 +46,8 @@ int	is_builtin_cmd(char *cmd)
 		return (PWD);
 	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
 		return (UNSET);
+	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+		return (EXIT);
 	else
 		return (OTHER);
 }

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/12 12:58:43 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:02:05 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,16 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		{
 			now = now->next;
 			if (now->str == NULL)
+			{
 				printf("bash: syntax error near unexpected token `newline'\n");
+				return (EXIT_FAILURE);
+			}
+			else if (*(now->str) == '<' || *(now->str) == '>')
+			{
+				write(STDERR_FILENO, "bash: syntax error near unexpected token `>'\n", ft_strlen("bash: syntax error near unexpected token `>'\n"));
+				//ここはexitするのが正解？returnが正解？
+				exit (2);
+			}
 			redirect_file_open(now, env);
 		}
 		now = now->next;

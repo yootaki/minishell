@@ -77,13 +77,13 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		expansion(node, envp_lst);
+		if (expansion(node, envp_lst))
+			continue ;
 		exection(node);
 		signal_ign();
 		add_history(command);
 		free(command);
 		write_history(".my_history");
-		//system("leaks minishell");
 		i++;
 	}
 	free_envplist(envp_lst);
@@ -94,7 +94,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	loop_shell(envp);
-	//free(envp);
-	//system("leaks minishell");
-	return (EXIT_SUCCESS);
+	// system("leaks minishell");
+	return (g_status);
 }
