@@ -8,6 +8,8 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdbool.h>
+#include <string.h>
+# include <errno.h>
 
 typedef struct	s_envlist
 {
@@ -42,5 +44,15 @@ void	redirect_sig_int_input();
 void	redirect_sig_term_input();
 void	redirect_sig_quit_input();
 void	redirect_signal_proc();
+
+/* x_funtion.c */
+void	xclose(int fd);
+int	xdup2(int oldfd, int newfd);
+int	xdup(int oldfd);
+
+/* x_function2.c */
+void	xwaitpid(pid_t pid, int *wstatus, int options);
+void	xpipe(int *pipefd);
+pid_t	xfork(void);
 
 #endif
