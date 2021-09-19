@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 18:16:29 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/19 23:19:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 	char		*dir_path;
 
 	now = cmd->next->next;
-	// printf("%c\n", now->str[10]);
 	if (now->str == NULL)
 	{
 		tmp = envp_lst->next;

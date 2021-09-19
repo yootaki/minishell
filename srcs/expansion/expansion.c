@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 19:46:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/19 23:19:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,32 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 		//ここ直してる途中
 		//-----------------------------------
 		if (tmp == NULL)
-			var_value = ft_strdup("");
+		{
+			new_str = strjoin_minishell(expanser->str, \
+			&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
+			free(var_name);
+			free(tmp);
+			free(expanser->str);
+			if (!ft_strlen(new_str))
+				expanser->str = NULL;
+			else
+				expanser->str = new_str;
+		}
 		else
+		{
 			var_value = ft_strdup(tmp);
+			tmp = ft_strjoin(expanser->str, var_value);
+			new_str = ft_strjoin(tmp, \
+			&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
+			expanser->str_cnt += ft_strlen(var_value);
+			free(var_name);
+			free(var_value);
+			free(tmp);
+			free(expanser->str);
+			expanser->str = new_str;
+		}
 		//-----------------------------------
 	}
-	tmp = strjoin_minishell(expanser->str, var_value);
-	new_str = strjoin_minishell(tmp, \
-	&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-	expanser->str_cnt += ft_strlen(var_value);
-	free(var_name);
-	free(var_value);
-	free(tmp);
-	free(expanser->str);
-	expanser->str = new_str;
 }
 
 void	quotation_flag_check(t_expanser *expanser)
@@ -86,6 +98,8 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
+		if (expanser->str == NULL)//cd $WWWのため
+			return (EXIT_SUCCESS);
 	}
 	expanser->str_cnt = 0;
 	while (expanser->str[expanser->str_cnt] != '\0' \

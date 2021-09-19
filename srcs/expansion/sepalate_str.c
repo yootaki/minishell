@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 18:10:51 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/19 23:19:25 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 	if (now->prev->str == NULL)//t_cmd_lstの先頭はsepせずそのままコマンドとして使うからこの処理
 	{
 		now->str = ft_strdup(expanser->str);
+		return (count);
+	}
+	else if (expanser->str == NULL)//cd $WWWのため
+	{
+		now->str = NULL;
 		return (count);
 	}
 	while (1)

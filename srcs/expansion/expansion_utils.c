@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/17 14:15:03 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/19 23:22:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*get_var_name(char *str)
 	while (str[name_len] != '\0' \
 	&& str[name_len] != '$' && str[name_len] != ' ' \
 	&& str[name_len] != '\"' && str[name_len] != '\'' \
+	&& str[name_len] != '.' \
 	&& !((str[name_len] >= 'a') && (str[name_len] <= 'z')))
 		name_len++;
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
@@ -68,7 +69,7 @@ int	categorize(t_cmd_lst *now)
 /* 変数名に使用可能な文字以外がきたら0を返す(false) */
 int	is_var_name(int c)
 {
-	if (ft_isalnum(c) || ft_isdigit(c) || c == '_')
+	if (ft_isalnum(c) || ft_isdigit(c) || c == '_' || c == '?')
 		return (1);
 	else
 		return (0);
