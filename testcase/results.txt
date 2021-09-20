@@ -20,12 +20,12 @@
 [OK]  cat <<<< end
 [KO]  echo exit | bash
 [KO]  echo -n -n -n -n hello
-[KO]  ls > a| echo > b > c
-[KO]  unknowncommand
+[OK]  ls > a| echo > b > c
+[OK]  unknowncommand
 
 
 
-[KO]  unknowncommand | commandunknown
+[OK]  unknowncommand | commandunknown
 
 
 
@@ -150,15 +150,15 @@ n 1
 1 2 3 -n
 
 [KO]  echo a '' b '' c '' d | cat -e
-a ^C b ^C c ^C d$
+a ^B b ^B c ^B d$
 a b c d$
 
 [KO]  echo a "" b "" c "" d | cat -e
-a ^A b ^A c ^A d$
+a ^B b ^B c ^B d$
 a b c d$
 
 [KO]  echo -n a '' b '' c '' d | cat -e
-a ^E b ^E c ^E d
+a ^B b ^B c ^B d
 a b c d
 
 [KO]  echo -n a "" b "" c "" d | cat -e
@@ -166,7 +166,7 @@ a ^B b ^B c ^B d
 a b c d
 
 [KO]  echo '' '' '' Echo 1 | cat -e
-^B ^B ^B Echo 1$
+^C ^C ^C Echo 1$
 Echo 1$
 
 [OK]  eCho 1 | cat -e
@@ -457,7 +457,7 @@ hello world
 
 
 
-[KO]  cat < nonexistingfile
+[OK]  cat < nonexistingfile
 
 
 
@@ -469,11 +469,11 @@ hello world
 
 
 
-[OK]  > f0 echo > f1 > f2 > f3 abc
+[KO]  > f0 echo > f1 > f2 > f3 abc
 
 
 
-[OK]  cat file1 > file | echo hello >> file
+[KO]  cat file1 > file | echo hello >> file
 
 
 
@@ -481,7 +481,7 @@ hello world
 
 
 
-[OK]  cat file1 > file | echo hello >> file | cat
+[KO]  cat file1 > file | echo hello >> file | cat
 
 
 
@@ -490,15 +490,15 @@ helloworldfoo
 helloworldfoo
 
 [KO]  echo '' | cat -e
-^B$
+^A$
 $
 
 [KO]  echo '''''' | cat -e
-^B$
+^C$
 $
 
 [KO]  echo '' '''' | cat -e
-^A ^A$
+^B ^B$
 $
 
 [OK]  echo ' ' | cat -e
@@ -509,7 +509,7 @@ $
 $
 $
 
-[KO]  'echo hello'
+[OK]  'echo hello'
 
 
 

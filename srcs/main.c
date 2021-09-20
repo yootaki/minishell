@@ -59,7 +59,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	 	free_node(node);
 		return (NULL);
 	}
-	check(node);
+	// check(node);
 	free_data(&data);
 	//free_node(node);
 	return (node);
@@ -73,7 +73,7 @@ void	loop_shell(char **envp)
 
 	envp_lst = get_envp(envp);
 	read_history(".my_history");
-	//int i = 0;
+	int i = 0;
 	while (1)
 	{
 		signal_proc();
@@ -90,7 +90,7 @@ void	loop_shell(char **envp)
 		exection(node);
 		signal_ign();
 		add_history(command);
-		printf("command = %p\n", command);
+		// printf("command = %p\n", command);
 		free(command);
 		write_history(".my_history");
 		i++;
