@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/16 16:19:55 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/20 22:18:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,19 @@ int	get_redirect_fd(t_redirect *redirect)
 		now = now->next;
 	}
 	return (fd);
+}
+
+int	check_option(char *str)
+{
+	if (*str == '-')
+		str++;
+	if (*str == '\0')
+		return (1);
+	while (*str == 'n' && *str != '\0')
+		str++;
+	if (*str == '\0')
+		return (0);
+	return (1);
 }
 
 void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
@@ -58,7 +71,7 @@ int	my_echo(t_cmd_lst *cmd, t_redirect *redirect)
 		write(redirect_fd, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
-	if (!ft_strncmp(now->str, "-n", ft_strlen(now->str)))
+	while (now != cmd && !check_option(now->str))
 	{
 		display_return = 0;
 		now = now->next;
