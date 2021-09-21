@@ -1,7 +1,5 @@
 #include "execution.h"
 
-int	g_status;
-
 void	backup_std_fd(t_data *data, int mode)
 {
 	if (mode == STD_BACKUP)

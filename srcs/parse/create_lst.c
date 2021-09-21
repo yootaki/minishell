@@ -12,6 +12,8 @@ int	create_redirect_lst(t_redirect *redirect, t_token *tokens)
 	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	tokens = tokens->next;
+	if (tokens == NULL)
+		return (EXIT_SUCCESS);
 	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
