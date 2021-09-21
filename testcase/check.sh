@@ -44,7 +44,7 @@ build_executable () {
 test_all () {
     test_syntax_error
     test_command_not_found
-    test_paths
+    # test_paths
     test_shlvl
     test_builtins
     test_separator

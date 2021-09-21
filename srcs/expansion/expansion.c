@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 23:19:55 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/21 16:05:13 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
-		if (expanser->str == NULL)//cd $WWWのため
-			return (EXIT_SUCCESS);
+		if (expanser->str == NULL)//cd $WWW, echo "", cd ""のため
+			expanser->str = ft_strdup("");
 	}
 	expanser->str_cnt = 0;
 	while (expanser->str[expanser->str_cnt] != '\0' \

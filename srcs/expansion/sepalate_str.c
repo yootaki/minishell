@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepalate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 23:19:25 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/21 16:04:15 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		now->str = ft_strdup(expanser->str);
 		return (count);
 	}
-	else if (expanser->str == NULL)//cd $WWWのため
+	else if (expanser->str == NULL || !expanser->str[0])//cd $WWWのため
 	{
 		now->str = NULL;
 		return (count);
@@ -62,9 +62,9 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		/* ここの条件タブとか入れるか要検討。現在はスペースのみ対応 */
 		if (expanser->str[expanser->str_cnt] == ' ' && start == end)
 		{
-			end = expanser->str_cnt + 1;//ここで最初に代入しておかないとスペースが連続した時に出力が合わない
 			while (expanser->str[expanser->str_cnt] == ' ')
 				expanser->str_cnt++;
+			end = expanser->str_cnt;
 		}
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
