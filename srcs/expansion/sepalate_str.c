@@ -68,11 +68,15 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		}
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
+		{
+			//free(now->str);
 			now->str = extract_str;
+		}
 		else
 		{
 			add_cmd_lst(now);
 			now = now->next;
+			//free(now->str);
 			now->str = extract_str;
 		}
 		count++;
