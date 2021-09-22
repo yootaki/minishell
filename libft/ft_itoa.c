@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/16 19:01:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/04/21 10:49:05 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/16 09:54:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char	*ft_itoa(int n)
 		if (str == NULL)
 			return (NULL);
 		str[0] = '0';
+		str[1] = '\0';
 		return (str);
 	}
 	else if (n < 0)

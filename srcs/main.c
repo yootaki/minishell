@@ -62,7 +62,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	 	free_node(node);
 		return (NULL);
 	}
-	//check(node);
+	// check(node);
 	free_data(&data);
 	//free_node(node);
 	//printf("--------get_cmdline_from_input_str_end-----\n");
@@ -77,7 +77,7 @@ void	loop_shell(char **envp)
 
 	envp_lst = get_envp(envp);
 	read_history(".my_history");
-	//int i = 0;
+	int i = 0;
 	while (1)
 	{
 		signal_proc();
@@ -88,7 +88,8 @@ void	loop_shell(char **envp)
 			ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
 			return ;
 		}
-		else if (*command == '\0')
+		node = get_cmdline_from_input_str(command, envp_lst);
+		if (expansion(node, envp_lst))
 			continue ;
 		else
 		{
@@ -113,8 +114,7 @@ void	loop_shell(char **envp)
 		//printf("command = %p\n", command);
 		free(command);
 		write_history(".my_history");
-		//system("leaks minishell");
-		//i++;
+		i++;
 	}
 	free_envplist(envp_lst);
 	//system("leaks minishell");

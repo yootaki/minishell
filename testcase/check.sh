@@ -23,6 +23,8 @@ source scripts/test_all.sh
 source scripts/test_builtins.sh
 
 init_files () {
+    rm minishell
+    cp "${SHELL_PATH}/minishell" .
     echo > "${LOG_FILE}"
     echo > ".files_before"
     echo > ".files_after"
@@ -42,7 +44,7 @@ build_executable () {
 test_all () {
     test_syntax_error
     test_command_not_found
-    test_paths
+    # test_paths
     test_shlvl
     test_builtins
     test_separator
