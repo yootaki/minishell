@@ -6,19 +6,26 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	t_cmd_lst	*c_tmp;
 
 	c_lst = cmd->next;
-	printf("c_lst->str = %s\n", c_lst->str);
+	//printf("c_lst->str = %s\n", c_lst->str);
 	while (c_lst != cmd)
 	{
-		printf("------------\n");
+		//printf("------------\n");
 		c_tmp = c_lst->next;
-		/* '$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています */
-		printf("c_lst->str = %p\n", c_lst->str);
-		printf("c_lst->str = %s\n", c_lst->str);
+		//printf("------free前--------\n");
+		//printf("c_tmp->str = %s\n", c_tmp->str);
+		//$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています
+		//printf("c_lst->str_p = %p\n", c_lst->str);
+		//printf("c_lst->str = %s\n", c_lst->str);
 		free(c_lst->str);
 		c_lst->str = NULL;
+		//printf("------free後--------\n");
+		//printf("c_lst->str = %s\n", c_lst->str);
+		//printf("c_tmp->str = %s\n", c_tmp->str)
 		free(c_lst);
 		c_lst = NULL;
 		c_lst = c_tmp;
+		//printf("c_lst->str = %s\n", c_lst->str);
+		//printf("c_tmp->str = %s\n", c_tmp->str);
 	}
 	free(c_lst);
 	c_lst = NULL;

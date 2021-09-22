@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/16 10:55:45 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/19 19:03:55 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		}
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
+		{
+			//free(now->str);
 			now->str = extract_str;
+		}
 		else
 		{
 			add_cmd_lst(now);
 			now = now->next;
+			//free(now->str);
 			now->str = extract_str;
 		}
 		count++;
