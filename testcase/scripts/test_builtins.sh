@@ -331,6 +331,8 @@ test_exit () {
     run_test "exit '    -1'"
     run_test "exit '    '"
     run_test 'exit +1'
+    run_test 'exit '+1''
+    run_test 'exit '-1''
     run_test 'exit +0'
     run_test 'exit 0'
     run_test 'exit -0'

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/21 16:06:33 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/24 00:14:31 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	get_redirect_fd(t_redirect *redirect)
 
 int	check_option(char *str)
 {
+	if (str == NULL)
+		return (1);
 	if (*str == '-')
 		str++;
 	if (*str == '\0')
@@ -48,12 +50,27 @@ int	check_option(char *str)
 
 void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
 {
+	char	last;
+	int		i;
+
 	while (now != cmd)
 	{
-		ft_putstr_fd (now->str, redirect_fd);
-		now = now->next;
-		if (now != cmd)
+		if (now->str == NULL)
+		{
 			write(redirect_fd, " ", 1);
+			now = now->next;
+		}
+		else
+		{
+			ft_putstr_fd (now->str, redirect_fd);
+			i = 0;
+			while (now->str[i])
+				i++;
+			last = now->str[i - 1];
+			if (now->next != cmd && last != ' ')
+				write(redirect_fd, " ", 1);
+			now = now->next;
+		}
 	}
 }
 
@@ -66,7 +83,7 @@ int	my_echo(t_cmd_lst *cmd, t_redirect *redirect)
 	now = cmd->next->next;
 	redirect_fd = get_redirect_fd(redirect);
 	display_return = 1;
-	if (now->str == NULL)
+	if (now->str == NULL && now->next == cmd)
 	{
 		write(redirect_fd, "\n", 1);
 		return (EXIT_SUCCESS);
