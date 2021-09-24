@@ -93,7 +93,6 @@ void	loop_shell(char **envp)
 			continue ;
 		else
 		{
-			node = get_cmdline_from_input_str(command, envp_lst);
 			//free_envplist(envp_lst);
 			//printf("------before-----\n");
 			//check(node);
@@ -104,7 +103,6 @@ void	loop_shell(char **envp)
 			//printf("-----------------\n");
 			//free_node(node);
 			//free_envplist(envp_lst);
-			expansion(node, envp_lst);
 			exection(node);
 			//free_node(node);
 			//free_envplist(envp_lst);
@@ -126,5 +124,5 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	loop_shell(envp);
 	//system("leaks minishell");
-	return (EXIT_SUCCESS);
+	return (g_status);
 }

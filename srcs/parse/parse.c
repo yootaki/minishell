@@ -30,9 +30,9 @@ int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 
 int	create_lst(t_nlst **n_lst, t_token **tokens)
 {
-	printf("------------create_lst----------\n");
-	printf("tokens->str = %s\n", (*tokens)->str);
-	printf("tokens->type = %d\n", (*tokens)->type);
+	// printf("------------create_lst----------\n");
+	// printf("tokens->str = %s\n", (*tokens)->str);
+	// printf("tokens->type = %d\n", (*tokens)->type);
 	if ((*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
 	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
 	{
@@ -45,7 +45,7 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 		if (create_cmd_lst((*n_lst)->cmd, *tokens) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	printf("------------create_lst_end----------\n");
+	// printf("------------create_lst_end----------\n");
 	return (EXIT_SUCCESS);
 }
 

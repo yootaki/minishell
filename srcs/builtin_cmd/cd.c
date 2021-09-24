@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/20 14:02:09 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/23 16:20:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 	tmp = envp_lst->next;
 	while (ft_strncmp(tmp->key, "PWD", 4) && tmp != envp_lst)
 		tmp = tmp->next;
-		g_status = 0;
-		return (EXIT_SUCCESS);
+	g_status = 0;
+	return (EXIT_SUCCESS);
 }
