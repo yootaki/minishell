@@ -12,7 +12,8 @@ void	check(t_nlst *nil)
 	t_nlst		*current;
 	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
-
+//printf("--------start---------\n");
+	//printf("nil_p = %p\n", nil);
 	current = nil->next;
 	while (current != nil)
 	{
@@ -43,6 +44,7 @@ void	check(t_nlst *nil)
 		}
 		current = current->next;
 	}
+//printf("---------end--------\n");
 }
 
 t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
@@ -89,6 +91,7 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
+		//check(node);
 		if (expansion(node, envp_lst))
 			continue ;
 		else
@@ -123,6 +126,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	loop_shell(envp);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (g_status);
 }
