@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/12 20:21:34 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/24 14:21:25 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int		my_exit(t_cmd_lst *cmd);
 char	*malloc_and_copy(char *str, int size);
 void	ft_envlstdelone(t_envlist *lst);
 void	free_envlst(t_envlist *lst);
+
+long	ft_atol(const char *str);
 
 #endif

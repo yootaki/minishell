@@ -14,11 +14,12 @@
 
 #define TOO_MANY_ARGUMENTS "minishell: exit: too many arguments\n"
 
-//数字以外が入っていたら0を返す
 static int	is_str_digit(char *str)
 {
-	if (*str == '-' || *str == '+' || *str == ' ')
+	if (*str == '-' || *str == '+')
 		str++;
+	if (!*str)
+		return (0);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -39,7 +40,7 @@ static int	ft_ovcheck(int sign, long num, long next_num)
 			|| (ov_div == num && next_num > ov_mod)))
 		return (-1);
 	if (sign == -1 && ((num > ov_div)
-			|| (ov_div == num && next_num > ov_mod)))
+			|| (ov_div == num && next_num > ov_mod + 1)))
 		return (0);
 	return (num);
 }
@@ -74,16 +75,13 @@ int	calculate_exit_status(char *str)
 {
 	long	num;
 
-	num = ft_atoi(str);
-	if (num < 0)
-	{
-		return ((num ^ 0xffffffff) + 1);
-	}
-	else if (num >= 256)
-	{
+	if (!is_str_digit(str))
+		return (255);
+	num = ft_atol(str);
+	if (num >= 0 && num <= 255)
+		return (num);
+	else
 		return (num % 256);
-	}
-	return (num);
 }
 
 int	my_exit(t_cmd_lst *cmd)
@@ -98,7 +96,7 @@ int	my_exit(t_cmd_lst *cmd)
 	{
 		if (now->str[0] != ' ')
 			count++;
-		if (count > 2)//引数が3つ以上の場合はexitせずにstatus=1になる
+		if (count > 2)
 		{
 			g_status = 1;
 			ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
@@ -108,16 +106,11 @@ int	my_exit(t_cmd_lst *cmd)
 			args[count - 1] = now->str;
 		now = now->next;
 	}
-	if (count == 1)
-	{
-		if (args[0][0] == '-' && args[0][1] != '0')
-			exit (255);
-		// exit (ft_atoi(args[0]));
-		exit (calculate_exit_status(args[0]));
-	}
-	else if (count == 1 && !is_str_digit(args[0]))
+	if ((count == 0 && now->next->next->str[0] == ' ') || longlong_over_check(args[0]))
 		exit (255);
-	//引数一つ目が数字で、二つ目が数字じゃないばあ
+	if (count == 1)
+		exit (calculate_exit_status(args[0]));
+	//ここから下の条件は要検討
 	if (count == 2 && is_str_digit(args[0]) \
 	&& !longlong_over_check(args[0]) && !is_str_digit(args[1]))
 		exit (255);
