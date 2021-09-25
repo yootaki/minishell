@@ -55,6 +55,8 @@ void	free_node(t_nlst *node)
 	t_nlst	*n_lst;
 	t_nlst	*current;
 
+	//printf("-------free_node_start-----\n");
+	//printf("node_p = %p\n", node);
 	n_lst = node->next;
 	while (n_lst != node)
 	{
@@ -66,6 +68,7 @@ void	free_node(t_nlst *node)
 		n_lst = current;
 	}
 	free(node);
+	//printf("-------free_node_end-----\n");
 }
 
 void	free_data(t_tokeniser *data)
@@ -79,6 +82,8 @@ void	free_data(t_tokeniser *data)
 		tlst = data->token->next;
 		//if (data->token->str != NULL)
 			//free(data->token->str);
+		if (data->token->type == CHAR_PIPE)
+			free(data->token->str);
 		free(data->token);
 		data->token = tlst;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/21 16:05:13 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/24 09:24:16 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 int	expansion(t_nlst *node, t_envlist *envp_lst)
 {
 	t_nlst	*now;
+	t_flag	flag;
 
 	now = node->next;
 	while (now != node)
@@ -151,6 +152,11 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 			return (EXIT_FAILURE);
 		if (heardoc_and_redirect(now->redirect, envp_lst))
 			return (EXIT_FAILURE);
+		flag = pipe_next_cmd_check(now, envp_lst, node);
+		if (flag == FAILURE)
+			return (EXIT_FAILURE);
+		if (flag == SKIP)
+			break ;
 		now = now->next;
 	}
 	return (EXIT_SUCCESS);

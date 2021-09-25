@@ -30,7 +30,6 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	t_token	*new_list;
 
 	str = ft_substr(*command, data->start, data->char_cnt);
-	// printf("str = %s\n", str);
 	if (str == NULL)
 	{
 		lst_clear(&data->token, free_line);
