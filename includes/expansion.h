@@ -30,6 +30,13 @@ enum
 	ISDIRECTORY
 };
 
+typedef enum	e_flag
+{
+	SKIP,
+	FAILURE,
+	SUCCESS
+}	t_flag;
+
 /* expansion */
 void	quotation_flag_check(t_expanser *expanser);
 int		expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env);
@@ -62,5 +69,19 @@ void	delete_quote(t_expanser *expanser);
 
 /* sepalate_str */
 int	sep_str(t_cmd_lst *now, t_expanser *expanser);
+
+
+t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst);
+char	*xstrjoin(char *s1, char const *s2);
+void	nlst_bottom_add(t_nlst *old_node, t_nlst *new_node);
+void	delete_node(t_nlst *node, t_nlst *now_node);
+
+t_token_type	check_cmd_exist(char *line);
+t_nlst	*xget_cmdline_from_input_str(char *command, t_envlist *envp_lst);
+int	add_new_node_lst(t_nlst *n_lst, t_envlist *envp_lst, char *p_line);
+int	cmd_cmb(char **p_line, char *line);
+int	add_pipe_next_cmd(char **p_line);
+t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst);
+
 
 #endif
