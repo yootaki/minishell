@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepalate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/21 16:04:15 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/25 14:07:15 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,13 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 	count = 0;
 	if (now->prev->str == NULL)//t_cmd_lstの先頭はsepせずそのままコマンドとして使うからこの処理
 	{
+		free(now->str);
 		now->str = ft_strdup(expanser->str);
 		return (count);
 	}
 	else if (expanser->str == NULL || !expanser->str[0])//cd $WWWのため
 	{
+		free(now->str);
 		now->str = NULL;
 		return (count);
 	}
@@ -69,14 +71,14 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
 		{
-			//free(now->str);
+			free(now->str);
 			now->str = extract_str;
 		}
 		else
 		{
 			add_cmd_lst(now);
 			now = now->next;
-			//free(now->str);
+			free(now->str);
 			now->str = extract_str;
 		}
 		count++;

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/24 09:24:16 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/26 08:01:42 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
+		expanser.str = ft_strdup(now->str);
+		if (expanser.str == NULL)
+			return (EXIT_FAILURE);
 		init_expanser(&expanser, now->str);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);
@@ -136,6 +139,7 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 			now->category = categorize(now);
 			now = now->next;
 		}
+		free(expanser.str);
 	}
 	return (EXIT_SUCCESS);
 }
