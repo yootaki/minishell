@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:40:44 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 21:20:05 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:14:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include "builtin_cmd.h"
 
 static int	ft_ovcheck(int sign, long num, long next_num)
 {
@@ -29,12 +29,12 @@ static int	ft_ovcheck(int sign, long num, long next_num)
 	return (num);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int		i;
-	int		sign;
-	int		check;
-	long	result;
+	int			i;
+	int			sign;
+	int			check;
+	long		result;
 
 	sign = 1;
 	result = 0;
@@ -55,5 +55,5 @@ int	ft_atoi(const char *str)
 			return (check);
 		result = result * 10 + (str[i++] - '0');
 	}
-	return ((int)(result * sign));
+	return (result * sign);
 }

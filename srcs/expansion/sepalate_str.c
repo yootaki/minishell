@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepalate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/25 14:07:15 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:42:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 	int		count;
 
 	count = 0;
-	if (now->prev->str == NULL)//t_cmd_lstの先頭はsepせずそのままコマンドとして使うからこの処理
+	if (now->prev->str == NULL)
 	{
 		free(now->str);
 		now->str = ft_strdup(expanser->str);
 		return (count);
 	}
-	else if (expanser->str == NULL || !expanser->str[0])//cd $WWWのため
+	else if (expanser->str == NULL || !expanser->str[0])
 	{
 		free(now->str);
 		now->str = NULL;
@@ -61,7 +61,6 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
 			expanser->str_cnt++;
 		end = expanser->str_cnt;
-		/* ここの条件タブとか入れるか要検討。現在はスペースのみ対応 */
 		if (expanser->str[expanser->str_cnt] == ' ' && start == end)
 		{
 			while (expanser->str[expanser->str_cnt] == ' ')
@@ -78,7 +77,6 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		{
 			add_cmd_lst(now);
 			now = now->next;
-			free(now->str);
 			now->str = extract_str;
 		}
 		count++;
