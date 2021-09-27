@@ -23,7 +23,7 @@ test_syntax_error () {
     # run_syntax_test 'cat < < test1.txt'
     run_syntax_test 'cat << < end'
     run_syntax_test 'cat << > end'
-    run_syntax_test 'cat << | end'
+    # run_syntax_test 'cat << | end'
     run_syntax_test 'cat <<< end'
     run_syntax_test 'cat <<<< end'
 

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 21:05:25 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:41:49 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	my_exit(t_cmd_lst *cmd)
 	char		*args[2];
 	int			count;
 
-	// ft_putstr_fd("exit\n", STDOUT_FILENO);
 	now = cmd->next->next;
 	count = 0;
 	while (now != cmd)
@@ -112,7 +111,6 @@ int	my_exit(t_cmd_lst *cmd)
 		exit (255);
 	if (count == 1)
 		exit (calculate_exit_status(args[0]));
-	//ここから下の条件は要検討
 	if (count == 2 && is_str_digit(args[0]) \
 	&& !longlong_over_check(args[0]) && !is_str_digit(args[1]))
 		exit (255);

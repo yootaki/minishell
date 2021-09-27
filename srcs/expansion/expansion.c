@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 20:51:24 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:08:04 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	else
 	{
 		tmp = get_var_value(var_name, env);
-		//ここ直してる途中
-		//-----------------------------------
 		if (tmp == NULL)
 		{
 			new_str = strjoin_minishell(expanser->str, \
@@ -66,7 +64,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 			free(expanser->str);
 			expanser->str = new_str;
 		}
-		//-----------------------------------
 	}
 }
 
@@ -88,7 +85,6 @@ void	quotation_flag_check(t_expanser *expanser)
 
 int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 {
-	//'\n'の条件は無限ループに入らないように一旦書いているだけです
 	while (expanser->str[expanser->str_cnt] != '\0' \
 	&& expanser->str[expanser->str_cnt] != '\n')
 	{
@@ -98,7 +94,7 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
-		if (expanser->str == NULL)//cd $WWW, echo "", cd ""のため
+		if (expanser->str == NULL)
 			expanser->str = ft_strdup("");
 	}
 	expanser->str_cnt = 0;
@@ -129,7 +125,6 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
 		add_lst_cnt = sep_str(now, &expanser);
-		//これがないとecho""がセグフォする
 		if (add_lst_cnt == 0)
 			now = now->next;
 		while (--add_lst_cnt >= 0)

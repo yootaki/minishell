@@ -44,7 +44,7 @@ LIBFT_DIR = ./libft
 
 OBJS = ${SRCS_NAME:.c=.o}
 
-CC = gcc
+CC = gcc -g -fsanitize=address
 
 # -g -fsanitize=address
 

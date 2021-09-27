@@ -6,11 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 09:40:44 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/25 21:40:58 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:14:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "builtin_cmd.h"
 
 static int	ft_ovcheck(int sign, long num, long next_num)
 {

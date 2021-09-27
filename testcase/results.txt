@@ -5,8 +5,8 @@
 [KO]  | echo
 [OK]  echo > <
 [KO]  echo | |
-[KO]  echo hello > |
-[KO]  echo hello >> |
+[OK]  echo hello > |
+[OK]  echo hello >> |
 [OK]  echo hello >
 [OK]  echo hello >>
 [OK]  echo hello > > test1.txt
@@ -15,7 +15,6 @@
 [OK]  echo hello > < test1.txt
 [OK]  cat << < end
 [OK]  cat << > end
-[OK]  cat << | end
 [KO]  cat <<< end
 [OK]  cat <<<< end
 [KO]  echo exit | bash
@@ -281,7 +280,7 @@ declare -x COLORTERM="truecolor" declare -x COMMAND_MODE="unix2003" declare -x D
 COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd.0CM2ue8p2x/org.xquartz:0 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh HOME=/Users/youheiootaki LANG=ja_JP.UTF-8 LESS=-R LOGNAME=youheiootaki LSCOLORS=Gxfxcxdxbxegedabagacad LaunchInstanceID=4B447DC0-7C29-48BC-AA0D-AA2318BA008E MAKEFLAGS= MAKELEVEL=1 MFLAGS= ORIGINAL_XDG_CURRENT_DESKTOP=undefined PAGER=less PATH=/Users/youheiootaki/.nodebrew/current/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/youheiootaki/.nodebrew/current/bin PWD=/Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase SECURITYSESSIONID=186a7 SHELL=/bin/zsh SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.hFxv6YEVXH/Listeners TERM=xterm-256color TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.60.1 TMPDIR=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/ USER=youheiootaki VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) VSCODE_GIT_IPC_HANDLE=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/vscode-git-9468d57355.sock XPC_FLAGS=0x0 XPC_SERVICE_NAME=0 ZSH=/Users/youheiootaki/.oh-my-zsh __CFBundleIdentifier=com.microsoft.VSCode __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
 COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd.0CM2ue8p2x/org.xquartz:0 GIT_ASKPASS=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh HOME=/Users/youheiootaki LANG=ja_JP.UTF-8 LESS=-R LOGNAME=youheiootaki LSCOLORS=Gxfxcxdxbxegedabagacad LaunchInstanceID=4B447DC0-7C29-48BC-AA0D-AA2318BA008E MAKEFLAGS= MAKELEVEL=1 MFLAGS= ORIGINAL_XDG_CURRENT_DESKTOP=undefined PAGER=less PATH=/Users/youheiootaki/.nodebrew/current/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/share/dotnet:/opt/X11/bin:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Applications/Postgres.app/Contents/Versions/latest/bin:/Users/youheiootaki/.nodebrew/current/bin PWD=/Users/youheiootaki/Dropbox/42Tokyo/03/minishell/testcase SECURITYSESSIONID=186a7 SHELL=/bin/zsh SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.hFxv6YEVXH/Listeners TERM=xterm-256color TERM_PROGRAM=vscode TERM_PROGRAM_VERSION=1.60.1 TMPDIR=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/ USER=youheiootaki VSCODE_GIT_ASKPASS_MAIN=/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass-main.js VSCODE_GIT_ASKPASS_NODE=/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Renderer).app/Contents/MacOS/Code Helper (Renderer) VSCODE_GIT_IPC_HANDLE=/var/folders/jj/55gwlv_161x0fp5tvnh_247c0000gn/T/vscode-git-9468d57355.sock XPC_FLAGS=0x0 XPC_SERVICE_NAME=0 ZSH=/Users/youheiootaki/.oh-my-zsh __CFBundleIdentifier=com.microsoft.VSCode __CF_USER_TEXT_ENCODING=0x1F5:0x0:0x0
 
-[KO]  exit -
+[OK]  exit -
 
 
 
@@ -289,7 +288,7 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit ' -1'
+[OK]  exit ' -1'
 
 
 
@@ -297,31 +296,31 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit +1
+[OK]  exit +1
 
 
 
-[KO]  exit +0
+[OK]  exit +0
 
 
 
-[KO]  exit 0
+[OK]  exit 0
 
 
 
-[KO]  exit -0
+[OK]  exit -0
 
 
 
-[KO]  exit -1
+[OK]  exit -1
 
 
 
-[KO]  exit ' 3'
+[OK]  exit ' 3'
 
 
 
-[KO]  exit a a
+[OK]  exit a a
 
 
 
@@ -333,11 +332,11 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit 4294967296
+[OK]  exit 4294967296
 
 
 
-[KO]  exit -4294967297
+[OK]  exit -4294967297
 
 
 
@@ -349,11 +348,11 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit Mollitia asperiores
+[OK]  exit Mollitia asperiores
 
 
 
-[KO]  exit 123 456 asperiores
+[OK]  exit 123 456 asperiores
 
 
 
@@ -365,7 +364,7 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit +922337285
+[OK]  exit +922337285
 
 
 
@@ -393,7 +392,7 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit -9223372036854775809
+[OK]  exit -9223372036854775809
 
 
 
@@ -413,7 +412,7 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit -92233720368547758099999999
+[OK]  exit -92233720368547758099999999
 
 
 
@@ -425,15 +424,15 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit ----21
+[OK]  exit ----21
 
 
 
-[KO]  exit --++-+-21
+[OK]  exit --++-+-21
 
 
 
-[KO]  exit 255
+[OK]  exit 255
 
 
 
@@ -441,7 +440,7 @@ COLORTERM=truecolor COMMAND_MODE=unix2003 DISPLAY=/private/tmp/com.apple.launchd
 
 
 
-[KO]  exit 00000000
+[OK]  exit 00000000
 
 
 
