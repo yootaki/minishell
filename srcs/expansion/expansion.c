@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/26 08:01:42 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/26 08:39:08 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		expanser.str = ft_strdup(now->str);
 		if (expanser.str == NULL)
 			return (EXIT_FAILURE);
-		init_expanser(&expanser, now->str);
+		init_expanser(&expanser);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
