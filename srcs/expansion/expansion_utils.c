@@ -6,19 +6,22 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/19 23:22:50 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 20:49:20 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
 
-void	init_expanser(t_expanser *expanser, char *str)
+int	init_expanser(t_expanser *expanser, char *str)
 {
-	expanser->str = str;
+	expanser->str = ft_strdup(str);
+	if (expanser->str == NULL)
+		return (EXIT_FAILURE);
 	expanser->str_cnt = 0;
 	expanser->dquote_flag = 0;
 	expanser->quote_flag = 0;
+	return (EXIT_SUCCESS);
 }
 
 char	*get_var_name(char *str)

@@ -12,7 +12,8 @@ void	check(t_nlst *nil)
 	t_nlst		*current;
 	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
-
+//printf("--------start---------\n");
+	//printf("nil_p = %p\n", nil);
 	current = nil->next;
 	while (current != nil)
 	{
@@ -43,6 +44,7 @@ void	check(t_nlst *nil)
 		}
 		current = current->next;
 	}
+//printf("---------end--------\n");
 }
 
 t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
@@ -51,11 +53,11 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	t_tokeniser	data;
 
 	//printf("--------get_cmdline_from_input_str_start-----\n");
-	node = init_node();
-	if (!node)
-		return (NULL);
 	lexer(&data, command);
 	if (data.token == NULL)
+		return (NULL);
+	node = init_node();
+	if (!node)
 		return (NULL);
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)
 	{
@@ -89,27 +91,30 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		if (expansion(node, envp_lst))
-			continue ;
-		else
+		if (node != NULL)
 		{
-			//free_envplist(envp_lst);
-			//printf("------before-----\n");
-			//check(node);
-			//printf("-----------------\n");
-			//expansion(node, envp_lst);
-			//printf("------after-----\n");
-			//check(node);
-			//printf("-----------------\n");
-			//free_node(node);
-			//free_envplist(envp_lst);
-			exection(node);
-			//free_node(node);
-			//free_envplist(envp_lst);
+			if (expansion(node, envp_lst))
+				continue ;
+			else
+			{
+				//free_envplist(envp_lst);
+				//printf("------before-----\n");
+				//check(node);
+				//printf("-----------------\n");
+				//expansion(node, envp_lst);
+				//printf("------after-----\n");
+				//check(node);
+				//printf("-----------------\n");
+				//free_node(node);
+				//free_envplist(envp_lst);
+				exection(node);
+				//printf("----------c-------\n");
+				//free_node(node);
+				//free_envplist(envp_lst);
+			}
 		}
 		signal_ign();
 		add_history(command);
-		//printf("command = %p\n", command);
 		free(command);
 		write_history(".my_history");
 		i++;
@@ -123,6 +128,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	loop_shell(envp);
-	//system("leaks minishell");
+	// system("leaks minishell");
 	return (g_status);
 }

@@ -25,7 +25,6 @@ int	redirect_lst_add(t_redirect *nil, t_token *tokens)
 	if (!new)
 		return (EXIT_FAILURE);
 	new->status = 0;
-	// printf("tokens = %s\n", tokens->str);
 	new->c_type = tokens->type;
 	new->str = tokens->str;
 	if (new->c_type == HEAR_DOC)

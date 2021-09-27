@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:08:43 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/22 14:11:32 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/25 13:50:38 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	redirect_file_open(t_redirect *now, t_envlist *env)
 		printf("parse error near `>'\n");
 	if (now->redirect_fd == -1)
 		return (print_error_func("open"));
+	//free(filename);
 	return (EXIT_SUCCESS);
 }

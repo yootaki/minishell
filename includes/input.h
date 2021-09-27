@@ -23,6 +23,7 @@ typedef enum e_tokentype
 	CHAR_ESCAPE = '\\',
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
+	CHAR_NULL = '\0',
 	HEAR_DOC,
 	DLESSER = 64,
 	DGREATER = 65,

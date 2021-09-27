@@ -23,6 +23,7 @@ void	no_pipe_and_builtcmd(t_nlst *node, t_data *data)
 	execute_command(node->next, data);
 	free_node(node);
 	backup_std_fd(data, STD_RESTORE);
+	//g_status = 0;
 }
 
 void	pipe_existence(t_nlst *node, t_data *data)

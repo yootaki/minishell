@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/23 23:18:53y yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:05:25 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static int	ft_ovcheck(int sign, long num, long next_num)
 
 static int	longlong_over_check(const char *str)
 {
-	int			i;
-	int			sign;
-	int			check;
-	long		result;
+	int		i;
+	int		sign;
+	int		check;
+	long	result;
 
 	sign = 1;
 	result = 0;
@@ -63,7 +63,8 @@ static int	longlong_over_check(const char *str)
 	else if (str[i] == '+')
 		i++;
 	while (str[i] != '\0' && (str[i] >= '0' && str[i] <= '9'))
-	{ check = ft_ovcheck(sign, result, str[i] - '0');
+	{
+		check = ft_ovcheck(sign, result, str[i] - '0');
 		if (result > 0 && (check == 0 || check == -1))
 			return (1);
 		result = result * 10 + (str[i++] - '0');
@@ -90,8 +91,9 @@ int	my_exit(t_cmd_lst *cmd)
 	char		*args[2];
 	int			count;
 
-	count = 0;
+	// ft_putstr_fd("exit\n", STDOUT_FILENO);
 	now = cmd->next->next;
+	count = 0;
 	while (now != cmd)
 	{
 		if (now->str[0] != ' ')
@@ -116,11 +118,5 @@ int	my_exit(t_cmd_lst *cmd)
 		exit (255);
 	else if (count == 2 && !is_str_digit(args[0]))
 		exit (255);
-	else if (count == 2)
-	{
-		g_status = 1;
-		ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
-		return (1);
-	}
-	exit (0);
+	exit (1);
 }
