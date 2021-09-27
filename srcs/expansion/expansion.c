@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/26 08:01:42 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/27 20:51:24 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,10 +123,8 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		expanser.str = ft_strdup(now->str);
-		if (expanser.str == NULL)
+		if (init_expanser(&expanser, now->str))
 			return (EXIT_FAILURE);
-		init_expanser(&expanser, now->str);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;

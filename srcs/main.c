@@ -111,7 +111,7 @@ void	loop_shell(char **envp)
 				//printf("----------c-------\n");
 				//free_node(node);
 				//free_envplist(envp_lst);
-			}	
+			}
 		}
 		signal_ign();
 		add_history(command);
@@ -128,6 +128,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	loop_shell(envp);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (g_status);
 }
