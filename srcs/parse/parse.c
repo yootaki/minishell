@@ -16,7 +16,6 @@ bool	is_next_redirect(t_token *tokens)
 
 int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 {
-	//printf("----is_type_pipe-----\n");
 	if ((*tokens)->type == CHAR_PIPE)
 	{
 		*n_lst = (*n_lst)->next;
@@ -24,16 +23,16 @@ int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 		if (*tokens == NULL)
 			return (EXIT_FAILURE);
 	}
-	//printf("----is_type_pipe_end-----\n\n");
 	return (EXIT_SUCCESS);
 }
 
 int	create_lst(t_nlst **n_lst, t_token **tokens)
 {
-	//printf("------------create_lst----------\n");
-	//printf("tokens->str = %s\n", (*tokens)->str);
-	//printf("tokens->type = %d\n", (*tokens)->type);
-	if ((*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
+	printf("str = %s\n", (*tokens)->str);
+	//printf("str = %s\n", (*tokens)->next->str);
+
+	if (((*tokens)->type == CHAR_GENERAL && ((*tokens)->next != NULL && ((*tokens)->next->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
+	|| (*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER))) || (*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
 	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
 	{
 		if (create_redirect_lst((*n_lst)->redirect, (*tokens)) == EXIT_FAILURE || (*tokens) == NULL)
@@ -45,7 +44,6 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 		if (create_cmd_lst((*n_lst)->cmd, *tokens) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	}
-	//printf("------------create_lst_end----------\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -56,16 +54,12 @@ int	syntax_analysis(t_nlst *node, t_token *tokens)
 	current = node->next;
 	while (current != node)
 	{
-		//printf("tokens->str = %s\n", tokens->str);
 		if (is_type_pipe(&current, &tokens) == EXIT_FAILURE)
 			break ;
 		if (create_lst(&current, &tokens) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		if (tokens == NULL || tokens->next == NULL)
-		{
-			//printf("------break-----\n");
 			break;
-		}
 		tokens = tokens->next;
 	}
 	return (EXIT_SUCCESS);

@@ -47,7 +47,7 @@ int		expansion(t_nlst *node, t_envlist *envp_lst);
 /* expansion_utils */
 char	*get_var_name(char *str);
 char	*get_var_value(char *str, t_envlist *env);
-int		init_expanser(t_expanser *expanser, char *str);
+void	init_expanser(t_expanser *expanser);
 int		categorize(t_cmd_lst *now);
 int		is_var_name(int c);
 
