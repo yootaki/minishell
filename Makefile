@@ -18,7 +18,7 @@ SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free
 
 SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.c heardoc.c redirect.c expansion_utils.c pipe_next_cmd_check.c pipe_next_cmd_check_utils.c
 
-SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c
+SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c ft_atol.c
 
 SRCS_EXECUTION = create_cmd_array.c exe_free_function.c execution_utils1.c execute_command.c execution_free.c execution.c get_path.c no_built_cmd.c process_function.c search_cmd.c
 
@@ -44,7 +44,7 @@ LIBFT_DIR = ./libft
 
 OBJS = ${SRCS_NAME:.c=.o}
 
-CC = gcc
+CC = gcc -g -fsanitize=address
 
 # -g -fsanitize=address
 

@@ -3,7 +3,7 @@
 bool	is_type(int c)
 {
 	/* ここの条件は見直したほうがいいと思う。 */
-	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '?' || c == ';' || c == ':' || c == '=' || c == '_')
+	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '+' || c == '?' || c == ';' || c == ':' || c == '=' || c == '_')
 		return (true);
 	return (false);
 }
@@ -54,7 +54,7 @@ void	is_quort(char **cmd, size_t *char_cnt)
 			}
 			(*cmd)++;
 			(*char_cnt)++;
-		}	
+		}
 	}
 }
 

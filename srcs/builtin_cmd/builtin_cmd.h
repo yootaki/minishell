@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/23 07:21:02 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:05:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,7 @@ int		my_exit(t_cmd_lst *cmd);
 char	*malloc_and_copy(char *str, int size);
 void	ft_envlstdelone(t_envlist *lst);
 void	free_envlst(t_envlist *lst);
+
+long	ft_atol(const char *str);
 
 #endif

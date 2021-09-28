@@ -6,17 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/17 15:58:25 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/27 21:41:49 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
 
-//数字以外が入っていたら0を返す
+#define TOO_MANY_ARGUMENTS "minishell: exit: too many arguments\n"
+
 static int	is_str_digit(char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;
+	if (!*str)
+		return (0);
 	while (*str)
 	{
 		if (!ft_isdigit(*str))
@@ -37,17 +40,17 @@ static int	ft_ovcheck(int sign, long num, long next_num)
 			|| (ov_div == num && next_num > ov_mod)))
 		return (-1);
 	if (sign == -1 && ((num > ov_div)
-			|| (ov_div == num && next_num > ov_mod)))
+			|| (ov_div == num && next_num > ov_mod + 1)))
 		return (0);
 	return (num);
 }
 
 static int	longlong_over_check(const char *str)
 {
-	int			i;
-	int			sign;
-	int			check;
-	long		result;
+	int		i;
+	int		sign;
+	int		check;
+	long	result;
 
 	sign = 1;
 	result = 0;
@@ -69,26 +72,49 @@ static int	longlong_over_check(const char *str)
 	return (0);
 }
 
-//returnで戻っていってmainのreturnで終了すべきか
-//ここでexitしても大丈夫か
+int	calculate_exit_status(char *str)
+{
+	long	num;
+
+	if (!is_str_digit(str))
+		return (255);
+	num = ft_atol(str);
+	if (num >= 0 && num <= 255)
+		return (num);
+	else
+		return (num % 256);
+}
+
 int	my_exit(t_cmd_lst *cmd)
 {
 	t_cmd_lst	*now;
+	char		*args[2];
 	int			count;
 
-	// ft_putstr_fd("exit\n", STDOUT_FILENO);
 	now = cmd->next->next;
 	count = 0;
 	while (now != cmd)
 	{
-		count++;
+		if (now->str[0] != ' ')
+			count++;
 		if (count > 2)
-			exit (255);
+		{
+			g_status = 1;
+			ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
+			return (1);
+		}
+		else if (count > 0)
+			args[count - 1] = now->str;
 		now = now->next;
 	}
-	now = cmd->next->next;
-	if (count == 2 && is_str_digit(now->str) \
-	&& !longlong_over_check(now->str) && !is_str_digit(now->next->str))
+	if ((count == 0 && now->next->next->str[0] == ' ') || longlong_over_check(args[0]))
+		exit (255);
+	if (count == 1)
+		exit (calculate_exit_status(args[0]));
+	if (count == 2 && is_str_digit(args[0]) \
+	&& !longlong_over_check(args[0]) && !is_str_digit(args[1]))
+		exit (255);
+	else if (count == 2 && !is_str_digit(args[0]))
 		exit (255);
 	exit (1);
 }
