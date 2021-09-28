@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:08:43 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/25 13:50:38 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/26 08:40:17 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ int	redirect_file_open(t_redirect *now, t_envlist *env)
 	t_expanser	expanser;
 	char		*filename;
 
-	init_expanser(&expanser, now->str);
+	expanser.str = ft_strdup(now->str);
+	if (expanser.str == NULL)
+		return (EXIT_FAILURE);
+	init_expanser(&expanser);
 	expansionvar_and_deletequote(&expanser, env);
 	filename = expanser.str;
 	if (!ft_strncmp(now->prev->str, "<", ft_strlen("<") + 1))
