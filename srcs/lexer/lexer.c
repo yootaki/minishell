@@ -56,6 +56,7 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 */
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
+	printf("command = %s\n", command);
 	while (*cmd == CHAR_WHITESPACE || *cmd == CHAR_TAB)
 	{
 		cmd++;
@@ -73,7 +74,7 @@ int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 		is_else(&cmd, &data->char_cnt);
 	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
 	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
-	|| cmd[-1] == CHAR_GREATER) && ft_isalnum(*cmd)))
+	|| cmd[-1] == CHAR_GREATER) && (ft_isalnum(*cmd) || is_type(*cmd))))
 		if (put_in_list(data, &command, &cmd) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 	if (*cmd != '\0')
