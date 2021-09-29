@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 23:42:08 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 23:59:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	else
 	{
 		tmp = ft_strjoin(expanser->str, var_value);
-		printf("%s\n", tmp);
 		new_str = ft_strjoin(tmp, \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-		printf("%s\n", new_str);
 		expanser->str_cnt += ft_strlen(var_value);
 		free(var_name);
 		free(var_value);
@@ -153,7 +151,6 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 		{
 			if (ft_strncmp(tmp->key, "_", 2))
 			{
-				// printf("debug:%s\n", tmp->value);
 				free(tmp->value);
 				if (now->cmd->prev->str == NULL)
 					tmp->value = NULL;

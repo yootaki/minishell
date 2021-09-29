@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 22:30:19 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 23:55:06 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_var_value(char *str, t_envlist *env)
 	now = env->next;
 	while (now != env)
 	{
-		if (!ft_strncmp(now->key, str, ft_strlen(str)))
+		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
 			return (ft_strdup(now->value));
 		now = now->next;
 	}
