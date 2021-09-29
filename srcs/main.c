@@ -23,9 +23,9 @@ void	check(t_nlst *nil)
 		//printf("current->cmd = %p\n", current->cmd);
 		while (c_tmp != current->cmd)
 		{
-			printf("c_str = %s\n", c_tmp->str);
+			//printf("c_str = %s\n", c_tmp->str);
 			//printf("c_str_p = %p\n", c_tmp->str);
-			printf("c_type = %d\n", c_tmp->c_type);
+			//printf("c_type = %d\n", c_tmp->c_type);
 			//printf("c_tmp_p = %p\n", c_tmp);
 			c_tmp = c_tmp->next;
 			i++;
@@ -35,9 +35,9 @@ void	check(t_nlst *nil)
 		//printf("current->redirect = %p\n", current->redirect);
 		while (r_tmp != current->redirect)
 		{
-			printf("r_str = %s\n", r_tmp->str);
+			//printf("r_str = %s\n", r_tmp->str);
 			//printf("r_str = %p\n", r_tmp->str);
-			printf("r_type = %d\n", r_tmp->c_type);
+			//printf("r_type = %d\n", r_tmp->c_type);
 			//printf("r_tmp_p = %p\n", r_tmp);
 			r_tmp = r_tmp->next;
 			i++;
@@ -96,7 +96,7 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		check(node);
+		//check(node);
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -133,7 +133,7 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	loop_shell(envp)
+	loop_shell(envp);
 	//system("leaks minishell");
 	return (g_status);
 }

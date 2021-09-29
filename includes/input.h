@@ -33,13 +33,16 @@ typedef struct s_token
 {
 	struct s_token	*next;
 	t_token_type	type;
+	int	specified_fd;
 	char			*str;
 }		t_token;
 
 typedef struct s_tokeniser
 {
 	t_token			*token;
+	size_t			cmd_len;
 	size_t			char_cnt;
+	int				flg;
 	int				start;
 }				t_tokeniser;
 
@@ -51,13 +54,13 @@ void	is_quort(char **cmd, size_t *char_cnt);
 void	is_else(char **cmd, size_t *char_cnt);
 
 /* ./lexer/lst_function.c */
-t_token	*lst_new(char *str);
+t_token	*lst_new(char *str, int flag);
 void	lst_clear (t_token **lst, void (*del)(void*));
 t_token	*lst_last(t_token *lst);
 void	lstadd_back(t_token **lst, t_token *new_list);
 
 /* ./lexer/init_datas.c */
-void	init_data(t_tokeniser *data);
+void	init_data(t_tokeniser *data, char *command);
 
 /* ./lexer/free_function.c */
 void	free_line(void *line);
@@ -67,5 +70,6 @@ int		lexer(t_tokeniser *data, char *command);
 int	character_separator(char *command, t_tokeniser *data);
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data);
 t_token_type	check_type(char *str);
+bool	is_delimiter(char *cmd);
 
 #endif

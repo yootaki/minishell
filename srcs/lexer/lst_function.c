@@ -1,6 +1,6 @@
 #include "input.h"
 
-t_token	*lst_new(char *str)
+t_token	*lst_new(char *str, int flag)
 {
 	t_token	*lst;
 
@@ -10,6 +10,7 @@ t_token	*lst_new(char *str)
 	lst->str = str;
 	lst->next = NULL;
 	lst->type = check_type(str);
+	lst->specified_fd = flag;
 	return (lst);
 }
 
