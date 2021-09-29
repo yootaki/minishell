@@ -35,7 +35,7 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 		lst_clear(&data->token, free_line);
 		return (EXIT_FAILURE);
 	}
-	new_list = lst_new(str);
+	new_list = lst_new(str, data->flg);
 	if (new_list == NULL)
 	{
 		lst_clear(&data->token, free_line);
@@ -48,35 +48,74 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	return (EXIT_SUCCESS);
 }
 
+bool	is_delimiter(char *cmd)
+{
+	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
+	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
+	|| cmd[-1] == CHAR_GREATER) && (ft_isalnum(*cmd) || is_type(*cmd))))
+		return (true);
+	return (false);
+}
+
+static void	is_functions(t_tokeniser **data, char **cmd)
+{
+	if (ft_isalpha(**cmd) || is_type(**cmd))
+		is_alnum(cmd, &(*data)->char_cnt);
+	else if (ft_isdigit(**cmd) || is_type(**cmd))
+		is_digit(cmd, &(*data)->char_cnt);
+	else if (**cmd == CHAR_QOUTE || **cmd == CHAR_DQUOTE)
+		is_quort(cmd, &(*data)->char_cnt);
+	else if (**cmd == CHAR_PIPE || **cmd == CHAR_GREATER || **cmd == CHAR_LESSER)
+		is_else(cmd, &(*data)->char_cnt);
+}
+
+static void	advance_space(t_tokeniser **data, char **cmd)
+{
+	while (**cmd == CHAR_WHITESPACE || **cmd == CHAR_TAB)
+	{
+		(*cmd)++;
+		(*data)->start++;
+	}
+}
+
 /*
 * スペース又はタブの時はスキップ
 * [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
 * エラー未対応
 * 39行目　仮置き
 */
+
+static void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
+{
+	size_t	len;
+
+	len = data->cmd_len - ft_strlen(command);
+	if (len >= 2)
+	{
+		if (ft_isdigit(cmd[-1]) && cmd[-2] == CHAR_WHITESPACE)
+			data->flg = 1;
+	}
+	else if (len >= 1)
+	{
+		if (ft_isdigit(cmd[-1]))
+			data->flg = 1;
+	}
+}
+
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
-	printf("command = %s\n", command);
-	while (*cmd == CHAR_WHITESPACE || *cmd == CHAR_TAB)
-	{
-		cmd++;
-		data->start++;
-	}
+
+	advance_space(&data, &cmd);
 	if (*cmd == '\0')
 		return (EXIT_SUCCESS);
-	if (ft_isalpha(*cmd) || is_type(*cmd))
-		is_alnum(&cmd, &data->char_cnt);
-	else if (ft_isdigit(*cmd) || is_type(*cmd))
-		is_digit(&cmd, &data->char_cnt);
-	else if (*cmd == CHAR_QOUTE || *cmd == CHAR_DQUOTE)
-		is_quort(&cmd, &data->char_cnt);
-	else if (*cmd == CHAR_PIPE || *cmd == CHAR_GREATER || *cmd == CHAR_LESSER)
-		is_else(&cmd, &data->char_cnt);
-	if (*cmd == CHAR_WHITESPACE || *cmd == '\0' || *cmd == CHAR_PIPE || *cmd == CHAR_LESSER \
-	|| *cmd == CHAR_GREATER || ((cmd[-1] == CHAR_PIPE || cmd[-1] == CHAR_LESSER \
-	|| cmd[-1] == CHAR_GREATER) && (ft_isalnum(*cmd) || is_type(*cmd))))
+	is_functions(&data, &cmd);
+	if (is_delimiter(cmd))
+	{
+		if (cmd[0] == CHAR_GREATER || cmd[0] == CHAR_LESSER)
+			is_specified_fd(cmd, data, command);
 		if (put_in_list(data, &command, &cmd) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
+	}
 	if (*cmd != '\0')
 		sep_command_line(command, cmd, data);
 	return (EXIT_SUCCESS);
@@ -94,7 +133,7 @@ int	character_separator(char *command, t_tokeniser *data)
 
 int	lexer(t_tokeniser *data, char *command)
 {
-	init_data(data);
+	init_data(data, command);
 	if (character_separator(command, data) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
