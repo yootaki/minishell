@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/23 12:51:26 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/29 15:55:46 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	check_redirect_syntax(t_redirect *now)
 		print_syntax_error(ERR_SYNTAX_NULL, 2);
 	else if (*(now->str) == '<' && *(now->str + 1) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
-	// else if (*(now->str) == '<' \
-	// && !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
-	// 	return (EXIT_SUCCESS);
+	else if (*(now->str) == '<' \
+	&& !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
+		return (EXIT_SUCCESS);
 	else if (*(now->str) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
 	else if (*(now->str) == '>' && *(now->str + 1) == '>')
@@ -65,6 +65,11 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
+		if (ft_isdigit(*(now->str)) && now->next->str[0] == '>')
+		{
+			now->fd_flag = 1;
+			now->redirect_fd = ft_atoi(now->str);
+		}
 		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
 		{
 			now = now->next;
@@ -73,7 +78,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 				//cat <<< end がきた場合に、now->next->strを標準出力に入れてあげて終了。heardocはしない。を対応すること。
 			hear_doc(now, env, now->str);
 		}
-		if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
+		else if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
 		|| !ft_strncmp(now->str, ">", ft_strlen(">") + 1) \
 		|| !ft_strncmp(now->str, ">>", ft_strlen(">>") + 1))
 		{

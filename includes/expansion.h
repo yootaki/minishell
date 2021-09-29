@@ -62,14 +62,12 @@ char	*heardoc_expansion_var(char *line, t_envlist *env);
 int		print_error_func(char *err_func);
 int		heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 
-
 /* delete_quote */
 void	delete_dquote(t_expanser *expanser);
 void	delete_quote(t_expanser *expanser);
 
 /* sepalate_str */
 int	sep_str(t_cmd_lst *now, t_expanser *expanser);
-
 
 t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst);
 char	*xstrjoin(char *s1, char const *s2);
@@ -82,6 +80,5 @@ int	add_new_node_lst(t_nlst *n_lst, t_envlist *envp_lst, char *p_line);
 int	cmd_cmb(char **p_line, char *line);
 int	add_pipe_next_cmd(char **p_line);
 t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst);
-
 
 #endif
