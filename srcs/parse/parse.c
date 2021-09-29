@@ -33,7 +33,7 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 	//printf("------------create_lst----------\n");
 	//printf("tokens->str = %s\n", (*tokens)->str);
 	//printf("tokens->type = %d\n", (*tokens)->type);
-	if ((*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
+	if ((*tokens)->specified_fd == 1 || (*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
 	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
 	{
 		if (create_redirect_lst((*n_lst)->redirect, (*tokens)) == EXIT_FAILURE || (*tokens) == NULL)

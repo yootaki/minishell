@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/28 17:14:47 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 16:43:37 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,10 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		if (init_expanser(&expanser, now->str))
+		expanser.str = ft_strdup(now->str);
+		if (expanser.str == NULL)
 			return (EXIT_FAILURE);
+		init_expanser(&expanser);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
@@ -145,6 +147,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
+		//printf("----expansion_150_START--\n");
 		if (expanser(now->cmd, envp_lst))
 			return (EXIT_FAILURE);
 		if (heardoc_and_redirect(now->redirect, envp_lst))
@@ -155,6 +158,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 		if (flag == SKIP)
 			break ;
 		now = now->next;
+		//printf("----expansion_150_END--\n");
 	}
 	return (EXIT_SUCCESS);
 }

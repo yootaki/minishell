@@ -11,8 +11,8 @@ void	check_redirect(t_nlst *node)
 		{
 			if (current->c_type == HEAR_DOC)
 			{
-				xdup2(current->next->heardoc_fd[READ], STDIN_FILENO);
-				xclose(current->next->heardoc_fd[READ]);
+				xdup2(current->next->heardoc_fd, STDIN_FILENO);
+				xclose(current->next->heardoc_fd);
 			}
 			if (current->c_type == CHAR_LESSER)
 			{

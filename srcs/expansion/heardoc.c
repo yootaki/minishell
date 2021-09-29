@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/28 17:46:42by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 16:44:07 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 	char	*line;
 	int		status;
 
+	close(pipe_fd[READ]);
 	redirect_signal_proc();
 	ft_putstr_fd("> ", 1);
 	while (1)
@@ -88,6 +89,7 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 	else if (pid == 0)
 	{
 		read_and_expansion_line(env, separator, pipe_fd);
+		close(pipe_fd[WRITE]);
 		exit (EXIT_SUCCESS);
 	}
 	else
@@ -97,6 +99,7 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 		perror("wait");
 		return (EXIT_FAILURE);
 	}
-	now->heardoc_fd = pipe_fd;
+	close(pipe_fd[WRITE]);
+	now->heardoc_fd = pipe_fd[READ];
 	return (EXIT_SUCCESS);
 }

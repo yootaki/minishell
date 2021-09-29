@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 15:55:46 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 16:46:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 			now->fd_flag = 1;
 			now->redirect_fd = ft_atoi(now->str);
 		}
-		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
+		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))//ここelse ifかも
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
