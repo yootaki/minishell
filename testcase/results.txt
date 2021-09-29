@@ -177,8 +177,8 @@ a b c d
 a b c d
 a b c d
 
-[KO]  echo '' '' '' Echo 1 | cat -e
-$
+[OK]  echo '' '' '' Echo 1 | cat -e
+Echo 1$
 Echo 1$
 
 [OK]  eCho 1 | cat -e
@@ -229,8 +229,8 @@ Echo 1$
 1$
 1$
 
-[KO]  echo "" "" "" a
-
+[OK]  echo "" "" "" a
+a
 a
 
 [KO]  1 | echo $_
@@ -509,7 +509,7 @@ $
 $
 $
 
-[KO]  echo '' '''' | cat -e
+[OK]  echo '' '''' | cat -e
 $
 $
 

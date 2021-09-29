@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/28 14:20:43 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 23:50:11 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	get_redirect_fd(t_redirect *redirect)
 
 int	check_option(char *str)
 {
+	if (str == NULL)
+		return (1);
 	if (*str == '-')
 		str++;
 	if (*str == '\0')
@@ -66,7 +68,7 @@ int	my_echo(t_cmd_lst *cmd, t_redirect *redirect)
 	now = cmd->next->next;
 	redirect_fd = get_redirect_fd(redirect);
 	display_return = 1;
-	if (now->str == NULL)
+	if (now == cmd)
 	{
 		write(redirect_fd, "\n", 1);
 		return (EXIT_SUCCESS);
