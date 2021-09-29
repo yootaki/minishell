@@ -1,5 +1,46 @@
 #include "expansion.h"
 
+void	xcheck(t_nlst *nil)
+{
+	int i = 0;
+	t_nlst		*current;
+	t_cmd_lst	*c_tmp;
+	t_redirect	*r_tmp;
+//printf("--------start---------\n");
+	//printf("nil_p = %p\n", nil);
+	current = nil->next;
+	while (current != nil)
+	{
+		i = 0;
+		//printf("current_p = %p\n", current);
+		c_tmp = current->cmd->next;
+		//printf("current->cmd = %p\n", current->cmd);
+		while (c_tmp != current->cmd)
+		{
+			printf("c_str = %s\n", c_tmp->str);
+			//printf("c_str_p = %p\n", c_tmp->str);
+			printf("c_type = %d\n", c_tmp->c_type);
+			//printf("c_tmp_p = %p\n", c_tmp);
+			c_tmp = c_tmp->next;
+			i++;
+		}
+		i = 0;
+		r_tmp = current->redirect->next;
+		//printf("current->redirect = %p\n", current->redirect);
+		while (r_tmp != current->redirect)
+		{
+			printf("r_str = %s\n", r_tmp->str);
+			//printf("r_str = %p\n", r_tmp->str);
+			//printf("r_type = %d\n", r_tmp->c_type);
+			//printf("r_tmp_p = %p\n", r_tmp);
+			r_tmp = r_tmp->next;
+			i++;
+		}
+		current = current->next;
+	}
+//printf("---------end--------\n");
+}
+
 t_token_type	check_cmd_exist(char *line)
 {
 	int	i;
@@ -48,22 +89,32 @@ int	add_new_node_lst(t_nlst *n_lst, t_envlist *envp_lst, char *p_line)
 	t_nlst		*current;
 	t_nlst		*tmp_lst;
 	
+	//printf("-------1-------\n");
 	new_node = xget_cmdline_from_input_str(p_line, envp_lst);
+	//printf("-------2-------\n");
 	if (expansion(new_node, envp_lst) == EXIT_FAILURE)
 	{
 		free_node(new_node);
 		return (EXIT_FAILURE);
 	}
+	//printf("-------3-------\n");
 	current = new_node->next;
+	//printf("-------4-------\n");
 	while (current != new_node)
 	{
 		tmp_lst = current->next;
 		nlst_bottom_add(n_lst, current);
+		//printf("-------5-------\n");
 		current = tmp_lst;
 	}
-	free(new_node->cmd);
-	free(new_node->redirect);
+	//printf("-------6-------\n");
+	//free(new_node->cmd);
+	//printf("-------7-------\n");
+	//free(new_node->redirect);
+	//printf("-------8-------\n");
+	//xcheck(n_lst);
 	free(new_node);
+	//printf("-------9-------\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -99,13 +150,17 @@ t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst)
 {
 	t_redirect	*r_now;
 	t_cmd_lst	*c_now;
+	static int i;
 	char	*p_line;
 
+	i++;
+	//printf("--pipe_next_cmd_check_START--[%d]回目\n\n", i);
 	r_now = node->redirect->next;
 	c_now = node->cmd->next;
 	p_line = NULL;
 	if (!r_now->str && !c_now->str)
 	{
+		//printf("-------exist_pipe------\n");
 		delete_node(n_lst, node);
 		if(add_pipe_next_cmd(&p_line) == EXIT_FAILURE)
 			return (FAILURE);
@@ -117,5 +172,6 @@ t_flag	pipe_next_cmd_check(t_nlst *node, t_envlist *envp_lst, t_nlst *n_lst)
 		free(p_line);
 		return (SKIP);
 	}
+	//printf("--pipe_next_cmd_check_END--[%d]回目\n\n", i);
 	return (SUCCESS);
 }
