@@ -6,11 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/09/28 05:55:28 by hryuuta          ###   ########.fr       */
-=======
-/*   Updated: 2021/09/26 08:39:08 by hryuuta          ###   ########.fr       */
->>>>>>> 25c8c37df3cf9ec6a213bc9a52fefda52c2a6437
+/*   Updated: 2021/09/29 13:10:50 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +147,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
+		//printf("----expansion_150_START--\n");
 		if (expanser(now->cmd, envp_lst))
 			return (EXIT_FAILURE);
 		if (heardoc_and_redirect(now->redirect, envp_lst))
@@ -161,6 +158,7 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 		if (flag == SKIP)
 			break ;
 		now = now->next;
+		//printf("----expansion_150_END--\n");
 	}
 	return (EXIT_SUCCESS);
 }
