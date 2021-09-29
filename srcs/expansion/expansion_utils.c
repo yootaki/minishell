@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/28 05:53:30 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/29 22:30:19 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,13 @@ char	*get_var_value(char *str, t_envlist *env)
 {
 	t_envlist	*now;
 
+	if (*str == '?')
+		return (ft_itoa(g_status));
 	now = env->next;
 	while (now != env)
 	{
 		if (!ft_strncmp(now->key, str, ft_strlen(str)))
-			return (now->value);
+			return (ft_strdup(now->value));
 		now = now->next;
 	}
 	return (NULL);

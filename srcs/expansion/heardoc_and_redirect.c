@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 16:46:55 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 21:16:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	print_syntax_error(char *str, int status)
 	g_status = status;
 }
 
-//<<<の対応、<<<と>><の違いを対応
-//コメントアウト部分を外すとなぜかテストの時だけ無限ループ。手打ちだとならない？
 int	check_redirect_syntax(t_redirect *now)
 {
 	if (now->str == NULL)
@@ -75,7 +73,6 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 			now = now->next;
 			if (check_redirect_syntax(now))
 				exit(g_status);//ここはexitするのが正解？returnが正解？
-				//cat <<< end がきた場合に、now->next->strを標準出力に入れてあげて終了。heardocはしない。を対応すること。
 			hear_doc(now, env, now->str);
 		}
 		else if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \

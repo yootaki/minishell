@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 16:44:07 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/29 21:16:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 	status = 0;
 	if (pipe(pipe_fd) == -1)
 		return (print_error_func("pipe"));
+	if (*(now->str) == '<')
+	{
+		ft_putstr_fd(now->next->str, pipe_fd[WRITE]);
+		close(pipe_fd[WRITE]);
+		now->heardoc_fd = pipe_fd[READ];//catでno such fileが出てしまう。
+		return (EXIT_SUCCESS);
+	}
 	pid = fork();
 	if (pid == -1)
 	{

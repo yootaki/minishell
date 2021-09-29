@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/22 16:23:12 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/29 22:00:48 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@ int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 	char		*dir_path;
 
 	now = cmd->next->next;
-	if (now->str == NULL)
+	if (now == cmd)//[$ cd]
 	{
 		tmp = envp_lst->next;
 		while (ft_strncmp(tmp->key, "HOME", 4) && tmp != envp_lst)
 			tmp = tmp->next;
 		dir_path = tmp->value;
 	}
+	else if (now->str == NULL)//[$ cd ""]
+		return (0);
 	else
 		dir_path = now->str;
 	if (chdir(dir_path))
