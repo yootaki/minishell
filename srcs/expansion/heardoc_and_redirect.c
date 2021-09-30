@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/23 12:51:26 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/29 21:16:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,15 @@ void	print_syntax_error(char *str, int status)
 	g_status = status;
 }
 
-//<<<の対応、<<<と>><の違いを対応
-//コメントアウト部分を外すとなぜかテストの時だけ無限ループ。手打ちだとならない？
 int	check_redirect_syntax(t_redirect *now)
 {
 	if (now->str == NULL)
 		print_syntax_error(ERR_SYNTAX_NULL, 2);
 	else if (*(now->str) == '<' && *(now->str + 1) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
-	// else if (*(now->str) == '<' \
-	// && !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
-	// 	return (EXIT_SUCCESS);
+	else if (*(now->str) == '<' \
+	&& !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
+		return (EXIT_SUCCESS);
 	else if (*(now->str) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
 	else if (*(now->str) == '>' && *(now->str + 1) == '>')
@@ -65,15 +63,19 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
-		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
+		if (ft_isdigit(*(now->str)) && now->next->str[0] == '>')
+		{
+			now->fd_flag = 1;
+			now->redirect_fd = ft_atoi(now->str);
+		}
+		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))//ここelse ifかも
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
 				exit(g_status);//ここはexitするのが正解？returnが正解？
-				//cat <<< end がきた場合に、now->next->strを標準出力に入れてあげて終了。heardocはしない。を対応すること。
 			hear_doc(now, env, now->str);
 		}
-		if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
+		else if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
 		|| !ft_strncmp(now->str, ">", ft_strlen(">") + 1) \
 		|| !ft_strncmp(now->str, ">>", ft_strlen(">>") + 1))
 		{

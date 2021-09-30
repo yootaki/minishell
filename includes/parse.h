@@ -29,6 +29,7 @@ typedef struct	s_redirect
 	struct s_redirect	*prev;
 	t_token_type		c_type;
 	int					status;
+	int					fd_flag;
 	int					heardoc_fd;
 	int					redirect_fd;
 	char				*str;
