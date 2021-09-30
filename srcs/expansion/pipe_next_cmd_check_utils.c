@@ -48,6 +48,7 @@ void	nlst_bottom_add(t_nlst *old_node, t_nlst *new_node)
 void	delete_node(t_nlst *node, t_nlst *now_node)
 {
 	if (now_node == node)
+		return ;
 	now_node->prev->next = now_node->next;
 	now_node->next->prev = now_node->prev;
 	free(now_node->redirect);

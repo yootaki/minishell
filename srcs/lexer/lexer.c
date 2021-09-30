@@ -30,12 +30,17 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	t_token	*new_list;
 
 	str = ft_substr(*command, data->start, data->char_cnt);
+	//printf("----put_in_list_START---\n");
+	//printf("str = %p\n", str);
+	//printf("str = %s\n", str);
+	//printf("data->flg = %d\n", data->flg);
 	if (str == NULL)
 	{
 		lst_clear(&data->token, free_line);
 		return (EXIT_FAILURE);
 	}
 	new_list = lst_new(str, data->flg);
+	//printf("new_lst = %p\n", new_list);
 	if (new_list == NULL)
 	{
 		lst_clear(&data->token, free_line);
@@ -45,6 +50,7 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	data->start = 0;
 	data->char_cnt = 0;
 	*command = *cmd;
+	//printf("----put_in_list_END---\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -115,6 +121,7 @@ int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 			is_specified_fd(cmd, data, command);
 		if (put_in_list(data, &command, &cmd) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
+		data->flg = 0;
 	}
 	if (*cmd != '\0')
 		sep_command_line(command, cmd, data);
