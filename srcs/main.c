@@ -160,7 +160,7 @@ int main(int argc, char **argv, char **envp)
 // 	\n");
 
 	/* 牛がminishellってtitle出す */
-	printf("\x1b[36m\
+	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\
       ____ ___  /_/___  /_/_____/ /_  ___  / / /\n\
@@ -174,7 +174,7 @@ int main(int argc, char **argv, char **envp)
                  (__)\\       )\\/\\\n\
                      ||----w |\n\
                      ||     ||\n\n\
-\x1b[39m");
+\x1b[39m", STDERR_FILENO);
 
 	loop_shell(envp);
 	// system("leaks minishell");
