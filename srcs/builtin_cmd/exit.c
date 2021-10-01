@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 21:41:49 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 22:30:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	my_exit(t_cmd_lst *cmd)
 	int			count;
 
 	now = cmd->next->next;
+	if (now == cmd)
+		exit (0);
 	count = 0;
 	while (now != cmd)
 	{
