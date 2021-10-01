@@ -37,7 +37,10 @@ int	create_envlst(t_envlist *lst, char **envp)
 		*str = '\0';
 		key = ft_strdup(*envp);
 		str++;
-		value = ft_strdup(str);
+		if (!ft_strncmp(key, "SHLVL", 6))//shlvlの値を本家に対応
+			value = ft_itoa(ft_atoi(str) + 1);
+		else
+			value = ft_strdup(str);
 		if (envp_lstmap(current, key, value) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		(envp)++;

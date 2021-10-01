@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 21:16:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 14:26:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
-		if (ft_isdigit(*(now->str)) && now->next->str[0] == '>')
+		if (ft_isdigit(*(now->str)))
 		{
-			now->fd_flag = 1;
-			now->redirect_fd = ft_atoi(now->str);
+			now->next->fd_flag = 1;
+			now->next->spec_fd = ft_atoi(now->str);
 		}
 		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))//ここelse ifかも
 		{

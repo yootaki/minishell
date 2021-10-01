@@ -54,6 +54,7 @@ test_echo ()
     run_test '1 | echo $_'
     run_test '1 | echo $_ | echo $_'
     run_test 'echo $_ | echo $_'
+    run_test 'echo $USER'
 }
 
 # test_cd () {
