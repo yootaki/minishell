@@ -137,6 +137,12 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	printf("\
+              __      __      __\n\
+   ____ ___  /_/___  /_/_____/ /_  ___  ____\n\
+  / __ `__ \\/ / __ \\/ / ____/ __ \\/ _ \\/ / /\n\
+ / / / / / / / / / / /___ \\/ / / /  __/ / /\n\
+/_/ /_/ /_/_/_/ /_/_/_____/_/ /_/\\___/_/_/\n\n");
 	loop_shell(envp);
 	// system("leaks minishell");
 	return (g_status);
