@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../../includes/parse.h"
 
 int	cmd_lst_add(t_cmd_lst *nil, t_token *token)
 {

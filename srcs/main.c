@@ -1,8 +1,8 @@
-#include "input.h"
-#include "parse.h"
-#include "utils.h"
-#include "expansion.h"
-#include "execution.h"
+#include "../includes/input.h"
+#include "../includes/parse.h"
+#include "../includes/utils.h"
+#include "../includes/expansion.h"
+#include "../includes/execution.h"
 
 int	g_status;
 

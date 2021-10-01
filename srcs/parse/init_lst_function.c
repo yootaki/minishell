@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../../includes/parse.h"
 
 t_cmd_lst	*init_cmd_lst(void)
 {
@@ -28,7 +28,7 @@ t_redirect	*init_redirect(void)
 	new->str = NULL;
 	new->c_type = 0;
 	new->fd_flag = 0;
-	new->spec_flag = 0;
+	new->spec_fd = -1;
 	new->heardoc_fd = -1;
 	new->redirect_fd = -1;
 	new->limmiter = NULL;

@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../../includes/parse.h"
 
 void	free_cmd_lst(t_cmd_lst *cmd)
 {

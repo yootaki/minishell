@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../includes/input.h"
 
 bool	is_type(int c)
 {

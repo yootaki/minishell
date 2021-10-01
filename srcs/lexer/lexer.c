@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../includes/input.h"
 
 t_token_type	check_type(char *str)
 {
