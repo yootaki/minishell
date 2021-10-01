@@ -36,7 +36,7 @@ SRCS_EXEC = ${addprefix ${EXECUTION_DIR}, ${SRCS_EXECUTION}}
 
 SRCS_U = ${addprefix ${UTILS_DIR}, ${SRCS_UTILS}}
 
-SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_E} ${SRCS_B} ${SRCS_U} ${SRCS_EXEC} ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c srcs/exection/exec_builtin.c
+SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_E} ${SRCS_B} ${SRCS_U} ${SRCS_EXEC} ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 HEADER = ./includes
 

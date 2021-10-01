@@ -25,7 +25,7 @@ char	*strjoin_2times(char *path, const char *str, char *cmd)
 
 char	*search_cmd(char *cmd, char **g_path_list)
 {
-	struct stat      stat_buf;
+	struct stat	stat_buf;
 	char	*path_cmd;
 	int		i;
 
