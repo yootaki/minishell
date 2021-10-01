@@ -42,9 +42,9 @@ typedef struct s_data
 	char	**path_list;
 	char	**cmd_array;
 	char	**cmd;
-	int	backup_stdout;
-	int	backup_stdin;
-	int	backup_error;
+	int		backup_stdout;
+	int		backup_stdin;
+	int		backup_error;
 	t_nlst	*top;
 }		t_data;
 

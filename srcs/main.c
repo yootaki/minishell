@@ -138,6 +138,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	loop_shell(envp);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (g_status);
 }
