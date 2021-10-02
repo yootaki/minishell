@@ -10,6 +10,8 @@ t_token_type	check_type(char *str)
 		return (CHAR_DQUOTE);
 	if (ft_strncmp(str, "<<", 2) == 0)
 		return (HEAR_DOC);
+	if (ft_strncmp(str, "<<<", 3) == 0)
+		return (T_LESSER);
 	if (ft_strncmp(str, ">>", 2) == 0)
 		return (DGREATER);
 	if (*str == CHAR_GREATER)
@@ -32,8 +34,8 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	str = ft_substr(*command, data->start, data->char_cnt);
 	//printf("----put_in_list_START---\n");
 	//printf("str = %p\n", str);
-	//printf("str = %s\n", str);
-	//printf("data->flg = %d\n", data->flg);
+	printf("str = %s\n", str);
+	printf("data->flg = %d\n", data->flg);
 	if (str == NULL)
 	{
 		lst_clear(&data->token, free_line);
