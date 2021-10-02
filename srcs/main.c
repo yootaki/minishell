@@ -23,10 +23,10 @@ void	check(t_nlst *nil)
 		//printf("current->cmd = %p\n", current->cmd);
 		while (c_tmp != current->cmd)
 		{
-			//printf("c_str = %s\n", c_tmp->str);
-			//printf("c_str_p = %p\n", c_tmp->str);
+			printf("c_str = %s\n", c_tmp->str);
+			printf("c_str_p = %p\n", c_tmp->str);
 			//printf("c_type = %d\n", c_tmp->c_type);
-			//printf("c_tmp_p = %p\n", c_tmp);
+			printf("c_tmp_p = %p\n", c_tmp);
 			c_tmp = c_tmp->next;
 			i++;
 		}
@@ -35,10 +35,11 @@ void	check(t_nlst *nil)
 		//printf("current->redirect = %p\n", current->redirect);
 		while (r_tmp != current->redirect)
 		{
-			//printf("r_str = %s\n", r_tmp->str);
-			//printf("r_str = %p\n", r_tmp->str);
+			//printf("------\n");
+			printf("r_str = %s\n", r_tmp->str);
+			printf("r_str = %p\n", r_tmp->str);
 			//printf("r_type = %d\n", r_tmp->c_type);
-			//printf("r_tmp_p = %p\n", r_tmp);
+			printf("r_tmp_p = %p\n", r_tmp);
 			r_tmp = r_tmp->next;
 			i++;
 		}
@@ -62,10 +63,12 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	/* while (data.token != NULL)
 	{
 		printf("str = %s\n", data.token->str);
+		printf("str_p = %p\n", data.token);
 		data.token = data.token->next;
 	} */
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)
 	{
+		free_data(&data);
 	 	free_node(node);
 		return (NULL);
 	}
@@ -96,7 +99,9 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		//check(node);
+		/* printf("------BEFORE-----\n");
+		check(node);
+		printf("-----------------\n"); */
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -108,9 +113,10 @@ void	loop_shell(char **envp)
 				//check(node);
 				//printf("-----------------\n");
 				//expansion(node, envp_lst);
-				//printf("------after-----\n");
+				/* printf("------AFTER-----\n");
 				check(node);
-				//printf("-----------------\n");
+				printf("-----------------\n"); */
+				//free_node(node);
 				//free_node(node);
 				//free_envplist(envp_lst);
 				exection(node);

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 13:10:50 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:43:55 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,29 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-	if (*var_name == '?')
-		var_value = ft_itoa(g_status);
+	var_value = get_var_value(var_name, env);
+	if (var_value == NULL)
+	{
+		new_str = strjoin_minishell(expanser->str, \
+		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
+		free(var_name);
+		free(expanser->str);
+		if (!ft_strlen(new_str))
+			expanser->str = NULL;
+		else
+			expanser->str = new_str;
+	}
 	else
 	{
-		tmp = get_var_value(var_name, env);
-		if (tmp == NULL)
-		{
-			new_str = strjoin_minishell(expanser->str, \
-			&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-			free(var_name);
-			free(tmp);
-			free(expanser->str);
-			if (!ft_strlen(new_str))
-				expanser->str = NULL;
-			else
-				expanser->str = new_str;
-		}
-		else
-		{
-			var_value = ft_strdup(tmp);
-			tmp = ft_strjoin(expanser->str, var_value);
-			new_str = ft_strjoin(tmp, \
-			&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-			expanser->str_cnt += ft_strlen(var_value);
-			free(var_name);
-			free(var_value);
-			free(tmp);
-			free(expanser->str);
-			expanser->str = new_str;
-		}
+		tmp = ft_strjoin(expanser->str, var_value);
+		new_str = ft_strjoin(tmp, \
+		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
+		expanser->str_cnt += ft_strlen(var_value);
+		free(var_name);
+		free(var_value);
+		free(tmp);
+		free(expanser->str);
+		expanser->str = new_str;
 	}
 }
 
@@ -147,9 +140,26 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
-		//printf("----expansion_150_START--\n");
 		if (expanser(now->cmd, envp_lst))
 			return (EXIT_FAILURE);
+
+		//環境変数'_'の書き換え
+		t_envlist *tmp;
+		tmp = envp_lst->next;
+		while (tmp != envp_lst)
+		{
+			if (ft_strncmp(tmp->key, "_", 2))
+			{
+				free(tmp->value);
+				if (now->cmd->prev->str == NULL)
+					tmp->value = NULL;
+				else
+					tmp->value = ft_strdup(now->cmd->prev->str);
+				break ;
+			}
+			tmp = tmp->next;
+		}
+
 		if (heardoc_and_redirect(now->redirect, envp_lst))
 			return (EXIT_FAILURE);
 		flag = pipe_next_cmd_check(now, envp_lst, node);
@@ -158,7 +168,6 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 		if (flag == SKIP)
 			break ;
 		now = now->next;
-		//printf("----expansion_150_END--\n");
 	}
 	return (EXIT_SUCCESS);
 }

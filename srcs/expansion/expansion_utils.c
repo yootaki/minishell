@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/28 05:53:30 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:53:19 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*get_var_name(char *str)
 	&& str[name_len] != '$' && str[name_len] != ' ' \
 	&& str[name_len] != '\"' && str[name_len] != '\'' \
 	&& str[name_len] != '.' \
-	&& !((str[name_len] >= 'a') && (str[name_len] <= 'z')))
+	&& !(((str[name_len] >= 'a') && (str[name_len] <= 'z')) || ft_isdigit(str[name_len])))
 		name_len++;
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
 	ft_strlcpy(var_name, str, name_len);
@@ -41,11 +41,13 @@ char	*get_var_value(char *str, t_envlist *env)
 {
 	t_envlist	*now;
 
+	if (*str == '?')
+		return (ft_itoa(g_status));
 	now = env->next;
 	while (now != env)
 	{
-		if (!ft_strncmp(now->key, str, ft_strlen(str)))
-			return (now->value);
+		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
+			return (ft_strdup(now->value));
 		now = now->next;
 	}
 	return (NULL);

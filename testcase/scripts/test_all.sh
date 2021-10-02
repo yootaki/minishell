@@ -25,6 +25,7 @@ test_syntax_error () {
     run_syntax_test 'cat << > end'
     # run_syntax_test 'cat << | end'
     run_syntax_test 'cat <<< end'
+    run_syntax_test 'echo <<< end hello'
     run_syntax_test 'cat <<<< end'
 
     # pipe中でbashを起動するテスト

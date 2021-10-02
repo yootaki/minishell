@@ -16,15 +16,20 @@ bool	is_next_redirect(t_token *tokens)
 
 int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 {
-	//printf("----is_type_pipe-----\n");
+	//printf("----is_type_pipe_START-----\n");
+	//printf("str = %s\n", (*tokens)->str);
 	if ((*tokens)->type == CHAR_PIPE)
 	{
+		//printf("----is_type_pipe-----\n");
 		*n_lst = (*n_lst)->next;
 		*tokens = (*tokens)->next;
 		if (*tokens == NULL)
+		{
+			//printf("------is_type_pipe_if-----\n");
 			return (EXIT_FAILURE);
+		}
 	}
-	//printf("----is_type_pipe_end-----\n\n");
+	//printf("----is_type_pipe_END-----\n\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -36,9 +41,9 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 	if ((*tokens)->specified_fd == 1 || (*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
 	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
 	{
-		if (create_redirect_lst((*n_lst)->redirect, (*tokens)) == EXIT_FAILURE || (*tokens) == NULL)
+		if (create_redirect_lst((*n_lst)->redirect, tokens) == EXIT_FAILURE || (*tokens) == NULL)
 			return (EXIT_FAILURE);
-		*tokens = (*tokens)->next;
+		//*tokens = (*tokens)->next;
 	}
 	else
 	{

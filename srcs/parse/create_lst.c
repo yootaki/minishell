@@ -7,15 +7,30 @@ int	create_cmd_lst(t_cmd_lst *cmd, t_token *tokens)
 	return (EXIT_SUCCESS);
 }
 
-int	create_redirect_lst(t_redirect *redirect, t_token *tokens)
+int	create_redirect_lst(t_redirect *redirect, t_token **tokens)
 {
-	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
+	//printf("---create_redirect_ls_START--\n");
+	if (redirect_lst_add(redirect, *tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	tokens = tokens->next;
-	if (tokens == NULL)
-		return (EXIT_SUCCESS);
-	if (redirect_lst_add(redirect, tokens) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
+	//printf("tokens->str = %s\n", (*tokens)->str);
+	//printf("tokens->specified_fd = %d\n", (*tokens)->specified_fd);
+	if ((*tokens)->specified_fd != 1)
+	{
+		//printf("------------------\n");
+		if ((*tokens)->next->type == CHAR_GREATER || (*tokens)->next->type == CHAR_LESSER \
+		||(*tokens)->next->type == HEAR_DOC || (*tokens)->next->type == DGREATER)
+			return (EXIT_SUCCESS);
+		else
+		{
+			*tokens = (*tokens)->next;
+			//printf("tokens->str = %s\n", tokens->str);
+			if (tokens == NULL)
+				return (EXIT_SUCCESS);
+			if (redirect_lst_add(redirect, *tokens) == EXIT_FAILURE)
+				return (EXIT_FAILURE);
+		}
+	}
+	//printf("---create_redirect_ls_END--\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -26,6 +41,7 @@ int	create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env)
 	if (tokens->type == CHAR_PIPE)
 	{
 		ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+		g_status = 258;
 		return (EXIT_FAILURE);
 	}
 	while (1)
@@ -35,6 +51,7 @@ int	create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env)
 			if (tokens->next != NULL && tokens->next->type == CHAR_PIPE)
 			{
 				ft_putendl_fd("bash: syntax error near unexpected token `|'", 2);
+				g_status = 258;
 				return (EXIT_FAILURE);
 			}
 			if (nlst_add(node, env) == EXIT_FAILURE)

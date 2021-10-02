@@ -6,6 +6,7 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	t_cmd_lst	*c_tmp;
 
 	c_lst = cmd->next;
+	//printf("---free_cmd_lst_START---\n");
 	//printf("c_lst->str = %s\n", c_lst->str);
 	while (c_lst != cmd)
 	{
@@ -14,8 +15,8 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 		//printf("------free前--------\n");
 		//printf("c_tmp->str = %s\n", c_tmp->str);
 		//$ export TEST=test'で環境変数を追加したときにセグフォになったので一旦コメントアウトしています
-		//printf("c_lst->str_p = %p\n", c_lst->str);
 		//printf("c_lst->str = %s\n", c_lst->str);
+		//printf("c_lst->str_p = %p\n", c_lst->str);
 		free(c_lst->str);
 		c_lst->str = NULL;
 		//printf("------free後--------\n");
@@ -29,6 +30,7 @@ void	free_cmd_lst(t_cmd_lst *cmd)
 	}
 	free(c_lst);
 	c_lst = NULL;
+	//printf("---free_cmd_lst_END---\n");
 }
 
 void	free_redirect_lst(t_redirect *redirect)
@@ -36,18 +38,23 @@ void	free_redirect_lst(t_redirect *redirect)
 	t_redirect	*r_tmp;
 	t_redirect	*r_lst;
 
+	//printf("---free_redirect_lst_START---\n");
 	r_lst = redirect->next;
 	while (r_lst != redirect)
 	{
 		r_tmp = r_lst->next;
+		//printf("r_lst->str_p = %p\n", r_lst->str);
+		//printf("r_lst->str = %s\n", r_lst->str);
 		free(r_lst->str);
 		r_lst->str = NULL;
+		//printf("r_lst_p = %p\n", r_lst);
 		free(r_lst);
 		r_lst = NULL;
 		r_lst = r_tmp;
 	}
 	free(r_lst);
 	r_lst = NULL;
+	//printf("---free_redirect_lst_END---\n");
 }
 
 void	free_node(t_nlst *node)
@@ -82,9 +89,23 @@ void	free_data(t_tokeniser *data)
 		tlst = data->token->next;
 		//if (data->token->str != NULL)
 			//free(data->token->str);
-		if (data->token->type == CHAR_PIPE)
+		//printf("data->token = %p\n",data->token);
+		//printf("data->token_s = %s\n",data->token->str);
+		/* if (data->token->str[0] == '2')
+		{
 			free(data->token->str);
+			data->token->str = NULL;
+		} */
+		if (data->token->type == CHAR_PIPE)
+		{
+			//printf("data->token->str_p = %p\n", data->token->str);
+			free(data->token->str);
+			data->token->str = NULL;
+		}
 		free(data->token);
+		//printf("data->token = %p\n",data->token);
+		data->token = NULL;
 		data->token = tlst;
 	}
+	free(data->token);
 }

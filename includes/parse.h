@@ -29,6 +29,7 @@ typedef struct	s_redirect
 	struct s_redirect	*prev;
 	t_token_type		c_type;
 	int					status;
+	int					fd_flag;
 	int					heardoc_fd;
 	int					redirect_fd;
 	char				*str;
@@ -53,7 +54,7 @@ void	free_data(t_tokeniser *data);
 
 /* ./parse/create_lst.c */
 int	create_cmd_lst(t_cmd_lst *cmd, t_token *tokens);
-int	create_redirect_lst(t_redirect *redirect, t_token *tokens);
+int	create_redirect_lst(t_redirect *redirect, t_token **tokens);
 int	create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env);
 
 /* ./parse/init_lst_function.c */
@@ -68,8 +69,9 @@ int	nlst_add(t_nlst *nil, t_envlist *env_lst);
 
 /* ./parse/parse.c */
 bool	is_next_redirect(t_token *tokens);
-int	create_cmd_lst(t_cmd_lst *cmd, t_token *tokens);
-int	create_redirect_lst(t_redirect *redirect, t_token *tokens);
+int	create_lst(t_nlst **n_lst, t_token **tokens);
+int	is_type_pipe(t_nlst **n_lst, t_token **tokens);
+int	syntax_analysis(t_nlst *node, t_token *tokens);
 int	parse(t_nlst *node, t_token *tokens, t_envlist *envp_lst);
 int	parse_separator(t_nlst *node, t_token *tokens, t_envlist *env);
 

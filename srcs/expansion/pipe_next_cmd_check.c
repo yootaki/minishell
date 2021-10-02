@@ -6,38 +6,40 @@ void	xcheck(t_nlst *nil)
 	t_nlst		*current;
 	t_cmd_lst	*c_tmp;
 	t_redirect	*r_tmp;
-//printf("--------start---------\n");
+	printf("--------xcheck_START---------\n");
 	//printf("nil_p = %p\n", nil);
 	current = nil->next;
 	while (current != nil)
 	{
 		i = 0;
-		//printf("current_p = %p\n", current);
+		printf("current_p = %p\n", current);
 		c_tmp = current->cmd->next;
 		//printf("current->cmd = %p\n", current->cmd);
 		while (c_tmp != current->cmd)
 		{
 			printf("c_str = %s\n", c_tmp->str);
-			//printf("c_str_p = %p\n", c_tmp->str);
-			printf("c_type = %d\n", c_tmp->c_type);
-			//printf("c_tmp_p = %p\n", c_tmp);
+			printf("c_str_p = %p\n", c_tmp->str);
+			//printf("c_type = %d\n", c_tmp->c_type);
+			printf("c_tmp_p = %p\n", c_tmp);
 			c_tmp = c_tmp->next;
 			i++;
 		}
 		i = 0;
 		r_tmp = current->redirect->next;
-		//printf("current->redirect = %p\n", current->redirect);
+		printf("current->redirect = %p\n", current->redirect);
 		while (r_tmp != current->redirect)
 		{
+			printf("-----xcheck---\n");
 			printf("r_str = %s\n", r_tmp->str);
-			//printf("r_str = %p\n", r_tmp->str);
+			printf("r_str = %p\n", r_tmp->str);
 			//printf("r_type = %d\n", r_tmp->c_type);
-			//printf("r_tmp_p = %p\n", r_tmp);
+			printf("r_tmp_p = %p\n", r_tmp);
 			r_tmp = r_tmp->next;
 			i++;
 		}
 		current = current->next;
 	}
+	printf("--------xcheck_END---------\n");
 //printf("---------end--------\n");
 }
 
@@ -99,6 +101,9 @@ int	add_new_node_lst(t_nlst *n_lst, t_envlist *envp_lst, char *p_line)
 	}
 	//printf("-------3-------\n");
 	current = new_node->next;
+	//printf("---new_node_START-----\n");
+	//xcheck(new_node);
+	//printf("---new_node_END-----\n");
 	//printf("-------4-------\n");
 	while (current != new_node)
 	{
