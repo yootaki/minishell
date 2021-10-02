@@ -48,7 +48,7 @@ void	check_redirect(t_nlst *node, t_data *data)
 				current = current->next;
 				continue ;
 			}
-			else if (current->c_type == HEAR_DOC)
+			else if (current->c_type == HEAR_DOC || current->c_type == T_LESSER)
 			{
 				change_fd(current, current->next->heardoc_fd, STDIN_FILENO, data);
 				/* if (current->spec_fd == 1)
