@@ -61,16 +61,19 @@ void	is_quort(char **cmd, size_t *char_cnt)
 void	is_else(char **cmd, size_t *char_cnt)
 {
 	char	ch;
+	int	i;
 
 	if (**cmd == CHAR_GREATER || **cmd == CHAR_LESSER)
 	{
 		ch = **cmd;
 		(*cmd)++;
 		(*char_cnt)++;
-		if (**cmd == ch)
+		i = 0;
+		while (**cmd != '\0' && **cmd == ch && i < 2)
 		{
 			(*cmd)++;
 			(*char_cnt)++;
+			i++;
 		}
 	}
 	else
