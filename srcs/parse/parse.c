@@ -1,15 +1,19 @@
 #include "../../includes/parse.h"
 #include <stdbool.h>
 
-bool	is_next_redirect(t_token *tokens)
+bool	is_next_redirect(t_token_type type, int specified_fd)
 {
-	if (tokens->next->type == CHAR_GREATER)
+	if (specified_fd == 1)
 		return (true);
-	if (tokens->next->type == CHAR_LESSER)
+	if (type == CHAR_GREATER)
 		return (true);
-	if (tokens->next->type == HEAR_DOC)
+	if (type == CHAR_LESSER)
 		return (true);
-	if (tokens->next->type == DGREATER)
+	if (type == HEAR_DOC)
+		return (true);
+	if (type == DGREATER)
+		return (true);
+	if (type == T_LESSER)
 		return (true);
 	return (false);
 }
@@ -28,7 +32,6 @@ int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 			//printf("------is_type_pipe_if-----\n");
 			return (EXIT_FAILURE);
 		}
-
 	}
 	//printf("----is_type_pipe_END-----\n\n");
 	return (EXIT_SUCCESS);
@@ -39,8 +42,7 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 	//printf("------------create_lst----------\n");
 	//printf("tokens->str = %s\n", (*tokens)->str);
 	//printf("tokens->type = %d\n", (*tokens)->type);
-	if ((*tokens)->specified_fd == 1 || (*tokens)->type == CHAR_GREATER || (*tokens)->type == CHAR_LESSER \
-	||(*tokens)->type == HEAR_DOC || (*tokens)->type == DGREATER)
+	if (is_next_redirect((*tokens)->type, (*tokens)->specified_fd))
 	{
 		if (create_redirect_lst((*n_lst)->redirect, tokens) == EXIT_FAILURE || (*tokens) == NULL)
 			return (EXIT_FAILURE);

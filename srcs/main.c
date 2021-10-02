@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 13:34:03 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 23:13:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	} */
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)
 	{
+		free_data(&data);
 	 	free_node(node);
 		return (NULL);
 	}
@@ -110,9 +111,9 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		/* printf("------BEFORE-----\n");
-		check(node);
-		printf("-----------------\n"); */
+		// printf("------BEFORE-----\n");
+		// check(node);
+		// printf("-----------------\n");
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -127,6 +128,7 @@ void	loop_shell(char **envp)
 				/* printf("------AFTER-----\n");
 				check(node);
 				printf("-----------------\n"); */
+				//free_node(node);
 				//free_node(node);
 				//free_envplist(envp_lst);
 				exection(node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:40 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/04 11:42:41 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 11:43:40 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 	while (now->str[char_cnt] != '=' && now->str[char_cnt])
 		char_cnt++;
 	env_key = malloc_and_copy(now->str, char_cnt + 1);
-	now->str += char_cnt + 1;
-	env_value = malloc_and_copy(now->str, ft_strlen(now->str) + 1);
+	env_value = malloc_and_copy(&now->str[char_cnt + 1], ft_strlen(&now->str[char_cnt + 1]) + 1);
 	tmp = envp_lst->next;
 	while (tmp != envp_lst)
 	{
@@ -49,7 +48,7 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 		tmp = tmp->next;
 	}
 	if (tmp != envp_lst)
-		tmp->value = now->str;
+		tmp->value = &now->str[char_cnt + 1];
 	else
 		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
 	return (EXIT_SUCCESS);

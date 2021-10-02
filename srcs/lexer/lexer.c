@@ -8,6 +8,8 @@ t_token_type	check_type(char *str)
 		return (CHAR_QOUTE);
 	if (*str == CHAR_DQUOTE)
 		return (CHAR_DQUOTE);
+	if (ft_strncmp(str, "<<<", 3) == 0)
+		return (T_LESSER);
 	if (ft_strncmp(str, "<<", 2) == 0)
 		return (HEAR_DOC);
 	if (ft_strncmp(str, ">>", 2) == 0)
