@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 16:43:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 22:09:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	check_redirect_syntax(t_redirect *now)
 		print_syntax_error(ERR_SYNTAX_NULL);
 	else if (*(now->str) == '<' && *(now->str + 1) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN);
-	else if (*(now->str) == '<' \
-	&& !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
-		return (EXIT_SUCCESS);
+	// else if (*(now->str) == '<' \
+	// && !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
+	// 	return (EXIT_SUCCESS);
 	else if (*(now->str) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN);
 	else if (*(now->str) == '>' && *(now->str + 1) == '>')
@@ -67,7 +67,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 	{
 		if (ft_isdigit(*(now->str)))
 		{
-			now->next->fd_flag = 1;
+			now->next->spec_flag = 1;
 			now->next->spec_fd = ft_atoi(now->str);
 		}
 		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
