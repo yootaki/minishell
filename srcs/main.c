@@ -1,8 +1,20 @@
-#include "input.h"
-#include "parse.h"
-#include "utils.h"
-#include "expansion.h"
-#include "execution.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
+/*   Updated: 2021/10/02 13:43:25 by yootaki          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/input.h"
+#include "../includes/parse.h"
+#include "../includes/utils.h"
+#include "../includes/expansion.h"
+#include "../includes/execution.h"
 
 int	g_status;
 
@@ -139,7 +151,25 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+
+	/* 牛がminishellってtitle出す */
+	ft_putstr_fd("\x1b[36m\
+  -----------------------------------------------\n\
+                 __      __      __         ____\n\
+      ____ ___  /_/___  /_/_____/ /_  ___  / / /\n\
+     / __ `__ \\/ / __ \\/ / ____/ __ \\/ _ \\/ / /\n\
+    / / / / / / / / / / /___ \\/ / / /  __/ / /\n\
+   /_/ /_/ /_/_/_/ /_/_/_____/_/ /_/\\___/_/_/\n\n\
+  -----------------------------------------------\n\
+            \\\n\
+             \\   ^__^\n\
+              \\  (oo)\\_______\n\
+                 (__)\\       )\\/\\\n\
+                     ||----w |\n\
+                     ||     ||\n\n\
+\x1b[39m", STDERR_FILENO);
+
 	loop_shell(envp);
-	//system("leaks minishell");
+	// system("leaks minishell");
 	return (g_status);
 }

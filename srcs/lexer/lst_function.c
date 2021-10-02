@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../includes/input.h"
 
 t_token	*lst_new(char *str, int flag)
 {

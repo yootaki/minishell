@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../includes/input.h"
 
 void	free_line(void *line)
 {

@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "../../includes/parse.h"
 #include <stdbool.h>
 
 bool	is_next_redirect(t_token *tokens)

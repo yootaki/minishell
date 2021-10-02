@@ -44,12 +44,16 @@ void	expansion_var(t_expanser *expanser, t_envlist *env);
 int		expanser(t_cmd_lst *cmd, t_envlist *env);
 int		expansion(t_nlst *node, t_envlist *envp_lst);
 
-/* expansion_utils */
-char	*get_var_name(char *str);
-char	*get_var_value(char *str, t_envlist *env);
+/* expansion_utils1 */
 void	init_expanser(t_expanser *expanser);
 int		categorize(t_cmd_lst *now);
+char	*strjoin_minishell(char *str1, char *str2);
+
+/* expansion_utils2 */
+char	*get_var_value(char *str, t_envlist *env);
+char	*get_var_name(char *str);
 int		is_var_name(int c);
+int		change_underbar(t_nlst *now, t_envlist *envp_lst);
 
 /* heardoc.c */
 int	hear_doc(t_redirect *now, t_envlist *env, char *separator);

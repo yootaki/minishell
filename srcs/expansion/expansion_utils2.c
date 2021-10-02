@@ -1,24 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   expansion_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/30 11:53:19 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/02 13:42:28 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
-
-void	init_expanser(t_expanser *expanser)
-{
-	expanser->str_cnt = 0;
-	expanser->dquote_flag = 0;
-	expanser->quote_flag = 0;
-}
 
 char	*get_var_name(char *str)
 {
@@ -53,17 +46,27 @@ char	*get_var_value(char *str, t_envlist *env)
 	return (NULL);
 }
 
-int	categorize(t_cmd_lst *now)
+int	change_underbar(t_nlst *now, t_envlist *envp_lst)
 {
-	struct stat		buf;
+	t_envlist	*tmp;
 
-	if (stat(now->str, &buf))
-		return (ISSTR);
-	if (S_ISREG(buf.st_mode))
-		return (ISFILE);
-	else if (S_ISDIR(buf.st_mode))
-		return (ISDIRECTORY);
-	return (ISSTR);
+	tmp = envp_lst->next;
+	while (tmp != envp_lst)
+	{
+		if (!ft_strncmp(tmp->key, "_", 2))
+		{
+			free(tmp->value);
+			if (now->cmd->prev->str == NULL)
+				tmp->value = ft_strdup("");
+			else
+				tmp->value = ft_strdup(now->cmd->prev->str);
+			if (tmp->value == NULL)
+				return (EXIT_FAILURE);
+			return (EXIT_SUCCESS);
+		}
+		tmp = tmp->next;
+	}
+	return (EXIT_FAILURE);
 }
 
 /* この判定関数は別の部分でも使用する */

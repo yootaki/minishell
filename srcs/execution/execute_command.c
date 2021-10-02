@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "../../includes/execution.h"
 
 char	*tolower_cmd(char *cmd)
 {
