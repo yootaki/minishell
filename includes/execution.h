@@ -82,7 +82,7 @@ char	**search_path(t_envlist	*envp);
 int	get_path(t_nlst *node, t_data *data);
 
 /* no_built_cmd.c */
-void	check_redirect(t_nlst *node);
+void	check_redirect(t_nlst *node, t_data *data);
 void	no_built_cmd(t_nlst *node, t_data *data);
 
 /* process_function.c */
