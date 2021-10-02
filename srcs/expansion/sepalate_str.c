@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sepalate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 21:42:09 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/30 17:32:51 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,12 @@ int	sep_str(t_cmd_lst *now, t_expanser *expanser)
 		extract_str = ft_substr(expanser->str, start, end - start);
 		if (count == 0)
 		{
+			//printf("now->str_p = %p\n", now->str);
+			//printf("now->str_s = %s\n", now->str);
 			free(now->str);
 			now->str = extract_str;
+			//printf("now->str_p = %p\n", now->str);
+			//printf("now->str_s = %s\n", now->str);
 		}
 		else
 		{
