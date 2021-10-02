@@ -2,20 +2,32 @@
 
 void	check_std_fd_in_use(int  specified_fd, t_data *data)
 {
-	if (specified_fd == data->data->backup_stdout)
+	if (specified_fd == data->backup_stdout)
+	{
+		//printf("-------1------\n");
 		data->backup_stdout = xdup(data->backup_stdout);
-	if (specified_fd == data->data->backup_stdin)
+	}
+	if (specified_fd == data->backup_stdin)
+	{
+		//printf("-------1------\n");
 		data->backup_stdin = xdup(data->backup_stdin);
-	if (specified_fd == data->data->backup_error)
-		data->backup_stderror = xdup(data->backup_stderror);
+	}
+	if (specified_fd == data->backup_error)
+	{
+		//printf("-------1------\n");
+		data->backup_error = xdup(data->backup_error);
+	}
+		
 }
 
-void	change_fd(int specified_fd, int redirect_fd, int std_fd, t_data *data)
+void	change_fd(t_redirect *r_lst, int redirect_fd, int std_fd, t_data *data)
 {
-	if (specified_fd == 1)
+	if (r_lst->fd_flag == 1)
 	{
-		check(specified_fd, data);
-		xdup2(redirect_fd, specified_fd);
+		//printf("----change_fd-----\n");
+		//printf("r_lst->spec_fd = %d\n", r_lst->spec_fd);
+		check_std_fd_in_use(r_lst->spec_fd, data);
+		xdup2(redirect_fd, r_lst->spec_fd);
 	}
 	else
 		xdup2(redirect_fd, std_fd);
@@ -38,40 +50,46 @@ void	check_redirect(t_nlst *node, t_data *data)
 			}
 			else if (current->c_type == HEAR_DOC)
 			{
-				if (current->specified_fd == 1)
+				change_fd(current, current->next->heardoc_fd, STDIN_FILENO, data);
+				/* if (current->spec_fd == 1)
 				{
-					check(current->specified_fd, data);
-					xdup2(current->next->heardoc_fd, current->specified_fd);
+					check(current->spec_fd, data);
+					xdup2(current->next->heardoc_fd, current->spec_fd);
 				}
 				else
 					xdup2(current->next->heardoc_fd, STDIN_FILENO);
-				xclose(current->next->heardoc_fd);
+				xclose(current->next->heardoc_fd); */
 			}
 			else if (current->c_type == CHAR_LESSER)
 			{
-				if (current->specified_fd == 1)
+				change_fd(current, current->next->redirect_fd, STDIN_FILENO, data);
+				/* if (current->spec_fd == 1)
 				{
-					check(current->specified_fd, data);
-					xdup2(current->next->redirect_fd, current->specified_fd);
+					check(current->spec_fd, data);
+					xdup2(current->next->redirect_fd, current->spec_fd);
 				}
 				else
 					xdup2(current->next->redirect_fd, STDIN_FILENO);
-				xclose(current->next->redirect_fd);
+				xclose(current->next->redirect_fd); */
 			}
 			else if (current->c_type == CHAR_GREATER || current->c_type == DGREATER)
 			{
-				if (current->specified_fd == 1)
+				//printf("current->redirect_fd = %d\n",current->redirect_fd);
+				//printf("current->next->redirect_fd = %d\n",current->next->redirect_fd);
+				change_fd(current, current->next->redirect_fd, STDOUT_FILENO, data);
+				/* if (current->spec_fd == 1)
 				{
-					check(current->specified_fd, data);
-					xdup2(current->next->redirect_fd, current->specified_fd);
+					check(current->spec_fd, data);
+					xdup2(current->next->redirect_fd, current->spec_fd);
 				}
 				else
 					xdup2(current->next->redirect_fd, STDOUT_FILENO);
-				xclose(current->next->redirect_fd);
+				xclose(current->next->redirect_fd); */
 			}
 			current = current->next;
 		}
 	}
+	//write(4, "hello", 5);
 }
 
 void	no_built_cmd(t_nlst *node, t_data *data)
