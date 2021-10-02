@@ -22,7 +22,7 @@ void	check_std_fd_in_use(int  specified_fd, t_data *data)
 
 void	change_fd(t_redirect *r_lst, int redirect_fd, int std_fd, t_data *data)
 {
-	if (r_lst->fd_flag == 1)
+	if (r_lst->spec_flg == 1)
 	{
 		//printf("----change_fd-----\n");
 		//printf("r_lst->spec_fd = %d\n", r_lst->spec_fd);

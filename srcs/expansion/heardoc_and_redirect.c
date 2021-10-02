@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 16:43:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 22:15:09 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 	{
 		if (ft_isdigit(*(now->str)))
 		{
-			now->next->fd_flag = 1;
+			now->next->spec_flg = 1;
 			now->next->spec_fd = ft_atoi(now->str);
 		}
 		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
