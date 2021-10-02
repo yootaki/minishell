@@ -1,4 +1,4 @@
-#include "input.h"
+#include "../../includes/input.h"
 
 void	init_data(t_tokeniser *data, char *command)
 {

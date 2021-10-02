@@ -16,7 +16,7 @@ SRCS_LEXER = lexer.c is_function.c lst_function.c free_function.c init_datas.c
 
 SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c
 
-SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.c heardoc.c redirect.c expansion_utils.c pipe_next_cmd_check.c pipe_next_cmd_check_utils.c
+SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.c heardoc.c redirect.c expansion_utils1.c expansion_utils2.c pipe_next_cmd_check.c pipe_next_cmd_check_utils.c
 
 SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c ft_atol.c
 
@@ -36,7 +36,7 @@ SRCS_EXEC = ${addprefix ${EXECUTION_DIR}, ${SRCS_EXECUTION}}
 
 SRCS_U = ${addprefix ${UTILS_DIR}, ${SRCS_UTILS}}
 
-SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_E} ${SRCS_B} ${SRCS_U} ${SRCS_EXEC} ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c srcs/exection/exec_builtin.c
+SRCS_NAME = ./srcs/main.c ${SRCS_L} ${SRCS_P} ${SRCS_E} ${SRCS_B} ${SRCS_U} ${SRCS_EXEC} ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c
 
 HEADER = ./includes
 
@@ -44,7 +44,7 @@ LIBFT_DIR = ./libft
 
 OBJS = ${SRCS_NAME:.c=.o}
 
-CC = gcc
+CC = gcc -g -fsanitize=address
 
 # -g -fsanitize=address
 

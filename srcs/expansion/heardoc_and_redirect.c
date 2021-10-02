@@ -6,18 +6,19 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 21:16:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 16:43:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
 
-#define ERR_SYNTAX_NULL "minishell: syntax error near unexpected token `newline'\n"
-#define ERR_SYNTAX_FILEIN "minishell: syntax error near unexpected token `<'\n"
-#define ERR_SYNTAX_FILEOUT "minishell: syntax error near unexpected token `>'\n"
-#define ERR_SYNTAX_FILEAPPEND "minishell: syntax error near unexpected token `>>'\n"
-#define ERR_SYNTAX_PIPE "minishell: syntax error near unexpected token `|'\n"
+#define ERR_SYNTAX "minishell: syntax error near unexpected token `"
+#define ERR_SYNTAX_NULL "newline'\n"
+#define ERR_SYNTAX_FILEIN "<'\n"
+#define ERR_SYNTAX_FILEOUT ">'\n"
+#define ERR_SYNTAX_FILEAPPEND ">>'\n"
+#define ERR_SYNTAX_PIPE "|'\n"
 
 int	print_error_func(char *err_func)
 {
@@ -25,29 +26,30 @@ int	print_error_func(char *err_func)
 	return (EXIT_FAILURE);
 }
 
-void	print_syntax_error(char *str, int status)
+void	print_syntax_error(char *str)
 {
+	ft_putstr_fd(ERR_SYNTAX, STDERR_FILENO);
 	ft_putstr_fd(str, STDERR_FILENO);
-	g_status = status;
+	g_status = 258;
 }
 
 int	check_redirect_syntax(t_redirect *now)
 {
 	if (now->str == NULL)
-		print_syntax_error(ERR_SYNTAX_NULL, 2);
+		print_syntax_error(ERR_SYNTAX_NULL);
 	else if (*(now->str) == '<' && *(now->str + 1) == '<')
-		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
+		print_syntax_error(ERR_SYNTAX_FILEIN);
 	else if (*(now->str) == '<' \
 	&& !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
 		return (EXIT_SUCCESS);
 	else if (*(now->str) == '<')
-		print_syntax_error(ERR_SYNTAX_FILEIN, 2);
+		print_syntax_error(ERR_SYNTAX_FILEIN);
 	else if (*(now->str) == '>' && *(now->str + 1) == '>')
-		print_syntax_error(ERR_SYNTAX_FILEAPPEND, 2);
+		print_syntax_error(ERR_SYNTAX_FILEAPPEND);
 	else if (*(now->str) == '>')
-		print_syntax_error(ERR_SYNTAX_FILEOUT, 2);
+		print_syntax_error(ERR_SYNTAX_FILEOUT);
 	else if (*(now->str) == '|')
-		print_syntax_error(ERR_SYNTAX_PIPE, 2);
+		print_syntax_error(ERR_SYNTAX_PIPE);
 	else
 		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
@@ -63,16 +65,16 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
-		if (ft_isdigit(*(now->str)) && now->next->str[0] == '>')
+		if (ft_isdigit(*(now->str)))
 		{
-			now->fd_flag = 1;
-			now->redirect_fd = ft_atoi(now->str);
+			now->next->fd_flag = 1;
+			now->next->spec_fd = ft_atoi(now->str);
 		}
-		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))//ここelse ifかも
+		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
-				exit(g_status);//ここはexitするのが正解？returnが正解？
+				exit(g_status);
 			hear_doc(now, env, now->str);
 		}
 		else if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
@@ -81,7 +83,7 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
-				exit(g_status);//ここはexitするのが正解？returnが正解？
+				exit(g_status);
 			redirect_file_open(now, env);
 		}
 		now = now->next;

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 21:16:03 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 16:55:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,12 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 	{
 		ft_putstr_fd(now->next->str, pipe_fd[WRITE]);
 		close(pipe_fd[WRITE]);
-		now->heardoc_fd = pipe_fd[READ];//catでno such fileが出てしまう。
+		now->heardoc_fd = pipe_fd[READ];
 		return (EXIT_SUCCESS);
 	}
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		return (EXIT_FAILURE);
-	}
+		return (print_error_func("fork"));
 	else if (pid == 0)
 	{
 		read_and_expansion_line(env, separator, pipe_fd);
@@ -102,10 +99,7 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 	else
 		wait_pid = wait(&status);
 	if (wait_pid == -1)
-	{
-		perror("wait");
-		return (EXIT_FAILURE);
-	}
+		return (print_error_func("wait"));
 	close(pipe_fd[WRITE]);
 	now->heardoc_fd = pipe_fd[READ];
 	return (EXIT_SUCCESS);

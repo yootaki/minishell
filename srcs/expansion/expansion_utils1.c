@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expansion_utils.c                                  :+:      :+:    :+:   */
+/*   expansion_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 23:55:06 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 16:18:52 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,39 +18,6 @@ void	init_expanser(t_expanser *expanser)
 	expanser->str_cnt = 0;
 	expanser->dquote_flag = 0;
 	expanser->quote_flag = 0;
-}
-
-char	*get_var_name(char *str)
-{
-	char	*var_name;
-	int		name_len;
-
-	name_len = 0;
-	while (str[name_len] != '\0' \
-	&& str[name_len] != '$' && str[name_len] != ' ' \
-	&& str[name_len] != '\"' && str[name_len] != '\'' \
-	&& str[name_len] != '.' \
-	&& !((str[name_len] >= 'a') && (str[name_len] <= 'z')))
-		name_len++;
-	var_name = (char *)malloc(sizeof(char) * (++name_len));
-	ft_strlcpy(var_name, str, name_len);
-	return (var_name);
-}
-
-char	*get_var_value(char *str, t_envlist *env)
-{
-	t_envlist	*now;
-
-	if (*str == '?')
-		return (ft_itoa(g_status));
-	now = env->next;
-	while (now != env)
-	{
-		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
-			return (ft_strdup(now->value));
-		now = now->next;
-	}
-	return (NULL);
 }
 
 int	categorize(t_cmd_lst *now)
@@ -66,12 +33,14 @@ int	categorize(t_cmd_lst *now)
 	return (ISSTR);
 }
 
-/* この判定関数は別の部分でも使用する */
-/* 変数名に使用可能な文字以外がきたら0を返す(false) */
-int	is_var_name(int c)
+char	*strjoin_minishell(char *str1, char *str2)
 {
-	if (ft_isalnum(c) || ft_isdigit(c) || c == '_' || c == '?')
-		return (1);
+	if (str1 == NULL && str2 == NULL)
+		return (NULL);
+	else if (str1 == NULL)
+		return (str2);
+	else if (str2 == NULL)
+		return (str1);
 	else
-		return (0);
+		return (ft_strjoin(str1, str2));
 }

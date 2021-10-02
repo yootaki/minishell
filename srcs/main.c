@@ -1,8 +1,8 @@
-#include "input.h"
-#include "parse.h"
-#include "utils.h"
-#include "expansion.h"
-#include "execution.h"
+#include "../includes/input.h"
+#include "../includes/parse.h"
+#include "../includes/utils.h"
+#include "../includes/expansion.h"
+#include "../includes/execution.h"
 
 int	g_status;
 
@@ -137,7 +137,46 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+
+	/* minishell title */
+// 	printf("\x1b[36m\
+//               __      __      __\n\
+//    ____ ___  /_/___  /_/_____/ /_  ___  ____\n\
+//   / __ `__ \\/ / __ \\/ / ____/ __ \\/ _ \\/ / /\n\
+//  / / / / / / / / / / /___ \\/ / / /  __/ / /\n\
+// /_/ /_/ /_/_/_/ /_/_/_____/_/ /_/\\___/_/_/\n\n\
+// \x1b[39m");
+
+	/* 牛がminishellって言う */
+// 	printf("\
+//  ___________\n\
+// < minishell >\n\
+//  -----------\n\
+//         \\   ^__^\n\
+//          \\  (oo)\\_______\n\
+//             (__)\\       )\\/\\\n\
+//                 ||----w |\n\
+//                 ||     ||\n\
+// 	\n");
+
+	/* 牛がminishellってtitle出す */
+	ft_putstr_fd("\x1b[36m\
+  -----------------------------------------------\n\
+                 __      __      __         ____\n\
+      ____ ___  /_/___  /_/_____/ /_  ___  / / /\n\
+     / __ `__ \\/ / __ \\/ / ____/ __ \\/ _ \\/ / /\n\
+    / / / / / / / / / / /___ \\/ / / /  __/ / /\n\
+   /_/ /_/ /_/_/_/ /_/_/_____/_/ /_/\\___/_/_/\n\n\
+  -----------------------------------------------\n\
+            \\\n\
+             \\   ^__^\n\
+              \\  (oo)\\_______\n\
+                 (__)\\       )\\/\\\n\
+                     ||----w |\n\
+                     ||     ||\n\n\
+\x1b[39m", STDERR_FILENO);
+
 	loop_shell(envp);
-	system("leaks minishell");
+	// system("leaks minishell");
 	return (g_status);
 }

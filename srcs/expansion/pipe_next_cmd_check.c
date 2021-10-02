@@ -1,4 +1,4 @@
-#include "expansion.h"
+#include "../../includes/expansion.h"
 
 void	xcheck(t_nlst *nil)
 {
@@ -90,7 +90,7 @@ int	add_new_node_lst(t_nlst *n_lst, t_envlist *envp_lst, char *p_line)
 	t_nlst		*new_node;
 	t_nlst		*current;
 	t_nlst		*tmp_lst;
-	
+
 	//printf("-------1-------\n");
 	new_node = xget_cmdline_from_input_str(p_line, envp_lst);
 	//printf("-------2-------\n");
@@ -134,7 +134,7 @@ int	add_pipe_next_cmd(char **p_line)
 		ft_putstr_fd("pipe > ", 1);
 		status = get_next_line(0, &line);
 		if (check_cmd_exist(line) == CHAR_GENERAL)
-		{	
+		{
 			if (cmd_cmb(p_line, line) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 			break ;

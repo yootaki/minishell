@@ -6,24 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 23:59:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/01 16:03:29by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
-
-char	*strjoin_minishell(char *str1, char *str2)
-{
-	if (str1 == NULL && str2 == NULL)
-		return (NULL);
-	else if (str1 == NULL)
-		return (str2);
-	else if (str2 == NULL)
-		return (str1);
-	else
-		return (ft_strjoin(str1, str2));
-}
 
 void	expansion_var(t_expanser *expanser, t_envlist *env)
 {
@@ -34,7 +22,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-
 	var_value = get_var_value(var_name, env);
 	if (var_value == NULL)
 	{
@@ -83,8 +70,8 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 	&& expanser->str[expanser->str_cnt] != '\n')
 	{
 		quotation_flag_check(expanser);
-		if (expanser->str[expanser->str_cnt] == '$' \
-		&& !expanser->quote_flag && is_var_name(expanser->str[expanser->str_cnt + 1]))
+		if (expanser->str[expanser->str_cnt] == '$' && !expanser->quote_flag \
+		&& is_var_name(expanser->str[expanser->str_cnt + 1]))
 			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
@@ -143,24 +130,8 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	{
 		if (expanser(now->cmd, envp_lst))
 			return (EXIT_FAILURE);
-
-		//環境変数'_'の書き換え
-		t_envlist *tmp;
-		tmp = envp_lst->next;
-		while (tmp != envp_lst)
-		{
-			if (ft_strncmp(tmp->key, "_", 2))
-			{
-				free(tmp->value);
-				if (now->cmd->prev->str == NULL)
-					tmp->value = NULL;
-				else
-					tmp->value = ft_strdup(now->cmd->prev->str);
-				break ;
-			}
-			tmp = tmp->next;
-		}
-
+		if (change_underbar(now, envp_lst))
+			return (EXIT_FAILURE);
 		if (heardoc_and_redirect(now->redirect, envp_lst))
 			return (EXIT_FAILURE);
 		flag = pipe_next_cmd_check(now, envp_lst, node);

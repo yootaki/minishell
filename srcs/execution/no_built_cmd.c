@@ -1,4 +1,4 @@
-#include "execution.h"
+#include "../../includes/execution.h"
 
 void	check_redirect(t_nlst *node)
 {
