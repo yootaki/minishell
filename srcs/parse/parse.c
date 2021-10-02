@@ -28,7 +28,6 @@ int	is_type_pipe(t_nlst **n_lst, t_token **tokens)
 			//printf("------is_type_pipe_if-----\n");
 			return (EXIT_FAILURE);
 		}
-			
 	}
 	//printf("----is_type_pipe_END-----\n\n");
 	return (EXIT_SUCCESS);
