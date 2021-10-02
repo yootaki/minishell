@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 16:16:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 13:42:28 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_var_name(char *str)
 	&& str[name_len] != '$' && str[name_len] != ' ' \
 	&& str[name_len] != '\"' && str[name_len] != '\'' \
 	&& str[name_len] != '.' \
-	&& !((str[name_len] >= 'a') && (str[name_len] <= 'z')))
+	&& !(((str[name_len] >= 'a') && (str[name_len] <= 'z')) || ft_isdigit(str[name_len])))
 		name_len++;
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
 	ft_strlcpy(var_name, str, name_len);
