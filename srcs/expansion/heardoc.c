@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 16:55:14 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/02 23:20:43 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 	status = 0;
 	if (pipe(pipe_fd) == -1)
 		return (print_error_func("pipe"));
-	if (*(now->str) == '<')
+	if (now->prev->c_type == T_LESSER)
 	{
-		ft_putstr_fd(now->next->str, pipe_fd[WRITE]);
+		ft_putstr_fd(now->str, pipe_fd[WRITE]);
+		ft_putstr_fd("\n", pipe_fd[WRITE]);
 		close(pipe_fd[WRITE]);
 		now->heardoc_fd = pipe_fd[READ];
 		return (EXIT_SUCCESS);

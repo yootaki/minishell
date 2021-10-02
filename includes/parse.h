@@ -29,7 +29,7 @@ typedef struct	s_redirect
 	struct s_redirect	*prev;
 	t_token_type		c_type;
 	int					status;
-	int					fd_flag;
+	int					spec_flg;
 	int					spec_fd;
 	int					heardoc_fd;
 	int					redirect_fd;
@@ -69,7 +69,7 @@ int	redirect_lst_add(t_redirect *nil, t_token *tokens);
 int	nlst_add(t_nlst *nil, t_envlist *env_lst);
 
 /* ./parse/parse.c */
-bool	is_next_redirect(t_token *tokens);
+bool	is_next_redirect(t_token_type type, int specified_fd);
 int	create_lst(t_nlst **n_lst, t_token **tokens);
 int	is_type_pipe(t_nlst **n_lst, t_token **tokens);
 int	syntax_analysis(t_nlst *node, t_token *tokens);

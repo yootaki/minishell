@@ -17,8 +17,7 @@ int	create_redirect_lst(t_redirect *redirect, t_token **tokens)
 	if ((*tokens)->specified_fd != 1)
 	{
 		//printf("------------------\n");
-		if ((*tokens)->next->type == CHAR_GREATER || (*tokens)->next->type == CHAR_LESSER \
-		||(*tokens)->next->type == HEAR_DOC || (*tokens)->next->type == DGREATER)
+		if (is_next_redirect((*tokens)->next->type, 0))
 			return (EXIT_SUCCESS);
 		else
 		{
