@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 23:59:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/09/30 11:43:55 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-
 	var_value = get_var_value(var_name, env);
 	if (var_value == NULL)
 	{
