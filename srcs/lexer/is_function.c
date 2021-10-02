@@ -71,6 +71,8 @@ void	is_else(char **cmd, size_t *char_cnt)
 		i = 0;
 		while (**cmd != '\0' && **cmd == ch && i < 2)
 		{
+			if (**cmd == CHAR_GREATER && i == 1)
+				break ;
 			(*cmd)++;
 			(*char_cnt)++;
 			i++;
