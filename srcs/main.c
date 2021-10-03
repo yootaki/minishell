@@ -25,7 +25,7 @@ void	check(t_nlst *nil)
 		{
 			printf("c_str = %s\n", c_tmp->str);
 			printf("c_str_p = %p\n", c_tmp->str);
-			//printf("c_type = %d\n", c_tmp->c_type);
+			printf("c_type = %d\n", c_tmp->c_type);
 			printf("c_tmp_p = %p\n", c_tmp);
 			c_tmp = c_tmp->next;
 			i++;
@@ -38,7 +38,7 @@ void	check(t_nlst *nil)
 			//printf("------\n");
 			printf("r_str = %s\n", r_tmp->str);
 			printf("r_str = %p\n", r_tmp->str);
-			//printf("r_type = %d\n", r_tmp->c_type);
+			printf("r_type = %d\n", r_tmp->c_type);
 			printf("r_tmp_p = %p\n", r_tmp);
 			r_tmp = r_tmp->next;
 			i++;
@@ -99,9 +99,9 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		printf("------BEFORE-----\n");
+		/* printf("------BEFORE-----\n");
 		check(node);
-		printf("-----------------\n");
+		printf("-----------------\n"); */
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
