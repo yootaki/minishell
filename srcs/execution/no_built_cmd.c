@@ -50,6 +50,8 @@ void	check_redirect(t_nlst *node, t_data *data)
 			}
 			else if (current->c_type == HEAR_DOC || current->c_type == T_LESSER)
 			{
+				//printf("current->heardoc_fd = %d\n", current->heardoc_fd);
+				//printf("current->next->heardoc_fd = %d\n", current->next->heardoc_fd);
 				change_fd(current, current->next->heardoc_fd, STDIN_FILENO, data);
 				/* if (current->spec_fd == 1)
 				{
