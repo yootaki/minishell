@@ -26,7 +26,6 @@ typedef enum e_tokentype
 	CHAR_NULL = '\0',
 	HEAR_DOC,
 	T_LESSER,
-	DLESSER = 64,
 	DGREATER = 65,
 }		t_token_type;
 

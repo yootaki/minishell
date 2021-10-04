@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 22:15:09 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/03 00:03:35 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ int	check_redirect_syntax(t_redirect *now)
 {
 	if (now->str == NULL)
 		print_syntax_error(ERR_SYNTAX_NULL);
+	else if (now->c_type == T_LESSER)
+		return (EXIT_SUCCESS);
 	else if (*(now->str) == '<' && *(now->str + 1) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN);
-	else if (*(now->str) == '<' \
-	&& !ft_strncmp(now->prev->str, "<<", ft_strlen("<<") + 1))
-		return (EXIT_SUCCESS);
 	else if (*(now->str) == '<')
 		print_syntax_error(ERR_SYNTAX_FILEIN);
 	else if (*(now->str) == '>' && *(now->str + 1) == '>')
@@ -67,19 +66,19 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 	{
 		if (ft_isdigit(*(now->str)))
 		{
-			now->next->spec_flg = 1;
+			now->next->spec_flag = 1;
 			now->next->spec_fd = ft_atoi(now->str);
 		}
-		if (!ft_strncmp(now->str, "<<", ft_strlen("<<") + 1))
+		if (now->c_type == HEAR_DOC || now->c_type == T_LESSER)
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
 				exit(g_status);
 			hear_doc(now, env, now->str);
 		}
-		else if (!ft_strncmp(now->str, "<", ft_strlen("<") + 1) \
-		|| !ft_strncmp(now->str, ">", ft_strlen(">") + 1) \
-		|| !ft_strncmp(now->str, ">>", ft_strlen(">>") + 1))
+		else if (now->c_type == CHAR_LESSER \
+		|| now->c_type == CHAR_GREATER \
+		|| now->c_type == DGREATER)
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
