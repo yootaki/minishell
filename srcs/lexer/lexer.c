@@ -2,6 +2,7 @@
 
 t_token_type	check_type(char *str)
 {
+	printf("str = %s\n", str);
 	if (*str == CHAR_PIPE)
 		return (CHAR_PIPE);
 	if (*str == CHAR_QOUTE)
@@ -12,12 +13,12 @@ t_token_type	check_type(char *str)
 		return (T_LESSER);
 	if (ft_strncmp(str, "<<", 2) == 0)
 		return (HEAR_DOC);
+	if (*str == CHAR_LESSER)
+		return (CHAR_LESSER);
 	if (ft_strncmp(str, ">>", 2) == 0)
 		return (DGREATER);
 	if (*str == CHAR_GREATER)
 		return (CHAR_GREATER);
-	if (*str == CHAR_LESSER)
-		return (CHAR_LESSER);
 	return (CHAR_GENERAL);
 }
 /*
