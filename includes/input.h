@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 14:06:08 by hryuuta           #+#    #+#             */
+/*   Updated: 2021/10/05 15:08:57 by hryuuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef INPUT_H
 # define INPUT_H
 
@@ -26,6 +38,7 @@ typedef enum e_tokentype
 	CHAR_NULL = '\0',
 	HEAR_DOC,
 	T_LESSER,
+	DLESSER = 64,
 	DGREATER = 65,
 }		t_token_type;
 
@@ -65,11 +78,18 @@ void	init_data(t_tokeniser *data, char *command);
 /* ./lexer/free_function.c */
 void	free_line(void *line);
 
+/* ./lexer/lexer_utils.c */
+t_token_type	check_type(char *str);
+void	proceed_command(char **cmd, char *ch, size_t *char_cnt);
+void	is_specified_fd(char *cmd, t_tokeniser *data, char *command);
+void	is_functions(t_tokeniser **data, char **cmd);
+void	advance_space(t_tokeniser **data, char **cmd);
+
 /* ./lexer/lexer.c */
 int		lexer(t_tokeniser *data, char *command);
 int	character_separator(char *command, t_tokeniser *data);
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data);
-t_token_type	check_type(char *str);
 bool	is_delimiter(char *cmd);
+int	put_in_list(t_tokeniser *data, char **command, char **cmd);
 
 #endif
