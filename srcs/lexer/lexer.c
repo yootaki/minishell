@@ -1,26 +1,16 @@
-#include "../../includes/input.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 14:02:25 by hryuuta           #+#    #+#             */
+/*   Updated: 2021/10/05 15:06:31 by hryuuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_token_type	check_type(char *str)
-{
-	printf("str = %s\n", str);
-	if (*str == CHAR_PIPE)
-		return (CHAR_PIPE);
-	if (*str == CHAR_QOUTE)
-		return (CHAR_QOUTE);
-	if (*str == CHAR_DQUOTE)
-		return (CHAR_DQUOTE);
-	if (ft_strncmp(str, "<<<", 3) == 0)
-		return (T_LESSER);
-	if (ft_strncmp(str, "<<", 2) == 0)
-		return (HEAR_DOC);
-	if (*str == CHAR_LESSER)
-		return (CHAR_LESSER);
-	if (ft_strncmp(str, ">>", 2) == 0)
-		return (DGREATER);
-	if (*str == CHAR_GREATER)
-		return (CHAR_GREATER);
-	return (CHAR_GENERAL);
-}
+#include "../../includes/input.h"
 /*
 * 分割した文字列をft_substr()で作成
 * listに作成した文字列を追加
@@ -66,50 +56,12 @@ bool	is_delimiter(char *cmd)
 	return (false);
 }
 
-static void	is_functions(t_tokeniser **data, char **cmd)
-{
-	if (ft_isalpha(**cmd) || is_type(**cmd))
-		is_alnum(cmd, &(*data)->char_cnt);
-	else if (ft_isdigit(**cmd) || is_type(**cmd))
-		is_digit(cmd, &(*data)->char_cnt);
-	else if (**cmd == CHAR_QOUTE || **cmd == CHAR_DQUOTE)
-		is_quort(cmd, &(*data)->char_cnt);
-	else if (**cmd == CHAR_PIPE || **cmd == CHAR_GREATER || **cmd == CHAR_LESSER)
-		is_else(cmd, &(*data)->char_cnt);
-}
-
-static void	advance_space(t_tokeniser **data, char **cmd)
-{
-	while (**cmd == CHAR_WHITESPACE || **cmd == CHAR_TAB)
-	{
-		(*cmd)++;
-		(*data)->start++;
-	}
-}
-
 /*
 * スペース又はタブの時はスキップ
 * [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
 * エラー未対応
 * 39行目　仮置き
 */
-
-static void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
-{
-	size_t	len;
-
-	len = data->cmd_len - ft_strlen(command);
-	if (len >= 2)
-	{
-		if (ft_isdigit(cmd[-1]) && cmd[-2] == CHAR_WHITESPACE)
-			data->flg = 1;
-	}
-	else if (len >= 1)
-	{
-		if (ft_isdigit(cmd[-1]))
-			data->flg = 1;
-	}
-}
 
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {
