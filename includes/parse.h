@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 14:06:12 by hryuuta           #+#    #+#             */
+/*   Updated: 2021/10/05 14:24:58 by hryuuta          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSE_H
 # define PARSE_H
 
@@ -29,7 +41,7 @@ typedef struct	s_redirect
 	struct s_redirect	*prev;
 	t_token_type		c_type;
 	int					status;
-	int					spec_flag;
+	int					spec_flg;
 	int					spec_fd;
 	int					heardoc_fd;
 	int					redirect_fd;
