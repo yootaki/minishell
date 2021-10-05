@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:02:52 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/05 14:36:53 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_redirect	*init_redirect(void)
 	new->prev = new;
 	new->str = NULL;
 	new->c_type = 0;
-	new->spec_flag = 0;
+	new->spec_flg = 0;
 	new->spec_fd = -1;
 	new->heardoc_fd = -1;
 	new->redirect_fd = -1;

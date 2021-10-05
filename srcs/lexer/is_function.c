@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:19 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:02:20 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/05 15:05:04 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 bool	is_type(int c)
 {
 	/* ここの条件は見直したほうがいいと思う。 */
-	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '&' || c == '+' || c == '?' || c == ';' || c == ':' || c == '=' || c == '_')
+	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '&' \
+	|| c == '+' || c == '?' || c == ';' || c == ':' || c == '=' || c == '_')
 		return (true);
 	return (false);
 }
@@ -45,11 +46,7 @@ void	is_quort(char **cmd, size_t *char_cnt)
 	ch = **cmd;
 	(*cmd)++;
 	(*char_cnt)++;
-	while (**cmd != ch && **cmd != '\0')
-	{
-		(*cmd)++;
-		(*char_cnt)++;
-	}
+	proceed_command(cmd, &ch, char_cnt);
 	if (**cmd != '\0')
 	{
 		(*cmd)++;
@@ -59,13 +56,12 @@ void	is_quort(char **cmd, size_t *char_cnt)
 			ch = **cmd;
 			(*cmd)++;
 			(*char_cnt)++;
-			while (**cmd != ch && **cmd != '\0')
+			proceed_command(cmd, &ch, char_cnt);
+			if (**cmd != '\0')
 			{
 				(*cmd)++;
 				(*char_cnt)++;
 			}
-			(*cmd)++;
-			(*char_cnt)++;
 		}
 	}
 }
