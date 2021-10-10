@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:03:54 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/10 19:56:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute_command(t_nlst *node, t_data *data)
 
 	cmd = tolower_cmd(node->cmd->next->str);
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		my_echo(node->cmd, node->redirect);
+		my_echo(node->cmd);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		my_cd(node->cmd, node->envp_lst);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))

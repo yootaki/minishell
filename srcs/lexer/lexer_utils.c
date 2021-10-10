@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 15:20:39 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/10 19:26:30 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token_type	check_type(char *str)
 {
-	printf("str = %s\n", str);
+	// printf("str = %s\n", str);
 	if (*str == CHAR_PIPE)
 		return (CHAR_PIPE);
 	if (*str == CHAR_QOUTE)
@@ -36,10 +36,10 @@ t_token_type	check_type(char *str)
 
 void	proceed_command(char **cmd, char *ch, size_t *char_cnt)
 {
-	printf("ch = %c\n", *ch);
+	// printf("ch = %c\n", *ch);
 	while (**cmd != *ch && **cmd != '\0')
 	{
-		printf("**cmd = %c\n", **cmd);
+		// printf("**cmd = %c\n", **cmd);
 		(*cmd)++;
 		(*char_cnt)++;
 	}

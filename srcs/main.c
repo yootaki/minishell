@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 23:13:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/10 18:03:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	/* 牛がminishellってtitle出す */
 	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\

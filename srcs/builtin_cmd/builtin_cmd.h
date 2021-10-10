@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/27 21:05:50 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/10 19:56:18 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 extern int	g_status;
 
-int		my_echo(t_cmd_lst *cmd, t_redirect *redirect);
+int		my_echo(t_cmd_lst *cmd);
 int		my_cd(t_cmd_lst *cmd, t_envlist *envp_lst);
 int		my_env(t_envlist *envp_lst);
 int		my_export(t_cmd_lst *cmd, t_envlist *envp_lst);
