@@ -13,6 +13,8 @@
 #include "builtin_cmd.h"
 #include "../../includes/utils.h"
 
+#define VALID_IDENTIFIER "minishell: export: `': not a valid identifier\n"
+
 char	*malloc_and_copy(char *str, int size)
 {
 	char	*new_str;
@@ -114,11 +116,7 @@ void	sort_and_print_env(t_envlist *envp_lst)
 	tmp = tmp_new->next;
 	while (tmp != tmp_new)
 	{
-		ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putstr_fd(tmp->key, STDERR_FILENO);
-		ft_putstr_fd("=", STDERR_FILENO);
-		ft_putstr_fd(tmp->value, STDERR_FILENO);
-		ft_putstr_fd("\n", STDERR_FILENO);
+		printf("declare -x %s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }
@@ -132,26 +130,42 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 	int			char_cnt;
 
 	now = cmd->next->next;
+	g_status = 0;
 	if (now == cmd)
 	{
 		sort_and_print_env(envp_lst);
-		return (EXIT_SUCCESS);
+		return (g_status);
 	}
-	char_cnt = 0;
-	while (now->str[char_cnt] != '=' && now->str[char_cnt])
-		char_cnt++;
-	env_key = malloc_and_copy(now->str, char_cnt + 1);
-	env_value = malloc_and_copy(&now->str[char_cnt + 1], ft_strlen(&now->str[char_cnt + 1]) + 1);
-	tmp = envp_lst->next;
-	while (tmp != envp_lst)
+
+	while (now != cmd)
 	{
-		if (!ft_strncmp(tmp->key, env_key, ft_strlen(tmp->key) + 1))
-			break ;
-		tmp = tmp->next;
+		//export ""のようにnullを指定された場合の処理
+		if (now->str == NULL)
+		{
+			ft_putstr_fd(VALID_IDENTIFIER, STDERR_FILENO);
+			g_status = 1;
+			now = now->next;
+			continue ;
+		}
+
+		char_cnt = 0;
+		while (now->str[char_cnt] != '=' && now->str[char_cnt])
+			char_cnt++;
+		//ここのmallocエラーはreturnとexitどっちにするか検討
+		env_key = malloc_and_copy(now->str, char_cnt + 1);
+		env_value = malloc_and_copy(&now->str[char_cnt + 1], ft_strlen(&now->str[char_cnt + 1]) + 1);
+		tmp = envp_lst->next;
+		while (tmp != envp_lst)
+		{
+			if (!ft_strncmp(tmp->key, env_key, ft_strlen(tmp->key) + 1))
+				break ;
+			tmp = tmp->next;
+		}
+		if (tmp != envp_lst)
+			tmp->value = &now->str[char_cnt + 1];
+		else
+			ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
+		now = now->next;
 	}
-	if (tmp != envp_lst)
-		tmp->value = &now->str[char_cnt + 1];
-	else
-		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
-	return (EXIT_SUCCESS);
+	return (g_status);
 }
