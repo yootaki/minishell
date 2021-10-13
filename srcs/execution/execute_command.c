@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/12 19:08:57 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 03:45:25 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	execute_command(t_nlst *node, t_data *data)
 	if (cmd == NULL)
 		no_built_cmd(node, data);
 	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
-		my_echo(node->cmd, node->redirect);
+		my_echo(node->cmd);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		my_cd(node->cmd, node->envp_lst);
 	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
