@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 23:50:11 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/14 03:42:07 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
 	}
 }
 
-int	my_echo(t_cmd_lst *cmd, t_redirect *redirect)
+int	my_echo(t_cmd_lst *cmd)
 {
 	t_cmd_lst	*now;
 	int			display_return;
 	int			redirect_fd;
 
 	now = cmd->next->next;
-	redirect_fd = get_redirect_fd(redirect);
+	redirect_fd = STDOUT_FILENO;
 	display_return = 1;
 	if (now == cmd)
 	{
