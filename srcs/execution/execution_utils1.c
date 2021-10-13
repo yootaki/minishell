@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:02 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:04:03 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/06 14:11:56 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ void	init_execution(t_data *data, t_nlst *node)
 
 int	is_builtin_cmd(char *cmd)
 {
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	if (cmd == NULL)
+		return (OTHER);
+	else if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
 		return (ECHO);
 	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
 		return (CD);

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:22 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:04:23 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:04:57 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	ft_call_parent(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
 int	execution_process(t_nlst *node, t_data *data)
 {
 	t_nlst	*current;
-	int	pipefd[FD_NUM];
-	int	pid;
-	int	prev_read_fd;
+	int		pipefd[FD_NUM];
+	int		pid;
+	int		prev_read_fd;
 
 	prev_read_fd = STDIN_FILENO;
 	current = node->next;

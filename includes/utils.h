@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:06:17 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 02:57:08 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdbool.h>
-#include <string.h>
+# include <string.h>
 # include <errno.h>
 
-typedef struct	s_envlist
+typedef struct s_envlist
 {
 	struct s_envlist	*prev;
 	struct s_envlist	*next;
@@ -40,31 +40,31 @@ int			ft_envlstsize(t_envlist *lst);
 void		free_envplist(t_envlist *nil);
 
 /* ./utils/get_envp.c */
-int		envp_lstmap(t_envlist *envp, char *key, char *value);
-int		create_envlst(t_envlist *lst, char **envp);
 t_envlist	*get_envp(char **envp);
+int			envp_lstmap(t_envlist *envp, char *key, char *value);
+int			create_envlst(t_envlist *lst, char **envp);
 
 /* signal_main.c */
-void	sig_int_input();
-void	sig_term_input();
-void	sig_quit_input();
-void	signal_proc();
-void	signal_ign();
+void		sig_int_input(void);
+void		sig_term_input(void);
+void		sig_quit_input(void);
+void		signal_proc(void);
+void		signal_ign(void);
 
 /* signal_heardoc.c */
-void	redirect_sig_int_input();
-void	redirect_sig_term_input();
-void	redirect_sig_quit_input();
-void	redirect_signal_proc();
+void		redirect_sig_int_input(void);
+void		redirect_sig_term_input(void);
+void		redirect_sig_quit_input(void);
+void		redirect_signal_proc(void);
 
 /* x_funtion.c */
-void	xclose(int fd);
-int	xdup2(int oldfd, int newfd);
-int	xdup(int oldfd);
+void		xclose(int fd);
+int			xdup2(int oldfd, int newfd);
+int			xdup(int oldfd);
 
 /* x_function2.c */
-void	xwaitpid(pid_t pid, int *wstatus, int options);
-void	xpipe(int *pipefd);
-pid_t	xfork(void);
+void		xwaitpid(pid_t pid, int *wstatus, int options);
+void		xpipe(int *pipefd);
+pid_t		xfork(void);
 
 #endif

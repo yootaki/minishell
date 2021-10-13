@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:31 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:02:32 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:21:58 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*lst_new(char *str, int flag)
 	return (lst);
 }
 
-void	lst_clear (t_token **lst, void (*del)(void*))
+void	lst_clear(t_token **lst, void (*del)(void*))
 {
 	t_token	*ndlst;
 

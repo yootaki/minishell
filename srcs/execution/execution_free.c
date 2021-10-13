@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:58 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:03:59 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/06 14:44:04 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	free_path_lst(t_data *data)
 	while (data->path_list[i] != NULL)
 	{
 		free(data->path_list[i]);
-		//data->path_list[i] = NULL;
 		i++;
 	}
 	free(data->path_list);
@@ -29,7 +28,6 @@ void	free_path_lst(t_data *data)
 
 void	free_data_lst(t_data *data)
 {
-	//free_path_lst(data);
 	free(data->cmd_array);
 }
 
