@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/29 22:00:48 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/14 21:00:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 int	change_oldpwd(t_envlist *envp_lst, t_envlist *now_pwd)
 {
 	t_envlist	*now;
-	//envp_lst->valueをenvp_lstの最後に作成する$OLDPWDに入れる
-	//OLDPWDがなければ作成、あったらfreeして入れ替えru
+
 	now = envp_lst->next;
 	while (now != envp_lst \
 	&& ft_strncmp(now->key, "OLDPWD", ft_strlen("OLDPWD") + 1))
@@ -43,15 +42,11 @@ int	change_current_path(t_envlist *envp_lst)
 	now = envp_lst->next;
 	while (now != envp_lst && ft_strncmp(now->key, "PWD", 4))
 		now = now->next;
-
-	//OLDPWD変更されるようになるけどエラーでまくる？？？
-	// change_oldpwd(envp_lst, now);
-
+	change_oldpwd(envp_lst, now);
 	now->value = ft_strdup(current_path);
 	return (EXIT_SUCCESS);
 }
 
-/* !!!mallocして返してる!!! */
 int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
@@ -59,14 +54,14 @@ int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 	char		*dir_path;
 
 	now = cmd->next->next;
-	if (now == cmd)//[$ cd]
+	if (now == cmd)
 	{
 		tmp = envp_lst->next;
 		while (ft_strncmp(tmp->key, "HOME", 4) && tmp != envp_lst)
 			tmp = tmp->next;
 		dir_path = tmp->value;
 	}
-	else if (now->str == NULL)//[$ cd ""]
+	else if (now->str == NULL)
 		return (0);
 	else
 		dir_path = now->str;
@@ -77,9 +72,6 @@ int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 		return (EXIT_FAILURE);
 	}
 	change_current_path(envp_lst);
-	tmp = envp_lst->next;
-	while (ft_strncmp(tmp->key, "PWD", 4) && tmp != envp_lst)
-		tmp = tmp->next;
 	g_status = 0;
 	return (EXIT_SUCCESS);
 }

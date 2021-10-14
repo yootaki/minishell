@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cmd.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 03:42:24 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 22:53:23 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ int		my_pwd(t_envlist *envp_lst);
 int		my_unset(t_cmd_lst *cmd, t_envlist *envp_lst);
 int		my_exit(t_cmd_lst *cmd);
 
+/* export utils */
+void	swap_envlst(t_envlist *now, t_envlist *min);
+void	ft_sort_envlst(t_envlist *nil, int size);
+void	sort_and_print_env(t_envlist *envp_lst);
+int		get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt);
+int		insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst);
+
 /* util function */
-char	*malloc_and_copy(char *str, int size);
 void	ft_envlstdelone(t_envlist *lst);
 void	free_envlst(t_envlist *lst);
 
 long	ft_atol(const char *str);
+char	*malloc_and_strlcpy(char *str, int size);
 
 #endif

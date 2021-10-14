@@ -12,13 +12,13 @@ EXECUTION_DIR = ./srcs/execution/
 
 UTILS_DIR = ./srcs/utils/
 
-SRCS_LEXER = lexer.c lexer_utils.c is_function.c lst_function.c free_function.c init_datas.c
+SRCS_LEXER = lexer.c lexer_utils.c is_function.c lst_function.c free_function.c init_datas.c advance_space.c
 
-SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c
+SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c parse_utils.c
 
 SRCS_EXPANSION = expansion.c delete_quote.c sepalate_str.c heardoc_and_redirect.c heardoc.c redirect.c expansion_utils1.c expansion_utils2.c pipe_next_cmd_check.c pipe_next_cmd_check_utils.c
 
-SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c lst_func.c pwd.c unset.c ft_atol.c
+SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c export_utils.c lst_func.c pwd.c unset.c ft_atol.c malloc_and_strlcpy.c
 
 SRCS_EXECUTION = create_cmd_array.c exe_free_function.c execution_utils1.c execute_command.c execution_free.c execution.c get_path.c no_built_cmd.c process_function.c search_cmd.c
 

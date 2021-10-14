@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/10 20:07:47 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/14 20:53:02 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 int	print_error_func(char *err_func)
 {
 	perror(err_func);
+	g_status = 1;
 	return (EXIT_FAILURE);
 }
 
