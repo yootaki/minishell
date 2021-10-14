@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
 /*   Updated: 2021/10/14 03:49:05 by hryuuta          ###   ########.fr       */
@@ -34,7 +34,7 @@ typedef struct s_envlist
 /* ./utils/envp_lst.c */
 t_envlist	*init_envlist(void);
 t_envlist	*ft_envlstnew(char *key, char *value);
-void		ft_init_envlst(t_envlist *lst);
+t_envlist	*init_envlist(void);
 void		ft_envlstadd_back(t_envlist *top, t_envlist *new_lst);
 int			ft_envlstsize(t_envlist *lst);
 void		free_envplist(t_envlist *nil);

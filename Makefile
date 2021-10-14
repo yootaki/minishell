@@ -12,7 +12,7 @@ EXECUTION_DIR = ./srcs/execution/
 
 UTILS_DIR = ./srcs/utils/
 
-SRCS_LEXER = lexer.c is_function.c lst_function.c free_function.c init_datas.c
+SRCS_LEXER = lexer.c lexer_utils.c is_function.c lst_function.c free_function.c init_datas.c
 
 SRCS_PARSER = parse.c init_lst_function.c parse_lst_function.c create_lst.c free_node.c
 

@@ -153,7 +153,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	/* 牛がminishellってtitle出す */
 	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\
