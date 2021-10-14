@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 10:52:45 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/01 16:12:39 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/14 22:19:18 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int		is_str_digit(char *str);
+int		ft_strcmp(const char *str1, const char *str2);
 
 #endif

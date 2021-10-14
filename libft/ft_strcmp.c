@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_func.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/04 11:42:49 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 21:02:05 by yootaki          ###   ########.fr       */
+/*   Created: 2021/10/14 21:56:39 by yootaki           #+#    #+#             */
+/*   Updated: 2021/10/14 21:57:15 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmd.h"
+#include "libft.h"
 
-void	ft_envlstdelone(t_envlist *lst)
+int	ft_strcmp(const char *str1, const char *str2)
 {
-	t_envlist	*prev;
-	t_envlist	*next;
-
-	prev = lst->prev;
-	next = lst->next;
-	prev->next = next;
-	next->prev = prev;
-	free(lst);
-}
-
-void	free_envlst(t_envlist *lst)
-{
-	t_envlist	*tmp;
-	int			n;
-
-	n = ft_envlstsize(lst);
-	while (n-- >= 0)
+	while (*str1 && *str2)
 	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		str1 += 1;
+		str2 += 1;
 	}
+	return (0);
 }

@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_func.c                                         :+:      :+:    :+:   */
+/*   builfin_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/04 11:42:49 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 21:02:05 by yootaki          ###   ########.fr       */
+/*   Created: 2021/10/14 22:20:24 by yootaki           #+#    #+#             */
+/*   Updated: 2021/10/14 22:20:48 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmd.h"
+#include "../../includes/expansion.h"
 
-void	ft_envlstdelone(t_envlist *lst)
+char	*malloc_and_strlcpy(char *str, int size)
 {
-	t_envlist	*prev;
-	t_envlist	*next;
+	char	*new_str;
 
-	prev = lst->prev;
-	next = lst->next;
-	prev->next = next;
-	next->prev = prev;
-	free(lst);
-}
-
-void	free_envlst(t_envlist *lst)
-{
-	t_envlist	*tmp;
-	int			n;
-
-	n = ft_envlstsize(lst);
-	while (n-- >= 0)
+	new_str = (char *)malloc(sizeof(char) * size);
+	if (!new_str)
 	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
+		print_error_func("malloc");
+		return (NULL);
 	}
+	ft_strlcpy(new_str, str, size);
+	return (new_str);
 }

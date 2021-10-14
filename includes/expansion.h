@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:14:59 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 22:04:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int				is_var_name(int c);
 int				change_underbar(t_nlst *now, t_envlist *envp_lst);
 
 /* heardoc.c */
+int				print_error_func(char *err_func);
 int				hear_doc(t_redirect *now, t_envlist *env, char *separator);
 
 /* redirect */
