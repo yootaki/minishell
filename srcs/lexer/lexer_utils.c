@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/10 19:26:30 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:20:28 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 t_token_type	check_type(char *str)
 {
-	// printf("str = %s\n", str);
 	if (*str == CHAR_PIPE)
 		return (CHAR_PIPE);
 	if (*str == CHAR_QOUTE)
@@ -36,20 +35,42 @@ t_token_type	check_type(char *str)
 
 void	proceed_command(char **cmd, char *ch, size_t *char_cnt)
 {
-	// printf("ch = %c\n", *ch);
 	while (**cmd != *ch && **cmd != '\0')
 	{
-		// printf("**cmd = %c\n", **cmd);
 		(*cmd)++;
 		(*char_cnt)++;
 	}
 }
 
+bool	check_isdigit(char *str)
+{
+	size_t	i;
+	size_t	j;
+
+	if (str == NULL)
+		return (false);
+	i = ft_strlen(str);
+	j = 0;
+	while (j < i && str[j] != '\0')
+	{
+		if (!ft_isdigit(str[j]))
+			return (false);
+		j++;
+	}
+	return (true);
+}
+
 void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
 {
 	size_t	len;
+	char	*str;
 
-	len = data->cmd_len - ft_strlen(command);
+	len = data->char_cnt;
+	str = ft_substr(command, data->start, data->char_cnt);
+	if (check_isdigit(str))
+		data->flg = 1;
+	free (str);
+	return ;
 	if (len >= 2)
 	{
 		if (ft_isdigit(cmd[-1]) && cmd[-2] == CHAR_WHITESPACE)
@@ -70,15 +91,7 @@ void	is_functions(t_tokeniser **data, char **cmd)
 		is_digit(cmd, &(*data)->char_cnt);
 	else if (**cmd == CHAR_QOUTE || **cmd == CHAR_DQUOTE)
 		is_quort(cmd, &(*data)->char_cnt);
-	else if (**cmd == CHAR_PIPE || **cmd == CHAR_GREATER || **cmd == CHAR_LESSER)
+	else if (**cmd == CHAR_PIPE || **cmd == CHAR_GREATER \
+	|| **cmd == CHAR_LESSER)
 		is_else(cmd, &(*data)->char_cnt);
-}
-
-void	advance_space(t_tokeniser **data, char **cmd)
-{
-	while (**cmd == CHAR_WHITESPACE || **cmd == CHAR_TAB)
-	{
-		(*cmd)++;
-		(*data)->start++;
-	}
 }

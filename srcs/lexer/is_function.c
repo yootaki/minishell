@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:19 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 15:05:04 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:11:44 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 bool	is_type(int c)
 {
-	/* ここの条件は見直したほうがいいと思う。 */
-	if ( c == '$' || c == '.' || c == '/' || c == '-' || c == '&' \
-	|| c == '+' || c == '?' || c == ';' || c == ':' || c == '=' || c == '_')
+	if (c == '$' || c == '.' || c == '/' || c == '-' || c == '&' \
+	|| c == '+' || c == '?' || c == ';' || c == ':' || c == '=' \
+	|| c == '_')
 		return (true);
 	return (false);
 }
@@ -69,7 +69,7 @@ void	is_quort(char **cmd, size_t *char_cnt)
 void	is_else(char **cmd, size_t *char_cnt)
 {
 	char	ch;
-	int	i;
+	int		i;
 
 	if (**cmd == CHAR_GREATER || **cmd == CHAR_LESSER)
 	{

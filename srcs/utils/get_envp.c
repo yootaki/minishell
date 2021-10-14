@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:03:12 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:23:08 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	envp_lstmap(t_envlist *envp, char *key, char *value)
 int	create_envlst(t_envlist *lst, char **envp)
 {
 	t_envlist	*current;
-	char	*str;
-	char	*key;
-	char	*value;
+	char		*str;
+	char		*key;
+	char		*value;
 
 	current = lst;
 	while (*envp != NULL)
@@ -49,7 +49,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 		*str = '\0';
 		key = ft_strdup(*envp);
 		str++;
-		if (!ft_strncmp(key, "SHLVL", 6))//shlvlの値を本家に対応
+		if (!ft_strncmp(key, "SHLVL", 6))
 			value = ft_itoa(ft_atoi(str) + 1);
 		else
 			value = ft_strdup(str);
@@ -62,7 +62,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 
 t_envlist	*get_envp(char **envp)
 {
-	t_envlist *env_lst;
+	t_envlist	*env_lst;
 
 	env_lst = init_envlist();
 	if (env_lst == NULL)

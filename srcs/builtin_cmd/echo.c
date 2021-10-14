@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/10 20:28:30 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/14 03:42:07 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	my_echo(t_cmd_lst *cmd)
 	int			display_return;
 
 	now = cmd->next->next;
+	redirect_fd = STDOUT_FILENO;
 	display_return = 1;
 	if (now == cmd)
 	{
