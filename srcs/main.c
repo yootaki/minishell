@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 23:13:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/08 06:19:27 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	{
 		printf("str = %s\n", data.token->str);
 		printf("str_p = %p\n", data.token);
+		printf("flg = %d\n", data.token->specified_fd);
 		data.token = data.token->next;
 	} */
 	if (parse(node, data.token, envp_lst) == EXIT_FAILURE)

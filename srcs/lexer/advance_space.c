@@ -1,40 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_free.c                                   :+:      :+:    :+:   */
+/*   advance_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/05 14:03:58 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/06 14:44:04 by hryuuta          ###   ########.fr       */
+/*   Created: 2021/10/13 20:21:17 by hryuuta           #+#    #+#             */
+/*   Updated: 2021/10/13 20:21:34 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "../../includes/input.h"
 
-void	free_path_lst(t_data *data)
+void	advance_space(t_tokeniser **data, char **cmd)
 {
-	int	i;
-
-	i = 0;
-	while (data->path_list[i] != NULL)
+	while (**cmd == CHAR_WHITESPACE || **cmd == CHAR_TAB)
 	{
-		free(data->path_list[i]);
-		i++;
+		(*cmd)++;
+		(*data)->start++;
 	}
-	free(data->path_list);
-	data->path_list = NULL;
-}
-
-void	free_data_lst(t_data *data)
-{
-	free(data->cmd_array);
-}
-
-void	free_all(char **cmd_array, t_nlst *node, t_data *data)
-{
-	free(cmd_array);
-	free_node(node);
-	free_data_lst(data);
-	exit(1);
 }

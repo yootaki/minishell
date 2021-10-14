@@ -6,16 +6,16 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:04:14 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/13 20:09:26 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-  # include "../../includes/execution.h"
+#include "../../includes/execution.h"
 
 char	**search_path(t_envlist	*envp)
 {
 	t_envlist	*current;
-	char	**path;
+	char		**path;
 
 	current = envp->next;
 	while (ft_strncmp(current->key, "PATH", 4) != 0 && current != envp)
