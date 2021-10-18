@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 20:44:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/18 18:40:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,6 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		/* printf("------BEFORE-----\n");
-		check(node);
-		printf("-----------------\n"); */
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -123,23 +120,7 @@ void	loop_shell(char **envp)
 				continue ;
 			}
 			else
-			{
-				//free_envplist(envp_lst);
-				//printf("------before-----\n");
-				//check(node);
-				//printf("-----------------\n");
-				//expansion(node, envp_lst);
-				/* printf("------AFTER-----\n");
-				check(node);
-				printf("-----------------\n"); */
-				//free_node(node);
-				//free_node(node);
-				//free_envplist(envp_lst);
 				exection(node);
-				//printf("----------c-------\n");
-				//free_node(node);
-				//free_envplist(envp_lst);
-			}
 		}
 		signal_ign();
 		add_history(command);
@@ -148,14 +129,12 @@ void	loop_shell(char **envp)
 		i++;
 	}
 	free_envplist(envp_lst);
-	//system("leaks minishell");
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-
 	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\
@@ -171,7 +150,6 @@ int main(int argc, char **argv, char **envp)
                      ||----w |\n\
                      ||     ||\n\n\
 \x1b[39m", STDERR_FILENO);
-
 	loop_shell(envp);
 	// system("leaks minishell");
 	return (g_status);

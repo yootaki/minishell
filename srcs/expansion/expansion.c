@@ -18,7 +18,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	char	*var_name;
 	char	*var_value;
 	char	*new_str;
-	char	*tmp;
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
@@ -27,25 +26,20 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	{
 		new_str = strjoin_minishell(expanser->str, \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-		free(var_name);
-		free(expanser->str);
-		if (!ft_strlen(new_str))
-			expanser->str = NULL;
-		else
-			expanser->str = new_str;
 	}
 	else
 	{
-		tmp = ft_strjoin(expanser->str, var_value);
-		new_str = ft_strjoin(tmp, \
+		new_str = ft_strjoin(ft_strjoin(expanser->str, var_value), \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 		expanser->str_cnt += ft_strlen(var_value);
-		free(var_name);
-		free(var_value);
-		free(tmp);
-		free(expanser->str);
-		expanser->str = new_str;
 	}
+	free(var_name);
+	free(var_value);
+	free(expanser->str);
+	if (!ft_strlen(new_str))
+		expanser->str = NULL;
+	else
+		expanser->str = new_str;
 }
 
 void	quotation_flag_check(t_expanser *expanser)

@@ -6,13 +6,13 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/11 20:08:20 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/18 22:57:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-t_envlist	*init_envlist(void)//init関数は、ポインタを受け取ってその中身を書き換えて初期化してあげる関数であるべき？
+t_envlist	*init_envlist(void)
 {
 	t_envlist	*nil;
 
