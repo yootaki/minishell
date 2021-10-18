@@ -30,7 +30,7 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 	}
 	while (now != cmd)
 	{
-		if (now->str == NULL)
+		if (now->str == NULL || ft_isdigit(now->str[0]))
 		{
 			ft_putstr_fd(VALID_IDENTIFIER, STDERR_FILENO);
 			g_status = 1;

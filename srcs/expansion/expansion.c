@@ -100,10 +100,8 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		expanser.str = ft_strdup(now->str);
-		if (expanser.str == NULL)
+		if (init_expanser(&expanser, now->str))
 			return (EXIT_FAILURE);
-		init_expanser(&expanser);
 		add_lst_cnt = 1;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;

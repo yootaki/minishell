@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 22:04:45 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/18 17:43:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int				expanser(t_cmd_lst *cmd, t_envlist *env);
 int				expansion(t_nlst *node, t_envlist *envp_lst);
 
 /* expansion_utils1 */
-void			init_expanser(t_expanser *expanser);
+int				init_expanser(t_expanser *expanser, char *str);
 int				categorize(t_cmd_lst *now);
 char			*strjoin_minishell(char *str1, char *str2);
 
