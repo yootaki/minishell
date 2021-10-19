@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 20:44:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:17:17 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		/* printf("------BEFORE-----\n");
+		printf("------BEFORE-----\n");
 		check(node);
-		printf("-----------------\n"); */
+		printf("-----------------\n");
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -129,9 +129,9 @@ void	loop_shell(char **envp)
 				//check(node);
 				//printf("-----------------\n");
 				//expansion(node, envp_lst);
-				/* printf("------AFTER-----\n");
+				printf("------AFTER-----\n");
 				check(node);
-				printf("-----------------\n"); */
+				printf("-----------------\n");
 				//free_node(node);
 				//free_node(node);
 				//free_envplist(envp_lst);
