@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:20:28 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:30:54 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	is_functions(t_tokeniser **data, char **cmd)
 		is_digit(cmd, &(*data)->char_cnt);
 	else if (**cmd == CHAR_QOUTE || **cmd == CHAR_DQUOTE)
 		is_quort(cmd, &(*data)->char_cnt);
-	else if (**cmd == CHAR_PIPE || **cmd == CHAR_GREATER \
-	|| **cmd == CHAR_LESSER)
+	else
 		is_else(cmd, &(*data)->char_cnt);
 }
