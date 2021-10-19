@@ -96,10 +96,11 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	{
 		if (init_expanser(&expanser, now->str))
 			return (EXIT_FAILURE);
-		add_lst_cnt = 1;
+		add_lst_cnt = 0;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
-		add_lst_cnt = sep_str(now, &expanser);
+		if (put_separated_expanser_to_now(now, &expanser, &add_lst_cnt))
+			return (EXIT_FAILURE);
 		if (add_lst_cnt == 0)
 			now = now->next;
 		while (--add_lst_cnt >= 0)

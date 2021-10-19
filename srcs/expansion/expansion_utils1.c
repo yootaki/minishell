@@ -6,12 +6,26 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/18 17:44:49 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/19 23:22:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
+
+int	print_error_func(char *err_func)
+{
+	perror(err_func);
+	g_status = 1;
+	return (EXIT_FAILURE);
+}
+
+void	print_syntax_error(char *str)
+{
+	ft_putstr_fd(ERR_SYNTAX, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	g_status = 258;
+}
 
 int	init_expanser(t_expanser *expanser, char *str)
 {
