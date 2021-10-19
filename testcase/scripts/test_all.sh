@@ -1,4 +1,54 @@
 test_syntax_error () {
+    run_syntax_test 'cd /.//'
+    run_syntax_test 'cd /./////././////'
+    run_syntax_test 'cd //'
+    run_syntax_test 'cd //...........//////'
+    run_syntax_test 'cd //'
+    run_syntax_test 'cd //'
+    run_syntax_test 'cd ///'
+    run_syntax_test 'cd //.'
+    run_syntax_test 'cd //./'
+    run_syntax_test 'cd //.///./././////'
+    run_syntax_test 'cd ///'
+    run_syntax_test 'cd ///.///'
+    run_syntax_test 'cd ////'
+    run_syntax_test 'cd ////./././//////'
+    run_syntax_test 'cd /////'
+    run_syntax_test 'cd /bin'
+    run_syntax_test 'cd /usr/bin'
+    run_syntax_test 'cd /home'
+    run_syntax_test 'cd //home'
+    run_syntax_test 'cd //./home'
+    run_syntax_test 'cd "//home"'
+    run_syntax_test 'cd $OLDPWD'
+    run_syntax_test 'cd $WWW'
+    run_syntax_test 'cd $WWW$WWW../../'
+    run_syntax_test 'cd $WWW./$WWW../$WWW'
+    run_syntax_test 'cd ../../../../../../../'
+    run_syntax_test 'cd ../.././.././.././.././.././../'
+    run_syntax_test '""c""d"" .'
+    run_syntax_test 'cd .'
+    run_syntax_test 'cd ..'
+    run_syntax_test 'cd ..""""'
+    run_syntax_test 'cd ""."".""""'
+    run_syntax_test 'cd ...'
+    run_syntax_test 'cd ../..'
+    run_syntax_test 'cd ../.'
+    run_syntax_test 'cd ./.'
+    run_syntax_test 'cd /'
+    run_syntax_test 'cd //'
+    run_syntax_test 'cd //home'
+    run_syntax_test 'cd "//home"'
+    run_syntax_test 'cd aaaaaa'
+    run_syntax_test 'cd ""'
+    run_syntax_test 'cd " "'
+    run_syntax_test 'cd ./'
+    run_syntax_test 'cd /.'
+    run_syntax_test 'cd /..'
+    run_syntax_test 'cd'
+    run_syntax_test 'cd                    '
+    run_syntax_test 'cd        ""    ""        '
+    run_syntax_test 'cd        " "        '
     run_syntax_test '|'
     run_syntax_test '<'
     run_syntax_test '| |'
@@ -34,14 +84,62 @@ test_syntax_error () {
     run_syntax_test 'echo -n -n -n -n hello'
     run_syntax_test 'ls > a| echo > b > c'
 
-    # bashでctrl+d押すとexitを出力して終わる
-    # bash-3.2$ exit
+    run_syntax_test 'unknowncommand'
+    run_syntax_test 'unknowncommand | commandunknown'
+    run_syntax_test 'echo hello'
+    run_syntax_test 'echo hello world'
+    run_syntax_test 'ls | wc | wc'
+    run_syntax_test 'cat /dev/urandom | head -c 100 | wc -c'
+    run_syntax_test '<test1.txt'
+    run_syntax_test '<test1.txt<test2.txt<test3.txt<test4.txt'
+    run_syntax_test 'cat < nonexistingfile'
+    run_syntax_test 'echo hello >>>> file'
+    run_syntax_test 'cat test1 > test2 > test3'
+    run_syntax_test '> f0 echo > f1 > f2 > f3 abc'
+    run_syntax_test 'cat file1 > file | echo hello >> file'
+    run_syntax_test 'cat file1 > file | cat file2 >> file'
+    run_syntax_test 'cat file1 > file | echo hello >> file | cat'
+    run_syntax_test "echo hello'world'foo"
+    run_syntax_test "echo '' | cat -e"
+    run_syntax_test "echo '''''' | cat -e"
+    run_syntax_test "echo '' '''' | cat -e"
+    run_syntax_test "echo '   ' | cat -e"
+    run_syntax_test "echo '   ''      ''  ' | cat -e"
+    run_syntax_test "'echo hello'"
+    run_syntax_test 'echo $'
+    run_syntax_test 'echo $ $ $    $ $ $ $'
+    run_syntax_test 'export B=bbb | echo $B | cat -e'
+    run_syntax_test 'echo $B | export B=bbb | cat -e'
 }
 
 test_command_not_found () {
     # command not found should exit with status 127
     run_test 'unknowncommand'
     run_test 'unknowncommand | commandunknown'
+    run_test 'echo hello'
+    run_test 'echo hello world'
+    run_test 'ls | wc | wc'
+    run_test 'cat /dev/urandom | head -c 100 | wc -c'
+    run_test '<test1.txt'
+    run_test '<test1.txt<test2.txt<test3.txt<test4.txt'
+    run_test 'cat < nonexistingfile'
+    run_test 'echo hello >>>> file'
+    run_test 'cat test1 > test2 > test3'
+    run_test '> f0 echo > f1 > f2 > f3 abc'
+    run_test 'cat file1 > file | echo hello >> file'
+    run_test 'cat file1 > file | cat file2 >> file'
+    run_test 'cat file1 > file | echo hello >> file | cat'
+    run_test "echo hello'world'foo"
+    run_test "echo '' | cat -e"
+    run_test "echo '''''' | cat -e"
+    run_test "echo '' '''' | cat -e"
+    run_test "echo '   ' | cat -e"
+    run_test "echo '   ''      ''  ' | cat -e"
+    run_test "'echo hello'"
+    run_test 'echo $'
+    run_test 'echo $ $ $    $ $ $ $'
+    run_test 'export B=bbb | echo $B | cat -e'
+    run_test 'echo $B | export B=bbb | cat -e'
 }
 
 # test_paths () {

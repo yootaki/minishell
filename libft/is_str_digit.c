@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_func.c                                         :+:      :+:    :+:   */
+/*   is_str_digit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/04 11:42:49 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 21:02:05 by yootaki          ###   ########.fr       */
+/*   Created: 2021/10/14 21:16:21 by yootaki           #+#    #+#             */
+/*   Updated: 2021/10/14 21:17:00 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmd.h"
+#include "libft.h"
 
-void	ft_envlstdelone(t_envlist *lst)
+int	is_str_digit(char *str)
 {
-	t_envlist	*prev;
-	t_envlist	*next;
-
-	prev = lst->prev;
-	next = lst->next;
-	prev->next = next;
-	next->prev = prev;
-	free(lst);
-}
-
-void	free_envlst(t_envlist *lst)
-{
-	t_envlist	*tmp;
-	int			n;
-
-	n = ft_envlstsize(lst);
-	while (n-- >= 0)
+	if (*str == '-' || *str == '+')
+		str++;
+	if (!*str)
+		return (0);
+	while (*str)
 	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
 	}
+	return (1);
 }

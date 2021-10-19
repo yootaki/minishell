@@ -6,7 +6,7 @@
 #    By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 10:40:37 by hryuuta           #+#    #+#              #
-#    Updated: 2021/09/15 16:50:55 by yootaki          ###   ########.fr        #
+#    Updated: 2021/10/14 22:19:15 by yootaki          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,9 @@ SRCS = ft_atoi.c\
 	  ft_strtrim.c\
 	  ft_substr.c\
 	  ft_tolower.c\
-	  ft_toupper.c
+	  ft_toupper.c\
+	  is_str_digit.c\
+	  ft_strcmp.c
 
 BONUS_SRCS = ft_lstnew.c\
 			 ft_lstadd_front.c\

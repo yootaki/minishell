@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/05 14:19:25 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 20:53:02 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 int	print_error_func(char *err_func)
 {
 	perror(err_func);
+	g_status = 1;
 	return (EXIT_FAILURE);
 }
 
@@ -73,8 +74,9 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
-				exit(g_status);
-			hear_doc(now, env, now->str);
+				return (EXIT_FAILURE);
+			if (hear_doc(now, env, now->str))
+				return (EXIT_FAILURE);
 		}
 		else if (now->c_type == CHAR_LESSER \
 		|| now->c_type == CHAR_GREATER \
@@ -82,8 +84,9 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		{
 			now = now->next;
 			if (check_redirect_syntax(now))
-				exit(g_status);
-			redirect_file_open(now, env);
+				return (EXIT_FAILURE);
+			if (redirect_file_open(now, env))
+				return (EXIT_FAILURE);
 		}
 		now = now->next;
 	}

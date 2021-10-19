@@ -3,53 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:40 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 11:43:40 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/11 21:15:29y yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
+#include "../../libft/libft.h"
+#include "../../includes/expansion.h"
+#include "../../includes/utils.h"
 
-char	*malloc_and_copy(char *str, int size)
-{
-	char	*new_str;
-
-	new_str = (char *)malloc(sizeof(char) * size);
-	if (!new_str)
-	{
-		perror("malloc");
-		return (NULL);
-	}
-	ft_strlcpy(new_str, str, size);
-	return (new_str);
-}
+#define VALID_IDENTIFIER "minishell: export: `': not a valid identifier\n"
 
 int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
-	t_envlist	*tmp;
-	char		*env_key;
-	char		*env_value;
-	int			char_cnt;
 
 	now = cmd->next->next;
-	char_cnt = 0;
-	while (now->str[char_cnt] != '=' && now->str[char_cnt])
-		char_cnt++;
-	env_key = malloc_and_copy(now->str, char_cnt + 1);
-	env_value = malloc_and_copy(&now->str[char_cnt + 1], ft_strlen(&now->str[char_cnt + 1]) + 1);
-	tmp = envp_lst->next;
-	while (tmp != envp_lst)
+	g_status = 0;
+	if (now == cmd)
 	{
-		if (!ft_strncmp(tmp->key, env_key, ft_strlen(tmp->key) + 1))
-			break ;
-		tmp = tmp->next;
+		sort_and_print_env(envp_lst);
+		return (g_status);
 	}
-	if (tmp != envp_lst)
-		tmp->value = &now->str[char_cnt + 1];
-	else
-		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
-	return (EXIT_SUCCESS);
+	while (now != cmd)
+	{
+		if (now->str == NULL)
+		{
+			ft_putstr_fd(VALID_IDENTIFIER, STDERR_FILENO);
+			g_status = 1;
+		}
+		else if (insert_key_and_value(now, envp_lst))
+		{
+			g_status = 1;
+			break ;
+		}
+		now = now->next;
+	}
+	return (g_status);
 }

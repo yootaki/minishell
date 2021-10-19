@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 03:42:07 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/14 11:24:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
-
-int	get_redirect_fd(t_redirect *redirect)
-{
-	t_redirect	*now;
-	int			fd;
-
-	fd = STDOUT_FILENO;
-	now = redirect->next;
-	while (now != redirect)
-	{
-		if ((!ft_strncmp(now->str, ">", ft_strlen(now->str) + 1) \
-		|| !ft_strncmp(now->str, ">>", ft_strlen(now->str) + 1)) \
-		&& now->next->redirect_fd > 2)
-		{
-			now = now->next;
-			fd = now->redirect_fd;
-		}
-		now = now->next;
-	}
-	return (fd);
-}
 
 int	check_option(char *str)
 {
@@ -48,14 +27,14 @@ int	check_option(char *str)
 	return (1);
 }
 
-void	print_args(t_cmd_lst *now, t_cmd_lst *cmd, int redirect_fd)
+void	print_args(t_cmd_lst *now, t_cmd_lst *cmd)
 {
 	while (now != cmd)
 	{
-		ft_putstr_fd (now->str, redirect_fd);
+		ft_putstr_fd (now->str, STDOUT_FILENO);
 		now = now->next;
 		if (now != cmd)
-			write(redirect_fd, " ", 1);
+			write(STDOUT_FILENO, " ", 1);
 	}
 }
 
@@ -63,14 +42,12 @@ int	my_echo(t_cmd_lst *cmd)
 {
 	t_cmd_lst	*now;
 	int			display_return;
-	int			redirect_fd;
 
 	now = cmd->next->next;
-	redirect_fd = STDOUT_FILENO;
 	display_return = 1;
 	if (now == cmd)
 	{
-		write(redirect_fd, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	while (now != cmd && !check_option(now->str))
@@ -78,11 +55,11 @@ int	my_echo(t_cmd_lst *cmd)
 		display_return = 0;
 		now = now->next;
 	}
-	print_args(now, cmd, redirect_fd);
+	print_args(now, cmd);
 	if (display_return)
-		write(redirect_fd, "\n", 1);
-	if (redirect_fd > 2)
-		close(redirect_fd);
+		write(STDOUT_FILENO, "\n", 1);
+	if (STDOUT_FILENO > 2)
+		close(STDOUT_FILENO);
 	g_status = 0;
 	return (EXIT_SUCCESS);
 }
