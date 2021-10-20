@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 21:11:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/20 16:11:07 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 	int		status;
 
 	close(pipe_fd[READ]);
-	redirect_signal_proc();
+	heardoc_signal_proc();
 	ft_putstr_fd("> ", 1);
 	while (1)
 	{

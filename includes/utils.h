@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:49:05 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:57:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,10 @@ int			envp_lstmap(t_envlist *envp, char *key, char *value);
 int			create_envlst(t_envlist *lst, char **envp);
 
 /* signal_main.c */
-void		sig_int_input();
-void		sig_term_input();
-void		sig_quit_input();
-void		signal_proc();
-void		signal_ign();
+void		signal_proc(void);
 
 /* signal_heardoc.c */
-void		redirect_sig_int_input();
-void		redirect_sig_term_input();
-void		redirect_sig_quit_input();
-void		redirect_signal_proc();
+void		heardoc_signal_proc(void);
 
 /* x_funtion.c */
 void		xclose(int fd);
