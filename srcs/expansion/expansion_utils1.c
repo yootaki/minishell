@@ -6,18 +6,36 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 16:18:52 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/19 23:22:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
 
-void	init_expanser(t_expanser *expanser)
+int	print_error_func(char *err_func)
 {
+	perror(err_func);
+	g_status = 1;
+	return (EXIT_FAILURE);
+}
+
+void	print_syntax_error(char *str)
+{
+	ft_putstr_fd(ERR_SYNTAX, STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	g_status = 258;
+}
+
+int	init_expanser(t_expanser *expanser, char *str)
+{
+	expanser->str = ft_strdup(str);
+	if (expanser->str == NULL)
+		return (EXIT_FAILURE);
 	expanser->str_cnt = 0;
 	expanser->dquote_flag = 0;
 	expanser->quote_flag = 0;
+	return (EXIT_SUCCESS);
 }
 
 int	categorize(t_cmd_lst *now)

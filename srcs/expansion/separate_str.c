@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sepalate_str.c                                     :+:      :+:    :+:   */
+/*   separate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/09/30 17:32:51 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/19 20:57:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,56 +33,63 @@ int	is_sepalate_char(char c)
 		return (EXIT_SUCCESS);
 }
 
-int	sep_str(t_cmd_lst *now, t_expanser *expanser)
+char	*extract_str(t_expanser *expanser)
 {
-	char	*extract_str;
 	int		start;
 	int		end;
-	int		count;
 
-	count = 0;
+	start = expanser->str_cnt;
+	while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
+		expanser->str_cnt++;
+	end = expanser->str_cnt;
+	if (expanser->str[expanser->str_cnt] == ' ' && start == end)
+	{
+		while (expanser->str[expanser->str_cnt] == ' ')
+			expanser->str_cnt++;
+		end = expanser->str_cnt;
+	}
+	return (ft_substr(expanser->str, start, end - start));
+}
+
+void	put_extracted_str_to_now(t_cmd_lst *now, char *extracted_str, int n)
+{
+	if (n == 0)
+	{
+		free(now->str);
+		now->str = extracted_str;
+	}
+	else
+	{
+		add_cmd_lst(now);
+		now = now->next;
+		now->str = extracted_str;
+	}
+}
+
+int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
+{
+	char	*extracted_str;
+
 	if (now->prev->str == NULL)
 	{
 		free(now->str);
 		now->str = ft_strdup(expanser->str);
-		return (count);
+		if (now->str == NULL)
+			return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	}
 	else if (expanser->str == NULL || !expanser->str[0])
 	{
 		free(now->str);
 		now->str = NULL;
-		return (count);
+		return (EXIT_SUCCESS);
 	}
 	while (1)
 	{
 		if (expanser->str[expanser->str_cnt] == '\0')
-			return (count);
-		start = expanser->str_cnt;
-		while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
-			expanser->str_cnt++;
-		end = expanser->str_cnt;
-		if (expanser->str[expanser->str_cnt] == ' ' && start == end)
-		{
-			while (expanser->str[expanser->str_cnt] == ' ')
-				expanser->str_cnt++;
-			end = expanser->str_cnt;
-		}
-		extract_str = ft_substr(expanser->str, start, end - start);
-		if (count == 0)
-		{
-			//printf("now->str_p = %p\n", now->str);
-			//printf("now->str_s = %s\n", now->str);
-			free(now->str);
-			now->str = extract_str;
-			//printf("now->str_p = %p\n", now->str);
-			//printf("now->str_s = %s\n", now->str);
-		}
-		else
-		{
-			add_cmd_lst(now);
-			now = now->next;
-			now->str = extract_str;
-		}
-		count++;
+			return (EXIT_SUCCESS);
+		extracted_str = extract_str(expanser);//malloc処理
+		put_extracted_str_to_now(now, extracted_str, *n);
+		*n += 1;
 	}
 }

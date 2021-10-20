@@ -18,7 +18,6 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	char	*var_name;
 	char	*var_value;
 	char	*new_str;
-	char	*tmp;
 
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
@@ -27,25 +26,20 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	{
 		new_str = strjoin_minishell(expanser->str, \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-		free(var_name);
-		free(expanser->str);
-		if (!ft_strlen(new_str))
-			expanser->str = NULL;
-		else
-			expanser->str = new_str;
 	}
 	else
 	{
-		tmp = ft_strjoin(expanser->str, var_value);
-		new_str = ft_strjoin(tmp, \
+		new_str = ft_strjoin(ft_strjoin(expanser->str, var_value), \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 		expanser->str_cnt += ft_strlen(var_value);
-		free(var_name);
-		free(var_value);
-		free(tmp);
-		free(expanser->str);
-		expanser->str = new_str;
 	}
+	free(var_name);
+	free(var_value);
+	free(expanser->str);
+	if (!ft_strlen(new_str))
+		expanser->str = NULL;
+	else
+		expanser->str = new_str;
 }
 
 void	quotation_flag_check(t_expanser *expanser)
@@ -100,14 +94,13 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		expanser.str = ft_strdup(now->str);
-		if (expanser.str == NULL)
+		if (init_expanser(&expanser, now->str))
 			return (EXIT_FAILURE);
-		init_expanser(&expanser);
-		add_lst_cnt = 1;
+		add_lst_cnt = 0;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
-		add_lst_cnt = sep_str(now, &expanser);
+		if (put_separated_expanser_to_now(now, &expanser, &add_lst_cnt))
+			return (EXIT_FAILURE);
 		if (add_lst_cnt == 0)
 			now = now->next;
 		while (--add_lst_cnt >= 0)

@@ -136,10 +136,6 @@ void	loop_shell(char **envp)
 				//free_node(node);
 				//free_envplist(envp_lst);
 				exection(node);
-				//printf("----------c-------\n");
-				//free_node(node);
-				//free_envplist(envp_lst);
-			}
 		}
 		signal_ign();
 		add_history(command);
@@ -148,14 +144,12 @@ void	loop_shell(char **envp)
 		i++;
 	}
 	free_envplist(envp_lst);
-	//system("leaks minishell");
 }
 
 int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-
 	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\
@@ -171,7 +165,6 @@ int main(int argc, char **argv, char **envp)
                      ||----w |\n\
                      ||     ||\n\n\
 \x1b[39m", STDERR_FILENO);
-
 	loop_shell(envp);
 	// system("leaks minishell");
 	return (g_status);

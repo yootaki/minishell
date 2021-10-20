@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_next_cmd_check_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:55 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:04:55 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/19 11:34:46 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/expansion.h"
+
+void	xcheck(t_nlst *nil)
+{
+	t_nlst		*current;
+	t_cmd_lst	*c_tmp;
+	t_redirect	*r_tmp;
+
+	current = nil->next;
+	while (current != nil)
+	{
+		c_tmp = current->cmd->next;
+		while (c_tmp != current->cmd)
+		{
+			c_tmp = c_tmp->next;
+		}
+		r_tmp = current->redirect->next;
+		while (r_tmp != current->redirect)
+		{
+			r_tmp = r_tmp->next;
+		}
+		current = current->next;
+	}
+}
 
 int	cmd_cmb(char **p_line, char *line)
 {

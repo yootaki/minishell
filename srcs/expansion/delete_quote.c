@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:14 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/01 22:23:21 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/18 23:09:46 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static char	*join_three_str(char *str_front, char *str_middle, char *str_back)
 	return (str_new);
 }
 
-char	*create_new_str(t_expanser *expanser, char *str_front, char *str_middle, char *str_back)
+char	*create_new_str(t_expanser *expanser, \
+						char *str_front, \
+						char *str_middle, \
+						char *str_back)
 {
 	if (expanser->str[expanser->str_cnt] == '\0')
 		return (ft_strjoin(str_front, str_middle));
@@ -66,7 +69,8 @@ void	delete_dquote(t_expanser *expanser)
 		str_front = "";
 	expanser->str_cnt++;
 	str_middle = &expanser->str[expanser->str_cnt];
-	while (expanser->str[expanser->str_cnt] != '\"' && expanser->str[expanser->str_cnt] != '\0')
+	while (expanser->str[expanser->str_cnt] != '\"' \
+	&& expanser->str[expanser->str_cnt] != '\0')
 		expanser->str_cnt++;
 	str_new = create_new_str(expanser, str_front, str_middle, str_back);
 	if (str_new == NULL)
@@ -94,7 +98,8 @@ void	delete_quote(t_expanser *expanser)
 		str_front = "";
 	expanser->str_cnt++;
 	str_middle = &expanser->str[expanser->str_cnt];
-	while (expanser->str[expanser->str_cnt] != '\'' && expanser->str[expanser->str_cnt] != '\0')
+	while (expanser->str[expanser->str_cnt] != '\'' \
+	&& expanser->str[expanser->str_cnt] != '\0')
 		expanser->str_cnt++;
 	str_new = create_new_str(expanser, str_front, str_middle, str_back);
 	if (str_new == NULL)

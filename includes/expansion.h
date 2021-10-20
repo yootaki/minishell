@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 22:04:45 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/19 23:23:17 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+
+#define ERR_SYNTAX "minishell: syntax error near unexpected token `"
+#define ERR_SYNTAX_NULL "newline'\n"
+#define ERR_SYNTAX_FILEIN "<'\n"
+#define ERR_SYNTAX_FILEOUT ">'\n"
+#define ERR_SYNTAX_FILEAPPEND ">>'\n"
+#define ERR_SYNTAX_PIPE "|'\n"
 
 typedef struct s_expanser
 {
@@ -60,7 +67,9 @@ int				expanser(t_cmd_lst *cmd, t_envlist *env);
 int				expansion(t_nlst *node, t_envlist *envp_lst);
 
 /* expansion_utils1 */
-void			init_expanser(t_expanser *expanser);
+int				print_error_func(char *err_func);
+void			print_syntax_error(char *str);
+int				init_expanser(t_expanser *expanser, char *str);
 int				categorize(t_cmd_lst *now);
 char			*strjoin_minishell(char *str1, char *str2);
 
@@ -71,7 +80,6 @@ int				is_var_name(int c);
 int				change_underbar(t_nlst *now, t_envlist *envp_lst);
 
 /* heardoc.c */
-int				print_error_func(char *err_func);
 int				hear_doc(t_redirect *now, t_envlist *env, char *separator);
 
 /* redirect */
@@ -86,8 +94,8 @@ int				heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 void			delete_dquote(t_expanser *expanser);
 void			delete_quote(t_expanser *expanser);
 
-/* sepalate_str */
-int				sep_str(t_cmd_lst *now, t_expanser *expanser);
+/* separate_str */
+int				put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *count);
 
 t_flag			pipe_next_cmd_check(t_nlst \
 *node, t_envlist *envp_lst, t_nlst *n_lst);
@@ -95,6 +103,7 @@ char			*xstrjoin(char *s1, char const *s2);
 void			nlst_bottom_add(t_nlst *old_node, t_nlst *new_node);
 void			delete_node(t_nlst *node, t_nlst *now_node);
 
+void			xcheck(t_nlst *nil);
 t_nlst			*xget_cmdline_from_input_str(char \
 *command, t_envlist *envp_lst);
 int				add_new_node_lst(t_nlst \

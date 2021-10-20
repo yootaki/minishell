@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/02 23:20:43 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/19 21:11:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,24 +70,13 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 	free(line);
 }
 
-int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
+int	write_to_stdout_from_stdin(t_envlist *env, char *separator, int *pipe_fd)
 {
 	pid_t	pid;
 	pid_t	wait_pid;
-	int		pipe_fd[FD_NUM];
 	int		status;
 
 	status = 0;
-	if (pipe(pipe_fd) == -1)
-		return (print_error_func("pipe"));
-	if (now->prev->c_type == T_LESSER)
-	{
-		ft_putstr_fd(now->str, pipe_fd[WRITE]);
-		ft_putstr_fd("\n", pipe_fd[WRITE]);
-		close(pipe_fd[WRITE]);
-		now->heardoc_fd = pipe_fd[READ];
-		return (EXIT_SUCCESS);
-	}
 	pid = fork();
 	if (pid == -1)
 		return (print_error_func("fork"));
@@ -101,6 +90,28 @@ int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
 		wait_pid = wait(&status);
 	if (wait_pid == -1)
 		return (print_error_func("wait"));
+	return (EXIT_SUCCESS);
+}
+
+int	hear_doc(t_redirect *now, t_envlist *env, char *separator)
+{
+	int		pipe_fd[FD_NUM];
+
+	if (pipe(pipe_fd) == -1)
+		return (print_error_func("pipe"));
+	if (now->prev->c_type == T_LESSER)
+	{
+		ft_putstr_fd(now->str, pipe_fd[WRITE]);
+		ft_putstr_fd("\n", pipe_fd[WRITE]);
+		close(pipe_fd[WRITE]);
+		now->heardoc_fd = pipe_fd[READ];
+		return (EXIT_SUCCESS);
+	}
+	if (write_to_stdout_from_stdin(env, separator, pipe_fd))
+	{
+		close(pipe_fd[WRITE]);
+		return (EXIT_FAILURE);
+	}
 	close(pipe_fd[WRITE]);
 	now->heardoc_fd = pipe_fd[READ];
 	return (EXIT_SUCCESS);
