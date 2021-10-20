@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:59 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/19 11:34:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:58:06 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	add_pipe_next_cmd(char **p_line)
 	int		status;
 	char	*line;
 
-	redirect_signal_proc();
+	heardoc_signal_proc();
 	while (1)
 	{
 		ft_putstr_fd("pipe > ", 1);
