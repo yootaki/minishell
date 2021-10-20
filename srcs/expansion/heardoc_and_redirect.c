@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 23:23:04 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:33:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_there_ctype(t_redirect *now)
 	return (0);
 }
 
-int	validate_now_redirect_list(t_redirect *now)//int返してるの全部boolにした方がいいかも
+int	validate_now_redirect_list(t_redirect *now)
 {
 	proc_specified_fd(now);
 	if (!is_there_ctype(now))
@@ -67,7 +67,6 @@ int	validate_now_redirect_list(t_redirect *now)//int返してるの全部boolに
 	return (EXIT_SUCCESS);
 }
 
-//expanded_lineがmallocしてる
 int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 {
 	t_redirect	*now;

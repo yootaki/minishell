@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 20:57:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/20 22:31:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	add_cmd_lst(t_cmd_lst *now)
 	now->next = newlst;
 }
 
-/* ここの分割条件は環境変数名と同じ感じにしてもいいかも */
 int	is_sepalate_char(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\0')
@@ -35,8 +34,8 @@ int	is_sepalate_char(char c)
 
 char	*extract_str(t_expanser *expanser)
 {
-	int		start;
-	int		end;
+	int	start;
+	int	end;
 
 	start = expanser->str_cnt;
 	while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
@@ -84,12 +83,13 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 		now->str = NULL;
 		return (EXIT_SUCCESS);
 	}
-	while (1)
+	while (expanser->str[expanser->str_cnt] != '\0')
 	{
-		if (expanser->str[expanser->str_cnt] == '\0')
-			return (EXIT_SUCCESS);
-		extracted_str = extract_str(expanser);//malloc処理
+		extracted_str = extract_str(expanser);
+		if (extracted_str == NULL)
+			return (EXIT_FAILURE);
 		put_extracted_str_to_now(now, extracted_str, *n);
 		*n += 1;
 	}
+	return (EXIT_SUCCESS);
 }
