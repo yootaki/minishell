@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:39 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 02:28:43 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/21 20:36:44 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	create_redirect_lst(t_redirect *redirect, t_token **tokens)
 		return (EXIT_FAILURE);
 	if ((*tokens)->specified_fd != 1)
 	{
+		if ((*tokens)->next == NULL)
+				return (EXIT_SUCCESS);
 		if (is_next_redirect((*tokens)->next->type, 0))
 			return (EXIT_SUCCESS);
 		else
 		{
 			*tokens = (*tokens)->next;
-			if (tokens == NULL)
-				return (EXIT_SUCCESS);
 			if (redirect_lst_add(redirect, *tokens) == EXIT_FAILURE)
 				return (EXIT_FAILURE);
 		}
