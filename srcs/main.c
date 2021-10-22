@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/20 22:50:42 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/21 20:48:40 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	loop_shell(char **envp)
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
+		/* printf("------BEFORE-----\n");
+		check(node);
+		printf("-----------------\n"); */
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -67,7 +70,20 @@ void	loop_shell(char **envp)
 				continue ;
 			}
 			else
+			{
+				//free_envplist(envp_lst);
+				//printf("------before-----\n");
+				//check(node);
+				//printf("-----------------\n");
+				//expansion(node, envp_lst);
+				/* printf("------AFTER-----\n");
+				check(node);
+				printf("-----------------\n"); */
+				//free_node(node);
+				//free_node(node);
+				//free_envplist(envp_lst);
 				exection(node);
+			}
 		}
 		signal_proc();
 		add_history(command);
