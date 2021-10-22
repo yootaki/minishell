@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/21 14:46:53 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:08:30 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_var_name(char *str)
 		name_len++;
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
 	if (var_name == NULL)//malloc
-		return (NULL);
+		exit (EXIT_FAILURE);
 	ft_strlcpy(var_name, str, name_len);
 	return (var_name);
 }
@@ -32,6 +32,7 @@ char	*get_var_name(char *str)
 char	*get_var_value(char *str, t_envlist *env)//malloc処理かけ
 {
 	t_envlist	*now;
+	char		*var_value;
 
 	if (*str == '?')
 		return (ft_itoa(g_status));
@@ -39,7 +40,12 @@ char	*get_var_value(char *str, t_envlist *env)//malloc処理かけ
 	while (now != env)
 	{
 		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
-			return (ft_strdup(now->value));
+		{
+			var_value = ft_strdup(now->value);
+			if (var_value == NULL)//malloc
+				exit (EXIT_FAILURE);
+			return (var_value);
+		}
 		now = now->next;
 	}
 	return (NULL);
@@ -60,7 +66,7 @@ int	change_underbar(t_nlst *now, t_envlist *envp_lst)
 			else
 				tmp->value = ft_strdup(now->cmd->prev->str);
 			if (tmp->value == NULL)//malloc
-				return (EXIT_FAILURE);
+				exit (EXIT_FAILURE);
 			return (EXIT_SUCCESS);
 		}
 		tmp = tmp->next;

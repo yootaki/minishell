@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_function.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:31 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:21:58 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:03:13 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_token	*lst_new(char *str, int flag)
 	t_token	*lst;
 
 	lst = (t_token *)malloc(sizeof(t_token));
-	if (lst == NULL)
-		return (NULL);
+	if (lst == NULL)//malloc
+		exit (EXIT_FAILURE);
 	lst->str = str;
 	lst->next = NULL;
 	lst->type = check_type(str);

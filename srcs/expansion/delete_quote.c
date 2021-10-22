@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:14 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/21 14:28:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:17:53 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	delete_quotation_mark(t_expanser *expanser, char mark)
 	&& expanser->str[expanser->str_cnt] != '\0')
 		expanser->str_cnt++;
 	str_new = create_new_str(expanser, str_front, str_middle, str_back);
-	if (str_new == NULL)
-		exit(EXIT_FAILURE);//ここexitする前にfreeしないとリークする
+	if (str_new == NULL)//malloc
+		exit(EXIT_FAILURE);
 	free(expanser->str);
 	expanser->str = str_new;
 	expanser->str_cnt -= 2;

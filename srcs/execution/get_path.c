@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:09:26 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:59:24 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ char	**search_path(t_envlist	*envp)
 	if (current == envp)
 		return (NULL);
 	path = ft_split(current->value, ':');
-	if (path == NULL)
-	{
-		perror("malloc");
-		return (NULL);
-	}
+	if (path == NULL)//malloc
+		exit (EXIT_FAILURE);
 	return (path);
 }
 

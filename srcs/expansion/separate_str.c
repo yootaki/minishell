@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/20 22:31:14 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:19:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 	{
 		free(now->str);
 		now->str = ft_strdup(expanser->str);
-		if (now->str == NULL)
-			return (EXIT_FAILURE);
+		if (now->str == NULL)//malloc
+			exit (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	else if (expanser->str == NULL || !expanser->str[0])
@@ -86,8 +86,8 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 	while (expanser->str[expanser->str_cnt] != '\0')
 	{
 		extracted_str = extract_str(expanser);
-		if (extracted_str == NULL)
-			return (EXIT_FAILURE);
+		if (extracted_str == NULL)//malloc
+			exit (EXIT_FAILURE);
 		put_extracted_str_to_now(now, extracted_str, *n);
 		*n += 1;
 	}

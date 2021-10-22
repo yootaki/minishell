@@ -29,11 +29,12 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	}
 	else
 	{
-		//malloc
 		new_str = ft_strjoin(ft_strjoin(expanser->str, var_value), \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 		expanser->str_cnt += ft_strlen(var_value);
 	}
+	if (new_str == NULL)//malloc
+		exit (EXIT_FAILURE);
 	free(var_name);
 	free(var_value);
 	free(expanser->str);
@@ -67,20 +68,24 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 		quotation_flag_check(expanser);
 		if (expanser->str[expanser->str_cnt] == '$' && !expanser->quote_flag \
 		&& is_var_name(expanser->str[expanser->str_cnt + 1]))
-			expansion_var(expanser, env);//malloc
+			expansion_var(expanser, env);
 		else
 			expanser->str_cnt++;
 		if (expanser->str == NULL)
+		{
 			expanser->str = ft_strdup("");//malloc
+			if (expanser->str == NULL)
+				exit (EXIT_FAILURE);
+		}
 	}
 	expanser->str_cnt = 0;
 	while (expanser->str[expanser->str_cnt] != '\0' \
 	&& expanser->str[expanser->str_cnt] != '\n')
 	{
 		if (expanser->str[expanser->str_cnt] == '\"')
-			delete_quotation_mark(expanser, '\"');//malloc
+			delete_quotation_mark(expanser, '\"');
 		else if (expanser->str[expanser->str_cnt] == '\'')
-			delete_quotation_mark(expanser, '\'');//malloc
+			delete_quotation_mark(expanser, '\'');
 		expanser->str_cnt++;
 	}
 	return (EXIT_SUCCESS);
@@ -95,11 +100,11 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		init_expanser(&expanser, now->str);//malloc
+		init_expanser(&expanser, now->str);
 		add_lst_cnt = 0;
-		expansionvar_and_deletequote(&expanser, env);//malloc
+		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;
-		if (put_separated_expanser_to_now(now, &expanser, &add_lst_cnt))//malloc
+		if (put_separated_expanser_to_now(now, &expanser, &add_lst_cnt))
 			return (EXIT_FAILURE);
 		if (add_lst_cnt == 0)
 			now = now->next;
@@ -121,9 +126,9 @@ int	expansion(t_nlst *node, t_envlist *envp_lst)
 	now = node->next;
 	while (now != node)
 	{
-		if (expanser(now->cmd, envp_lst))//malloc
+		if (expanser(now->cmd, envp_lst))
 			return (EXIT_FAILURE);
-		if (change_underbar(now, envp_lst))//malloc
+		if (change_underbar(now, envp_lst))
 			return (EXIT_FAILURE);
 		if (heardoc_and_redirect(now->redirect, envp_lst))
 			return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:43:01 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 22:17:23 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:56:22 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	delete_key_and_value(char *unset_obj, t_envlist *envp_lst)
 	while (unset_obj[char_cnt] != '=' && unset_obj[char_cnt])
 		char_cnt++;
 	env_key = malloc_and_strlcpy(unset_obj, ++char_cnt);
-	if (env_key == NULL)
-		return (print_error_func("malloc"));//mallocエラーはexitした方がいい？
 	tmp = envp_lst->next;
 	while (tmp != envp_lst && ft_strncmp(tmp->key, env_key, char_cnt))
 		tmp = tmp->next;
@@ -37,7 +35,7 @@ int	delete_key_and_value(char *unset_obj, t_envlist *envp_lst)
 	free(tmp->value);
 	ft_envlstdelone(tmp);
 	free(env_key);
-	return (g_status);//exitはEXIT_SUCCESSで統一するか、g_statusで統一するか
+	return (g_status);
 }
 
 int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst)
