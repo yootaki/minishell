@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:45:25 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:57:57 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	*tolower_cmd(char *cmd)
 		return (NULL);
 	i = ft_strlen(cmd);
 	str = (char *)malloc(sizeof(char) * (i + 1));
-	if (str == NULL)
-		return (NULL);
+	if (str == NULL)//malloc
+		exit (EXIT_FAILURE);
 	j = 0;
 	while (cmd[j] != '\0')
 	{

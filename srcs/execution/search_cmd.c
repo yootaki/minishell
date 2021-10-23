@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 02:33:23 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:00:48 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,11 @@ char	*strjoin_2times(char *path, const char *str, char *cmd)
 	char	*path_cmd;
 
 	tmp_path_cmd = ft_strjoin(path, str);
-	if (tmp_path_cmd == NULL)
-		return (NULL);
+	if (tmp_path_cmd == NULL)//malloc
+		exit (EXIT_FAILURE);
 	path_cmd = ft_strjoin(tmp_path_cmd, cmd);
-	if (path_cmd == NULL)
-	{
-		free(tmp_path_cmd);
-		return (NULL);
-	}
+	if (path_cmd == NULL)//malloc
+		exit (EXIT_FAILURE);
 	free(tmp_path_cmd);
 	return (path_cmd);
 }

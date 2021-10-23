@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 21:11:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/21 15:06:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/expansion.h"
 #include "../../includes/utils.h"
 
-char	*heardoc_expansion_var(char *line, t_envlist *env)
+char	*heardoc_expansion_var(char *line, t_envlist *env)//malloc
 {
 	char	*var_name;
 	char	*var_value;
@@ -51,7 +51,7 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 	int		status;
 
 	close(pipe_fd[READ]);
-	redirect_signal_proc();
+	heardoc_signal_proc();
 	ft_putstr_fd("> ", 1);
 	while (1)
 	{

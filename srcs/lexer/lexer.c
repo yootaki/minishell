@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:25 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:13:10 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:02:47 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,8 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	t_token	*new_list;
 
 	str = ft_substr(*command, data->start, data->char_cnt);
-	if (str == NULL)
-	{
-		lst_clear(&data->token, free_line);
-		return (EXIT_FAILURE);
-	}
+	if (str == NULL)//malloc
+		exit (EXIT_FAILURE);
 	new_list = lst_new(str, data->flg);
 	if (new_list == NULL)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/12 19:01:57 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 17:57:00 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ char	**get_cmd_str(t_nlst *node)
 	char		**cmd_array;
 
 	cmd_array = (char **)malloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
-	if (cmd_array == NULL)
-		return (NULL);
+	if (cmd_array == NULL)//malloc
+		exit (EXIT_FAILURE);
 	current = node->cmd->next;
 	i = 0;
 	while (current != node->cmd)
