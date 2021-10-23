@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/19 15:30:54 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:02:15 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
 
 	len = data->char_cnt;
 	str = ft_substr(command, data->start, data->char_cnt);
+	if (str == NULL)//malloc
+		exit (EXIT_FAILURE);
 	if (check_isdigit(str))
 		data->flg = 1;
 	free (str);
