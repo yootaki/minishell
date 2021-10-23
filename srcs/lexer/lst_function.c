@@ -6,19 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:31 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:03:13 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:43:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/input.h"
+#include "../../includes/expansion.h"
 
 t_token	*lst_new(char *str, int flag)
 {
 	t_token	*lst;
 
 	lst = (t_token *)malloc(sizeof(t_token));
-	if (lst == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!lst)
+		exit (print_error_func("malloc"));
 	lst->str = str;
 	lst->next = NULL;
 	lst->type = check_type(str);

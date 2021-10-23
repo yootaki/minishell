@@ -22,7 +22,7 @@ SRCS_BUILTIN = cd.c echo.c env.c exit.c export.c export_utils.c lst_func.c pwd.c
 
 SRCS_EXECUTION = create_cmd_array.c exe_free_function.c execution_utils1.c execute_command.c execution_free.c execution.c get_path.c no_built_cmd.c process_function.c search_cmd.c
 
-SRCS_UTILS = envp_lst.c get_envp.c signal_main.c signal_heardoc.c x_function.c x_function2.c
+SRCS_UTILS = envp_lst.c get_envp.c signal_main.c signal_heardoc.c wrapper_1.c wrapper_2.c wrapper_3.c
 
 SRCS_L = ${addprefix ${LEXER_DIR}, ${SRCS_LEXER}}
 

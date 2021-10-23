@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:23:08 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:30:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	create_envlst(t_envlist *lst, char **envp)
 		while (*str != '=')
 			str++;
 		*str = '\0';
-		key = ft_strdup(*envp);
+		key = ft_xstrdup(*envp);
 		str++;
 		if (!ft_strncmp(key, "SHLVL", 6))
-			value = ft_itoa(ft_atoi(str) + 1);
+			value = ft_xitoa(ft_atoi(str) + 1);
 		else
-			value = ft_strdup(str);
+			value = ft_xstrdup(str);
 		if (envp_lstmap(current, key, value) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		(envp)++;

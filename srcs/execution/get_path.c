@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 17:59:24 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:28:27 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ char	**search_path(t_envlist	*envp)
 		current = current->next;
 	if (current == envp)
 		return (NULL);
-	path = ft_split(current->value, ':');
-	if (path == NULL)//malloc
+	path = ft_xsplit(current->value, ':');
+	if (!path)
 		exit (EXIT_FAILURE);
 	return (path);
 }

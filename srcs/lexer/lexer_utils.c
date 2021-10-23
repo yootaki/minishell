@@ -6,11 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:02:15 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:31:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/input.h"
+#include "../../includes/expansion.h"
 
 t_token_type	check_type(char *str)
 {
@@ -66,8 +67,8 @@ void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
 	char	*str;
 
 	len = data->char_cnt;
-	str = ft_substr(command, data->start, data->char_cnt);
-	if (str == NULL)//malloc
+	str = ft_xsubstr(command, data->start, data->char_cnt);
+	if (!str)
 		exit (EXIT_FAILURE);
 	if (check_isdigit(str))
 		data->flg = 1;

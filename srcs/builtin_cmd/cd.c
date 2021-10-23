@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/22 17:52:07 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:19:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int	change_oldpwd(t_envlist *envp_lst, t_envlist *now_pwd)
 	else
 	{
 		free(now->value);
-		now->value = ft_strdup(now_pwd->value);
-		if (now->value == NULL)//malloc
+		now->value = ft_xstrdup(now_pwd->value);
+		if (!now->value)
 			exit (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -45,8 +45,8 @@ int	change_current_path(t_envlist *envp_lst)
 	while (now != envp_lst && ft_strncmp(now->key, "PWD", 4))
 		now = now->next;
 	change_oldpwd(envp_lst, now);
-	now->value = ft_strdup(current_path);
-	if (now->value == NULL)//malloc
+	now->value = ft_xstrdup(current_path);
+	if (!now->value)
 		exit (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

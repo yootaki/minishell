@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:08:32 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:31:48 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_data
 
 /* search_cmd.c */
 t_mode_type		ft_stat(char *pathname);
-char			*strjoin_2times(char *path, const char *str, char *cmd);
+char			*strjoin_2times(char *path, char *str, char *cmd);
 char			*cmd_path_direct(char *cmd);
 char			*cmd_path(char *cmd, t_data *data);
 char			*search_cmd(char *cmd, t_data *data);

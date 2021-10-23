@@ -6,24 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:25 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:02:47 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:53:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/input.h"
-/*
-* 分割した文字列をft_substr()で作成
-* listに作成した文字列を追加
-* エラー対応していない
-* 17行目仮置き
-*/
+#include "../../includes/expansion.h"
+
 int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 {
 	char	*str;
 	t_token	*new_list;
 
-	str = ft_substr(*command, data->start, data->char_cnt);
-	if (str == NULL)//malloc
+	str = ft_xsubstr(*command, data->start, data->char_cnt);
+	if (!str)
 		exit (EXIT_FAILURE);
 	new_list = lst_new(str, data->flg);
 	if (new_list == NULL)
@@ -47,13 +43,6 @@ bool	is_delimiter(char *cmd)
 		return (true);
 	return (false);
 }
-
-/*
-* スペース又はタブの時はスキップ
-* [スペース、＜、＞、＜＜、＞＞、｜]を区切り文字として「英字、数字」「数字のみ」「’、”」「その他」に分けて区切る
-* エラー未対応
-* 39行目　仮置き
-*/
 
 int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 {

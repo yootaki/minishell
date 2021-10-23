@@ -6,11 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 17:57:00 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:47:02 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execution.h"
+#include "../../includes/expansion.h"
 
 int	cmd_lst_len(t_cmd_lst *cmd)
 {
@@ -34,8 +35,8 @@ char	**get_cmd_str(t_nlst *node)
 	char		**cmd_array;
 
 	cmd_array = (char **)malloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
-	if (cmd_array == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!cmd_array)
+		exit (print_error_func("malloc"));
 	current = node->cmd->next;
 	i = 0;
 	while (current != node->cmd)

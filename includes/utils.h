@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/20 22:51:00 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:25:49 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,19 @@ void		signal_proc(void);
 /* signal_heardoc.c */
 void		heardoc_signal_proc(void);
 
-/* x_funtion.c */
+/* wrapper_1.c */
 void		xclose(int fd);
 int			xdup2(int oldfd, int newfd);
 int			xdup(int oldfd);
 
-/* x_function2.c */
+/* wrapper_2.c */
+char		*ft_xstrdup(char *s);
+char		*ft_xstrjoin(char *s1, char *s2);
+char		*ft_xsubstr(char const *s, unsigned int start, size_t len);
+char		**ft_xsplit(char const *s, char c);
+char		*ft_xitoa(int n);
+
+/* wrapper_3.c */
 void		xwaitpid(pid_t pid, int *wstatus, int options);
 void		xpipe(int *pipefd);
 pid_t		xfork(void);
