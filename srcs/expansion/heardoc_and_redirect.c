@@ -6,20 +6,22 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/21 15:05:10 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/25 22:40:52 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../builtin_cmd/builtin_cmd.h"
 #include "../../includes/expansion.h"
 
-void	proc_specified_fd(t_redirect *now)
+bool	is_fd(t_redirect *now)
 {
 	if (ft_isdigit(*(now->str)))
 	{
 		now->next->spec_flg = 1;
 		now->next->spec_fd = ft_atoi(now->str);
+		return (true);
 	}
+	return (false);
 }
 
 bool	is_there_ctype(t_redirect *now)
@@ -58,7 +60,6 @@ bool	check_redirect_syntax(t_redirect *now)
 
 bool	validate_now_redirect_list(t_redirect *now)
 {
-	proc_specified_fd(now);
 	if (!is_there_ctype(now))
 		return (false);
 	now = now->next;
@@ -76,6 +77,8 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
+		if (is_fd(now))
+			now = now->next;
 		if (!validate_now_redirect_list(now))
 			return (EXIT_FAILURE);
 		if (now->c_type == HEAR_DOC || now->c_type == T_LESSER)
