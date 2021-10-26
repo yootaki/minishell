@@ -6,19 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:09:49 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:37:37 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+#include "../../includes/expansion.h"
 
 t_envlist	*init_envlist(void)
 {
 	t_envlist	*nil;
 
 	nil = (t_envlist *)malloc(sizeof(t_envlist));
-	if (nil == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!nil)
+		exit (print_error_func("malloc"));
 	nil->next = nil;
 	nil->prev = nil;
 	nil->key = NULL;
@@ -31,8 +32,8 @@ t_envlist	*ft_envlstnew(char *key, char *value)
 	t_envlist	*lst;
 
 	lst = (t_envlist *)malloc(sizeof(t_envlist));
-	if (lst == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!lst)
+		exit (print_error_func("malloc"));
 	lst->prev = lst;
 	lst->next = lst;
 	lst->key = key;

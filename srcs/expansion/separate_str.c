@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/22 17:19:14 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:44:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	add_cmd_lst(t_cmd_lst *now)
 	t_cmd_lst	*newlst;
 
 	newlst = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
+	if (!newlst)
+		exit (print_error_func("malloc"));
 	newlst->prev = now;
 	newlst->next = now->next;
 	now->next->prev = newlst;
@@ -47,7 +49,7 @@ char	*extract_str(t_expanser *expanser)
 			expanser->str_cnt++;
 		end = expanser->str_cnt;
 	}
-	return (ft_substr(expanser->str, start, end - start));
+	return (ft_xsubstr(expanser->str, start, end - start));
 }
 
 void	put_extracted_str_to_now(t_cmd_lst *now, char *extracted_str, int n)
@@ -72,8 +74,8 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 	if (now->prev->str == NULL)
 	{
 		free(now->str);
-		now->str = ft_strdup(expanser->str);
-		if (now->str == NULL)//malloc
+		now->str = ft_xstrdup(expanser->str);
+		if (!now->str)
 			exit (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
@@ -86,7 +88,7 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 	while (expanser->str[expanser->str_cnt] != '\0')
 	{
 		extracted_str = extract_str(expanser);
-		if (extracted_str == NULL)//malloc
+		if (!extracted_str)
 			exit (EXIT_FAILURE);
 		put_extracted_str_to_now(now, extracted_str, *n);
 		*n += 1;

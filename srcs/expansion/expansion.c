@@ -29,12 +29,10 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	}
 	else
 	{
-		new_str = ft_strjoin(ft_strjoin(expanser->str, var_value), \
+		new_str = ft_xstrjoin(ft_xstrjoin(expanser->str, var_value), \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 		expanser->str_cnt += ft_strlen(var_value);
 	}
-	if (new_str == NULL)//malloc
-		exit (EXIT_FAILURE);
 	free(var_name);
 	free(var_value);
 	free(expanser->str);
@@ -73,9 +71,7 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 			expanser->str_cnt++;
 		if (expanser->str == NULL)
 		{
-			expanser->str = ft_strdup("");//malloc
-			if (expanser->str == NULL)
-				exit (EXIT_FAILURE);
+			expanser->str = ft_xstrdup("");
 		}
 	}
 	expanser->str_cnt = 0;

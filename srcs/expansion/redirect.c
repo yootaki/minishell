@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:08:43 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/21 15:07:28 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:44:23 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	redirect_file_open(t_redirect *now, t_envlist *env)
 	char		*filename;
 
 	init_expanser(&expanser, now->str);
-	expansionvar_and_deletequote(&expanser, env);//malloc
+	expansionvar_and_deletequote(&expanser, env);
 	filename = expanser.str;
 	if (!ft_strncmp(now->prev->str, "<", ft_strlen("<") + 1))
 		now->redirect_fd = open(filename, O_RDWR);

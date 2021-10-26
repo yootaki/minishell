@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"builtin_cmd.h": "c"
+		"builtin_cmd.h": "c",
+		"utils.h": "c"
 	}
 }

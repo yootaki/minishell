@@ -6,19 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:56 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:06:32 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:39:16 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+#include "../../includes/expansion.h"
 
 int	cmd_lst_add(t_cmd_lst *nil, t_token *token)
 {
 	t_cmd_lst	*new;
 
 	new = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
-	if (new == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!new)
+		exit (print_error_func("malloc"));
 	new->status = 0;
 	new->c_type = token->type;
 	new->str = token->str;
@@ -34,8 +35,8 @@ int	redirect_lst_add(t_redirect *nil, t_token *tokens)
 	t_redirect	*new;
 
 	new = (t_redirect *)malloc(sizeof(t_redirect));
-	if (new == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!new)
+		exit (print_error_func("malloc"));
 	new->status = 0;
 	new->c_type = tokens->type;
 	new->str = tokens->str;
@@ -60,8 +61,8 @@ int	nlst_add(t_nlst *nil, t_envlist *env_lst)
 	t_nlst	*new;
 
 	new = (t_nlst *)malloc(sizeof(t_nlst));
-	if (new == NULL)//malloc
-		exit (EXIT_FAILURE);
+	if (!new)
+		exit (print_error_func("malloc"));
 	new->cmd = init_cmd_lst();
 	new->redirect = init_redirect();
 	new->envp_lst = env_lst;

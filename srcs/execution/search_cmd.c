@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/22 18:00:48 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:31:39 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,13 @@ t_mode_type	ft_stat(char *pathname)
 	return (ELSE_MODE);
 }
 
-char	*strjoin_2times(char *path, const char *str, char *cmd)
+char	*strjoin_2times(char *path, char *str, char *cmd)
 {
 	char	*tmp_path_cmd;
 	char	*path_cmd;
 
-	tmp_path_cmd = ft_strjoin(path, str);
-	if (tmp_path_cmd == NULL)//malloc
-		exit (EXIT_FAILURE);
-	path_cmd = ft_strjoin(tmp_path_cmd, cmd);
-	if (path_cmd == NULL)//malloc
-		exit (EXIT_FAILURE);
+	tmp_path_cmd = ft_xstrjoin(path, str);
+	path_cmd = ft_xstrjoin(tmp_path_cmd, cmd);
 	free(tmp_path_cmd);
 	return (path_cmd);
 }

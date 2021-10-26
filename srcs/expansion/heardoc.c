@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/21 15:06:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:45:33 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/expansion.h"
 #include "../../includes/utils.h"
 
-char	*heardoc_expansion_var(char *line, t_envlist *env)//malloc
+char	*heardoc_expansion_var(char *line, t_envlist *env)
 {
 	char	*var_name;
 	char	*var_value;
@@ -29,9 +29,9 @@ char	*heardoc_expansion_var(char *line, t_envlist *env)//malloc
 		return (line);
 	line[line_cnt] = '\0';
 	var_name = get_var_name(&line[line_cnt + 1]);
-	var_value = ft_strdup(get_var_value(var_name, env));
-	tmp = ft_strjoin(line, var_value);
-	newline = ft_strjoin(tmp, &line[line_cnt + ft_strlen(var_name) + 1]);
+	var_value = ft_xstrdup(get_var_value(var_name, env));
+	tmp = ft_xstrjoin(line, var_value);
+	newline = ft_xstrjoin(tmp, &line[line_cnt + ft_strlen(var_name) + 1]);
 	free(var_name);
 	free(var_value);
 	free(tmp);
