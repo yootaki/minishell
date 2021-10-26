@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/12 19:01:57 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 13:09:45 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ char	**get_cmd_str(t_nlst *node)
 	int			i;
 	char		**cmd_array;
 
-	cmd_array = (char **)malloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
-	if (cmd_array == NULL)
-		return (NULL);
+	cmd_array = (char **)xmalloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
 	current = node->cmd->next;
 	i = 0;
 	while (current != node->cmd)

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:22 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:04:57 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/25 11:54:05 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	ft_call_child(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
 {
 	xdup2(prev_read_fd, STDIN_FILENO);
 	xclose(pipefd[READ]);
-	if (node->next != data->top)
-		xdup2(pipefd[WRITE], STDOUT_FILENO);
+	if (node->next != data->top \
+	&& xdup2(pipefd[WRITE], STDOUT_FILENO) == -1)
+		exit(EXIT_FAILURE);
 	xclose(pipefd[WRITE]);
 	execute_command(node, data);
 	exit(g_status);

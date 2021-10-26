@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 02:33:23 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 13:45:52 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,13 @@ t_mode_type	ft_stat(char *pathname)
 	return (ELSE_MODE);
 }
 
-char	*strjoin_2times(char *path, const char *str, char *cmd)
+char	*strjoin_2times(char *path, char *str, char *cmd)
 {
 	char	*tmp_path_cmd;
 	char	*path_cmd;
 
-	tmp_path_cmd = ft_strjoin(path, str);
-	if (tmp_path_cmd == NULL)
-		return (NULL);
-	path_cmd = ft_strjoin(tmp_path_cmd, cmd);
-	if (path_cmd == NULL)
-	{
-		free(tmp_path_cmd);
-		return (NULL);
-	}
+	tmp_path_cmd = ft_xstrjoin(path, str);
+	path_cmd = ft_xstrjoin(tmp_path_cmd, cmd);
 	free(tmp_path_cmd);
 	return (path_cmd);
 }
@@ -75,8 +68,6 @@ char	*cmd_path(char *cmd, t_data *data)
 	while (data->path_list[i] != NULL)
 	{
 		path_cmd = strjoin_2times(data->path_list[i], "/", cmd);
-		if (path_cmd == NULL)
-			return (NULL);
 		if (ft_stat(path_cmd) == IS_FILE)
 			break ;
 		free(path_cmd);

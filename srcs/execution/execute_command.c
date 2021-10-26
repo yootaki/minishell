@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:45:25 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:32:42 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	execute_command(t_nlst *node, t_data *data)
 {
 	char	*cmd;
 
-	check_redirect(node, data);
+	if (check_redirect(node, data) == EXIT_FAILURE)
+		return ;
 	cmd = tolower_cmd(node->cmd->next->str);
 	if (cmd == NULL)
 		no_built_cmd(node, data);

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:09:26 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 13:15:40 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ char	**search_path(t_envlist	*envp)
 		current = current->next;
 	if (current == envp)
 		return (NULL);
-	path = ft_split(current->value, ':');
-	if (path == NULL)
-	{
-		perror("malloc");
-		return (NULL);
-	}
+	path = ft_xsplit(current->value, ':');
 	return (path);
 }
 

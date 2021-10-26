@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_next_cmd_check_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:55 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/19 11:34:46 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/25 10:33:53 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	xcheck(t_nlst *nil)
 
 int	cmd_cmb(char **p_line, char *line)
 {
-	*p_line = xstrjoin(*p_line, line);
+	*p_line = strjoin_2(*p_line, line);
 	if (*p_line == NULL)
 	{
 		free(line);
@@ -46,7 +46,7 @@ int	cmd_cmb(char **p_line, char *line)
 	return (EXIT_SUCCESS);
 }
 
-char	*xstrjoin(char *s1, char const *s2)
+char	*strjoin_2(char *s1, char const *s2)
 {
 	char	*str;
 	int		i;
