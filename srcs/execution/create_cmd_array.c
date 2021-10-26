@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:47:02 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:33:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ char	**get_cmd_str(t_nlst *node)
 	int			i;
 	char		**cmd_array;
 
-	cmd_array = (char **)malloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
-	if (!cmd_array)
-		exit (print_error_func("malloc"));
+	cmd_array = (char **)xmalloc(sizeof(char *) * (cmd_lst_len(node->cmd) + 1));
 	current = node->cmd->next;
 	i = 0;
 	while (current != node->cmd)

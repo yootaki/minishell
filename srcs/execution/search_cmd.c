@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:31:39 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:33:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ char	*cmd_path(char *cmd, t_data *data)
 	while (data->path_list[i] != NULL)
 	{
 		path_cmd = strjoin_2times(data->path_list[i], "/", cmd);
-		if (path_cmd == NULL)
-			return (NULL);
 		if (ft_stat(path_cmd) == IS_FILE)
 			break ;
 		free(path_cmd);

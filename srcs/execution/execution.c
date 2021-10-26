@@ -6,34 +6,47 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:06 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:09:58 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:31:07 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execution.h"
 #include "../builtin_cmd/builtin_cmd.h"
 
-void	backup_std_fd(t_data *data, int mode)
+int	backup_std_fd(t_data *data, int mode)
 {
 	if (mode == STD_BACKUP)
 	{
-		data->backup_stdout = xdup(STDIN_FILENO);
-		data->backup_stdin = xdup(STDOUT_FILENO);
-		data->backup_error = xdup(STDERR_FILENO);
+		if (xdup(STDIN_FILENO, &data->backup_stdin) == -1 \
+		||xdup(STDOUT_FILENO, &data->backup_stdout) == -1 \
+		||xdup(STDERR_FILENO, &data->backup_error) == -1)
+		{
+			g_status = 1;
+			return (EXIT_FAILURE);
+		}
 	}
 	if (mode == STD_RESTORE)
 	{
-		xdup2(data->backup_stdout, STDIN_FILENO);
-		xdup2(data->backup_stdin, STDOUT_FILENO);
-		xdup2(data->backup_error, STDERR_FILENO);
+		if (xdup2(data->backup_stdin, STDIN_FILENO) == -1 \
+		|| xdup2(data->backup_stdout, STDOUT_FILENO) == -1 \
+		|| xdup2(data->backup_error, STDERR_FILENO) == -1)
+		{
+			g_status = 1;
+			exit(EXIT_FAILURE);
+		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 void	no_pipe_and_builtcmd(t_nlst *node, t_data *data)
 {
-	backup_std_fd(data, STD_BACKUP);
+	if (backup_std_fd(data, STD_BACKUP) == EXIT_FAILURE)
+	{
+		close_redirect_fd(node->next);
+		return ;
+	}
 	execute_command(node->next, data);
-	free_node(node);
+	close_redirect_fd(node->next);
 	backup_std_fd(data, STD_RESTORE);
 }
 
@@ -70,22 +83,19 @@ void	pipe_existence(t_nlst *node, t_data *data)
 	t_nlst	*current;
 	int		wstatus;
 
-	backup_std_fd(data, STD_BACKUP);
 	xwaitpid(execution_process(node, data), &wstatus, 0);
 	if (WIFEXITED(wstatus))
 		g_status = WEXITSTATUS(wstatus);
 	current = node->next;
 	while (current != node)
 	{
-		wait(NULL);
+		wait(0);
 		close_redirect_fd(current);
 		current = current->next;
 	}
-	free_node(node);
-	backup_std_fd(data, STD_RESTORE);
 }
 
-int	exection(t_nlst *node)
+void	exection(t_nlst *node)
 {
 	t_data	data;
 	t_nlst	*current;
@@ -97,5 +107,5 @@ int	exection(t_nlst *node)
 		no_pipe_and_builtcmd(node, &data);
 	else
 		pipe_existence(node, &data);
-	return (EXIT_SUCCESS);
+	free_node(node);
 }

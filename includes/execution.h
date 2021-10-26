@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:31:48 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:42:23 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,22 @@ void			free_data_lst(t_data *data);
 void			free_all(char **cmd_array, t_nlst *node, t_data *data);
 
 /* execution.c */
-void			backup_std_fd(t_data *data, int mode);
+int				backup_std_fd(t_data *data, int mode);
 void			no_pipe_and_builtcmd(t_nlst *node, t_data *data);
 void			pipe_existence(t_nlst *node, t_data *data);
-int				exection(t_nlst *node);
+void			exection(t_nlst *node);
+void			close_redirect_fd(t_nlst *node);
 
 /* get_path.c */
 char			**search_path(t_envlist	*envp);
 int				get_path(t_nlst *node, t_data *data);
 
 /* no_built_cmd.c */
-void			check_type_redirect(t_redirect **r_lst, t_data *data);
-void			check_std_fd_in_use(int specified_fd, t_data *data);
-void			change_fd(t_redirect *r_lst, int redirect_fd, \
+int				check_type_redirect(t_redirect **r_lst, t_data *data);
+int				check_std_fd_in_use(int specified_fd, t_data *data);
+int				change_fd(t_redirect *r_lst, int redirect_fd, \
 int std_fd, t_data *data);
-void			check_redirect(t_nlst *node, t_data *data);
+int				check_redirect(t_nlst *node, t_data *data);
 void			no_built_cmd(t_nlst *node, t_data *data);
 
 /* process_function.c */

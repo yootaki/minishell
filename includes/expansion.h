@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/21 14:40:11 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:34:57 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int				put_separated_expanser_to_now(t_cmd_lst *now, \
 
 t_flag			pipe_next_cmd_check(t_nlst \
 *node, t_envlist *envp_lst, t_nlst *n_lst);
-char			*xstrjoin(char *s1, char const *s2);
+char			*strjoin_2(char *s1, char const *s2);
 void			nlst_bottom_add(t_nlst *old_node, t_nlst *new_node);
 void			delete_node(t_nlst *node, t_nlst *now_node);
 

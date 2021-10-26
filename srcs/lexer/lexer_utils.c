@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:31:09 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:28:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,16 @@ bool	check_isdigit(char *str)
 	return (true);
 }
 
-void	is_specified_fd(char *cmd, t_tokeniser *data, char *command)
+void	is_specified_fd(t_tokeniser *data, char *command)
 {
 	size_t	len;
 	char	*str;
 
 	len = data->char_cnt;
 	str = ft_xsubstr(command, data->start, data->char_cnt);
-	if (!str)
-		exit (EXIT_FAILURE);
 	if (check_isdigit(str))
 		data->flg = 1;
 	free (str);
-	return ;
-	if (len >= 2)
-	{
-		if (ft_isdigit(cmd[-1]) && cmd[-2] == CHAR_WHITESPACE)
-			data->flg = 1;
-	}
-	else if (len >= 1)
-	{
-		if (ft_isdigit(cmd[-1]))
-			data->flg = 1;
-	}
 }
 
 void	is_functions(t_tokeniser **data, char **cmd)

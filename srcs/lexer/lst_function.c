@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:31 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:43:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:28:34 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_token	*lst_new(char *str, int flag)
 {
 	t_token	*lst;
 
-	lst = (t_token *)malloc(sizeof(t_token));
-	if (!lst)
-		exit (print_error_func("malloc"));
+	lst = (t_token *)xmalloc(sizeof(t_token));
 	lst->str = str;
 	lst->next = NULL;
 	lst->type = check_type(str);

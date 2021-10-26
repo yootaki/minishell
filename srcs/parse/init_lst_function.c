@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:42:43 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:26:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_cmd_lst	*init_cmd_lst(void)
 {
 	t_cmd_lst	*new;
 
-	new = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
-	if (!new)
-		exit (print_error_func("malloc"));
+	new = (t_cmd_lst *)xmalloc(sizeof(t_cmd_lst));
 	new->next = new;
 	new->prev = new;
 	new->c_type = 0;
@@ -33,9 +31,7 @@ t_redirect	*init_redirect(void)
 {
 	t_redirect	*new;
 
-	new = (t_redirect *)malloc(sizeof(t_redirect));
-	if (!new)
-		exit (print_error_func("malloc"));
+	new = (t_redirect *)xmalloc(sizeof(t_redirect));
 	new->next = new;
 	new->prev = new;
 	new->str = NULL;
@@ -53,9 +49,7 @@ t_nlst	*init_node(void)
 {
 	t_nlst	*new;
 
-	new = (t_nlst *)malloc(sizeof(t_nlst));
-	if (!new)
-		exit (print_error_func("malloc"));
+	new = (t_nlst *)xmalloc(sizeof(t_nlst));
 	new->next = new;
 	new->prev = new;
 	return (new);

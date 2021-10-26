@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 03:29:06 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 12:55:02 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/uio.h>
 # include <stdbool.h>
 # include "../libft/libft.h"
+# include "utils.h"
 
 extern int	g_status;
 
@@ -82,7 +83,7 @@ void			free_line(void *line);
 
 /* ./lexer/lexer_utils.c */
 void			proceed_command(char **cmd, char *ch, size_t *char_cnt);
-void			is_specified_fd(char *cmd, t_tokeniser *data, char *command);
+void			is_specified_fd(t_tokeniser *data, char *command);
 void			is_functions(t_tokeniser **data, char **cmd);
 void			advance_space(t_tokeniser **data, char **cmd);
 

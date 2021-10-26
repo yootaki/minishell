@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:25:49 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:40:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <sys/types.h>
 # include <sys/uio.h>
 # include <stdbool.h>
 # include <string.h>
 # include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef struct s_envlist
 {
@@ -53,18 +55,21 @@ void		heardoc_signal_proc(void);
 /* wrapper_1.c */
 void		xclose(int fd);
 int			xdup2(int oldfd, int newfd);
-int			xdup(int oldfd);
+int			xdup(int oldfd, int *stdfd);
+int			xpipe(int *pipefd);
+pid_t		xfork(void);
 
 /* wrapper_2.c */
-char		*ft_xstrdup(char *s);
-char		*ft_xstrjoin(char *s1, char *s2);
+char		*ft_xstrjoin(char *str1, char *str2);
 char		*ft_xsubstr(char const *s, unsigned int start, size_t len);
 char		**ft_xsplit(char const *s, char c);
 char		*ft_xitoa(int n);
 
 /* wrapper_3.c */
+void		*xmalloc(size_t size);
+int			ft_open(char *pathname, int flags, mode_t mode);
 void		xwaitpid(pid_t pid, int *wstatus, int options);
-void		xpipe(int *pipefd);
-pid_t		xfork(void);
+void		ft_perror(char *error_str);
+char		*ft_xstrdup(char *src);
 
 #endif

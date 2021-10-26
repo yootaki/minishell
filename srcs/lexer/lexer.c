@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:25 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:53:21 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:29:21 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 	t_token	*new_list;
 
 	str = ft_xsubstr(*command, data->start, data->char_cnt);
-	if (!str)
-		exit (EXIT_FAILURE);
 	new_list = lst_new(str, data->flg);
-	if (new_list == NULL)
-	{
-		lst_clear(&data->token, free_line);
-		return (EXIT_FAILURE);
-	}
 	lstadd_back(&data->token, new_list);
 	data->start = 0;
 	data->char_cnt = 0;
@@ -53,7 +46,7 @@ int	sep_command_line(char *command, char *cmd, t_tokeniser *data)
 	if (is_delimiter(cmd))
 	{
 		if (cmd[0] == CHAR_GREATER || cmd[0] == CHAR_LESSER)
-			is_specified_fd(cmd, data, command);
+			is_specified_fd(data, command);
 		if (put_in_list(data, &command, &cmd) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		data->flg = 0;

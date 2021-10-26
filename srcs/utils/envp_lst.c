@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   envp_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:37:37 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:25:19 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ t_envlist	*init_envlist(void)
 {
 	t_envlist	*nil;
 
-	nil = (t_envlist *)malloc(sizeof(t_envlist));
-	if (!nil)
-		exit (print_error_func("malloc"));
+	nil = (t_envlist *)xmalloc(sizeof(t_envlist));
 	nil->next = nil;
 	nil->prev = nil;
 	nil->key = NULL;
@@ -31,9 +29,7 @@ t_envlist	*ft_envlstnew(char *key, char *value)
 {
 	t_envlist	*lst;
 
-	lst = (t_envlist *)malloc(sizeof(t_envlist));
-	if (!lst)
-		exit (print_error_func("malloc"));
+	lst = (t_envlist *)xmalloc(sizeof(t_envlist));
 	lst->prev = lst;
 	lst->next = lst;
 	lst->key = key;

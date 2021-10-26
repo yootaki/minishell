@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:01 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 02:22:42 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 13:05:29 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	create_lst(t_nlst **n_lst, t_token **tokens)
 			return (EXIT_FAILURE);
 	}
 	else
-	{
-		if (create_cmd_lst((*n_lst)->cmd, *tokens) == EXIT_FAILURE)
-			return (EXIT_FAILURE);
-	}
+		cmd_lst_add((*n_lst)->cmd, *tokens);
 	return (EXIT_SUCCESS);
 }
 
