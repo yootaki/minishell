@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 16:17:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 16:18:23 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/25 17:31:43 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	xclose(int fd)
 {
-	if (close(fd) == -1)
+	if (0 <= fd && close(fd) == -1)
 	{
-		ft_putstr_fd("close : ", STDERR_FILENO);
-		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(EXIT_FAILURE);
+		if (errno != EBADF)
+		{
+			ft_perror("close");
+			exit(EXIT_FAILURE);
+		}
 	}
 }
 
@@ -27,6 +29,8 @@ int	xdup2(int oldfd, int newfd)
 	int	fd;
 
 	fd = 0;
+	if (oldfd < 0)
+		return (-1);
 	if (oldfd != newfd)
 	{
 		fd = dup2(oldfd, newfd);
@@ -34,16 +38,13 @@ int	xdup2(int oldfd, int newfd)
 		{
 			ft_putstr_fd("dup2 : ", STDERR_FILENO);
 			ft_putendl_fd(strerror(errno), STDERR_FILENO);
-			exit(EXIT_FAILURE);
 		}
 		xclose(oldfd);
 	}
-	else
-		return (newfd);
 	return (fd);
 }
 
-int	xdup(int oldfd)
+int	xdup(int oldfd, int *stdfd)
 {
 	int	newfd;
 
@@ -52,15 +53,22 @@ int	xdup(int oldfd)
 	{
 		ft_putstr_fd("dup : ", STDERR_FILENO);
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
-		exit(EXIT_FAILURE);
 	}
+	else
+		*stdfd = newfd;
 	return (newfd);
 }
 
-void	xpipe(int *pipefd)
+int	xpipe(int *pipefd)
 {
 	if (pipe(pipefd) == -1)
-		exit(print_error_func("pipe"));
+	{
+		perror("pipe");
+		pipefd[0] = -1;
+		pipefd[1] = -1;
+		return (-1);
+	}
+	return (0);
 }
 
 pid_t	xfork(void)
@@ -69,6 +77,9 @@ pid_t	xfork(void)
 
 	pid = fork();
 	if (pid == -1)
-		exit(print_error_func("fork"));
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	return (pid);
 }
