@@ -6,34 +6,27 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:21 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/19 21:14:59 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/20 16:40:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 
-void	redirect_sig_int_input(void)
+void	heardoc_signal_handler(int signal)
 {
-	exit (EXIT_FAILURE);
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', STDERR_FILENO);
+		exit (EXIT_FAILURE);
+	}
 }
 
-void	redirect_signal_proc(void)
+void	heardoc_signal_proc(void)
 {
-	/*
-	ctrl + c <- 改行あり終了
-	bash-3.2$ cat << end
-	>
-	bash-3.2$
-
-	ctrl + d <- 改行なし終了
-	bash-3.2$ cat << end
-	> bash-3.2$
-	*/
-
-	// if (signal(SIGINT, redirect_sig_int_input) == SIG_ERR)
-	// 	perror("signal");
-	// else if (signal(SIGTERM, SIG_IGN) == SIG_ERR)
-	// 	perror("signal");
-	// else if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-	// 	perror("signal");
+	if (signal(SIGINT, &heardoc_signal_handler) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGTERM, &heardoc_signal_handler) == SIG_ERR)
+		perror("signal");
+	else if (signal(SIGQUIT, &heardoc_signal_handler) == SIG_ERR)//ctrl+バッククオート
+		perror("signal");
 }

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 20:57:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:44:09 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ void	add_cmd_lst(t_cmd_lst *now)
 	t_cmd_lst	*newlst;
 
 	newlst = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
+	if (!newlst)
+		exit (print_error_func("malloc"));
 	newlst->prev = now;
 	newlst->next = now->next;
 	now->next->prev = newlst;
 	now->next = newlst;
 }
 
-/* ここの分割条件は環境変数名と同じ感じにしてもいいかも */
 int	is_sepalate_char(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\0')
@@ -35,8 +36,8 @@ int	is_sepalate_char(char c)
 
 char	*extract_str(t_expanser *expanser)
 {
-	int		start;
-	int		end;
+	int	start;
+	int	end;
 
 	start = expanser->str_cnt;
 	while (!is_sepalate_char(expanser->str[expanser->str_cnt]))
@@ -48,7 +49,7 @@ char	*extract_str(t_expanser *expanser)
 			expanser->str_cnt++;
 		end = expanser->str_cnt;
 	}
-	return (ft_substr(expanser->str, start, end - start));
+	return (ft_xsubstr(expanser->str, start, end - start));
 }
 
 void	put_extracted_str_to_now(t_cmd_lst *now, char *extracted_str, int n)
@@ -73,9 +74,9 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 	if (now->prev->str == NULL)
 	{
 		free(now->str);
-		now->str = ft_strdup(expanser->str);
-		if (now->str == NULL)
-			return (EXIT_FAILURE);
+		now->str = ft_xstrdup(expanser->str);
+		if (!now->str)
+			exit (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
 	else if (expanser->str == NULL || !expanser->str[0])
@@ -84,12 +85,13 @@ int	put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *n)
 		now->str = NULL;
 		return (EXIT_SUCCESS);
 	}
-	while (1)
+	while (expanser->str[expanser->str_cnt] != '\0')
 	{
-		if (expanser->str[expanser->str_cnt] == '\0')
-			return (EXIT_SUCCESS);
-		extracted_str = extract_str(expanser);//malloc処理
+		extracted_str = extract_str(expanser);
+		if (!extracted_str)
+			exit (EXIT_FAILURE);
 		put_extracted_str_to_now(now, extracted_str, *n);
 		*n += 1;
 	}
+	return (EXIT_SUCCESS);
 }

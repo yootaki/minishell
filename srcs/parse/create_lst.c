@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_lst.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:39 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:07:03 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:27:11 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	create_redirect_lst(t_redirect *redirect, t_token **tokens)
 	if ((*tokens)->specified_fd != 1)
 	{
 		if ((*tokens)->next == NULL)
-				return (EXIT_SUCCESS);
+			return (EXIT_SUCCESS);
 		if (is_next_redirect((*tokens)->next->type, 0))
 			return (EXIT_SUCCESS);
 		else

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:09:45 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:33:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execution.h"
+#include "../../includes/expansion.h"
 
 int	cmd_lst_len(t_cmd_lst *cmd)
 {

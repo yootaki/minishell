@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 14:03:38 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:22:59 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 		while (*str != '=')
 			str++;
 		*str = '\0';
-		key = ft_strdup(*envp);
+		key = ft_xstrdup(*envp);
 		str++;
 		if (!ft_strncmp(key, "SHLVL", 6))
 			value = ft_xitoa(ft_atoi(str) + 1);

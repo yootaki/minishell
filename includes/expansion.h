@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/25 11:32:21 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:34:57 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-#define ERR_SYNTAX "minishell: syntax error near unexpected token `"
-#define ERR_SYNTAX_NULL "newline'\n"
-#define ERR_SYNTAX_FILEIN "<'\n"
-#define ERR_SYNTAX_FILEOUT ">'\n"
-#define ERR_SYNTAX_FILEAPPEND ">>'\n"
-#define ERR_SYNTAX_PIPE "|'\n"
+# define ERR_SYNTAX "minishell: syntax error near unexpected token `"
+# define ERR_SYNTAX_NULL "newline'\n"
+# define ERR_SYNTAX_FILEIN "<'\n"
+# define ERR_SYNTAX_FILEOUT ">'\n"
+# define ERR_SYNTAX_FILEAPPEND ">>'\n"
+# define ERR_SYNTAX_PIPE "|'\n"
 
 typedef struct s_expanser
 {
@@ -69,14 +69,14 @@ int				expansion(t_nlst *node, t_envlist *envp_lst);
 /* expansion_utils1 */
 int				print_error_func(char *err_func);
 void			print_syntax_error(char *str);
-int				init_expanser(t_expanser *expanser, char *str);
+void			init_expanser(t_expanser *expanser, char *str);
 int				categorize(t_cmd_lst *now);
 char			*strjoin_minishell(char *str1, char *str2);
 
 /* expansion_utils2 */
 char			*get_var_value(char *str, t_envlist *env);
 char			*get_var_name(char *str);
-int				is_var_name(int c);
+bool			is_var_name(int c);
 int				change_underbar(t_nlst *now, t_envlist *envp_lst);
 
 /* heardoc.c */
@@ -91,11 +91,12 @@ int				print_error_func(char *err_func);
 int				heardoc_and_redirect(t_redirect *redirect, t_envlist *env);
 
 /* delete_quote */
-void			delete_dquote(t_expanser *expanser);
-void			delete_quote(t_expanser *expanser);
+void			delete_quotation_mark(t_expanser *expanser, char mark);
 
 /* separate_str */
-int				put_separated_expanser_to_now(t_cmd_lst *now, t_expanser *expanser, int *count);
+int				put_separated_expanser_to_now(t_cmd_lst *now, \
+											t_expanser *expanser, \
+											int *count);
 
 t_flag			pipe_next_cmd_check(t_nlst \
 *node, t_envlist *envp_lst, t_nlst *n_lst);

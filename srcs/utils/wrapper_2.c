@@ -3,20 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   wrapper_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:32 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 19:02:08 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:16:08 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+#include "../../includes/expansion.h"
 
-char	*ft_xstrjoin(char *str1, char *str2)
+char	*ft_xstrdup(char *s)
 {
 	char	*str;
 
-	str = ft_strjoin(str1, str2);
+	str = ft_strdup(s);
+	if (!str)
+		exit(print_error_func("malloc"));
+	return (str);
+}
+
+char	*ft_xstrjoin(char *s1, char *s2)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
 	if (!str)
 	{
 		ft_perror("malloc");

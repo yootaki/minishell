@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init_lst_function.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 12:57:41 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:26:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/parse.h"
+#include "../../includes/expansion.h"
 
 t_cmd_lst	*init_cmd_lst(void)
 {

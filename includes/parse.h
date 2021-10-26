@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:12 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:00:52 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:41:16 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ int			create_redirect_lst(t_redirect *redirect, t_token **tokens);
 int			create_node_lst(t_nlst *node, t_token *tokens, t_envlist *env);
 
 /* ./parse/parse_lst_function */
-void			cmd_lst_add(t_cmd_lst *nil, t_token *token);
-void			redirect_lst_add(t_redirect *nil, t_token *tokens);
-void			nlst_add(t_nlst *nil, t_envlist *env_lst);
+void		cmd_lst_add(t_cmd_lst *nil, t_token *token);
+void		redirect_lst_add(t_redirect *nil, t_token *tokens);
+void		nlst_add(t_nlst *nil, t_envlist *env_lst);
 
 /* ./parse/parse.c */
 bool		is_next_redirect(t_token_type type, int specified_fd);

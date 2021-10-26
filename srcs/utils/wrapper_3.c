@@ -3,26 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   wrapper_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:36 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 14:02:48 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:37:49 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+#include "../../includes/expansion.h"
 
 void	*xmalloc(size_t size)
 {
-	void *tmp;
+	void	*tmp;
 
 	tmp = malloc(size);
-	if (tmp == NULL) {
+	if (tmp == NULL)
+	{
 		ft_perror("malloc");
 		exit(EXIT_FAILURE);
 	}
-
-	//例えば0クリアもしておく。callocは使いづらいので...
 	ft_memset(tmp, 0, size);
 	return (tmp);
 }

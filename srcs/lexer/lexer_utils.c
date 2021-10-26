@@ -6,11 +6,12 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 12:54:43 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:28:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/input.h"
+#include "../../includes/expansion.h"
 
 t_token_type	check_type(char *str)
 {

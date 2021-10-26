@@ -6,11 +6,12 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:58:21 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:25:19 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
+#include "../../includes/expansion.h"
 
 t_envlist	*init_envlist(void)
 {

@@ -29,7 +29,7 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	}
 	else
 	{
-		new_str = ft_strjoin(ft_strjoin(expanser->str, var_value), \
+		new_str = ft_xstrjoin(ft_xstrjoin(expanser->str, var_value), \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 		expanser->str_cnt += ft_strlen(var_value);
 	}
@@ -70,16 +70,18 @@ int	expansionvar_and_deletequote(t_expanser *expanser, t_envlist *env)
 		else
 			expanser->str_cnt++;
 		if (expanser->str == NULL)
-			expanser->str = ft_strdup("");
+		{
+			expanser->str = ft_xstrdup("");
+		}
 	}
 	expanser->str_cnt = 0;
 	while (expanser->str[expanser->str_cnt] != '\0' \
 	&& expanser->str[expanser->str_cnt] != '\n')
 	{
 		if (expanser->str[expanser->str_cnt] == '\"')
-			delete_dquote(expanser);
+			delete_quotation_mark(expanser, '\"');
 		else if (expanser->str[expanser->str_cnt] == '\'')
-			delete_quote(expanser);
+			delete_quotation_mark(expanser, '\'');
 		expanser->str_cnt++;
 	}
 	return (EXIT_SUCCESS);
@@ -94,8 +96,7 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 	now = cmd->next;
 	while (now != cmd)
 	{
-		if (init_expanser(&expanser, now->str))
-			return (EXIT_FAILURE);
+		init_expanser(&expanser, now->str);
 		add_lst_cnt = 0;
 		expansionvar_and_deletequote(&expanser, env);
 		expanser.str_cnt = 0;

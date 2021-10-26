@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/18 18:17:53 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:29:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*get_var_name(char *str)
 	&& (ft_isalnum(str[name_len]) || str[name_len] == '_'))
 		name_len++;
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
+	if (!var_name)
+		exit (print_error_func("malloc"));
 	ft_strlcpy(var_name, str, name_len);
 	return (var_name);
 }
@@ -30,14 +32,20 @@ char	*get_var_name(char *str)
 char	*get_var_value(char *str, t_envlist *env)
 {
 	t_envlist	*now;
+	char		*var_value;
 
 	if (*str == '?')
-		return (ft_itoa(g_status));
+		return (ft_xitoa(g_status));
 	now = env->next;
 	while (now != env)
 	{
 		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
-			return (ft_strdup(now->value));
+		{
+			var_value = ft_xstrdup(now->value);
+			if (!var_value)
+				exit (EXIT_FAILURE);
+			return (var_value);
+		}
 		now = now->next;
 	}
 	return (NULL);
@@ -54,11 +62,11 @@ int	change_underbar(t_nlst *now, t_envlist *envp_lst)
 		{
 			free(tmp->value);
 			if (now->cmd->prev->str == NULL)
-				tmp->value = ft_strdup("");
+				tmp->value = ft_xstrdup("");
 			else
-				tmp->value = ft_strdup(now->cmd->prev->str);
-			if (tmp->value == NULL)
-				return (EXIT_FAILURE);
+				tmp->value = ft_xstrdup(now->cmd->prev->str);
+			if (!tmp->value)
+				exit (EXIT_FAILURE);
 			return (EXIT_SUCCESS);
 		}
 		tmp = tmp->next;
@@ -66,12 +74,10 @@ int	change_underbar(t_nlst *now, t_envlist *envp_lst)
 	return (EXIT_FAILURE);
 }
 
-/* この判定関数は別の部分でも使用する */
-/* 変数名に使用可能な文字以外がきたら0を返す(false) */
-int	is_var_name(int c)
+bool	is_var_name(int c)
 {
 	if (ft_isalnum(c) || ft_isdigit(c) || c == '_' || c == '?')
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }

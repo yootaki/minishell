@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 18:32:33 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:31:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ void	print_syntax_error(char *str)
 	g_status = 258;
 }
 
-int	init_expanser(t_expanser *expanser, char *str)
+void	init_expanser(t_expanser *expanser, char *str)
 {
-	expanser->str = ft_strdup(str);
-	if (expanser->str == NULL)
-		return (EXIT_FAILURE);
+	expanser->str = ft_xstrdup(str);
+	if (!expanser->str)
+		exit (print_error_func("malloc"));
 	expanser->str_cnt = 0;
 	expanser->dquote_flag = 0;
 	expanser->quote_flag = 0;
-	return (EXIT_SUCCESS);
 }
 
 int	categorize(t_cmd_lst *now)
@@ -60,5 +59,5 @@ char	*strjoin_minishell(char *str1, char *str2)
 	else if (str2 == NULL)
 		return (str1);
 	else
-		return (ft_strjoin(str1, str2));
+		return (ft_xstrjoin(str1, str2));
 }

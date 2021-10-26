@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/19 21:11:27 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/23 20:45:33 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ char	*heardoc_expansion_var(char *line, t_envlist *env)
 		return (line);
 	line[line_cnt] = '\0';
 	var_name = get_var_name(&line[line_cnt + 1]);
-	var_value = ft_strdup(get_var_value(var_name, env));
-	tmp = ft_strjoin(line, var_value);
-	newline = ft_strjoin(tmp, &line[line_cnt + ft_strlen(var_name) + 1]);
+	var_value = ft_xstrdup(get_var_value(var_name, env));
+	tmp = ft_xstrjoin(line, var_value);
+	newline = ft_xstrjoin(tmp, &line[line_cnt + ft_strlen(var_name) + 1]);
 	free(var_name);
 	free(var_value);
 	free(tmp);
@@ -51,7 +51,7 @@ void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 	int		status;
 
 	close(pipe_fd[READ]);
-	redirect_signal_proc();
+	heardoc_signal_proc();
 	ft_putstr_fd("> ", 1);
 	while (1)
 	{

@@ -6,11 +6,12 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/25 17:32:42 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:33:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/execution.h"
+#include "../../includes/expansion.h"
 
 char	*tolower_cmd(char *cmd)
 {
@@ -22,8 +23,8 @@ char	*tolower_cmd(char *cmd)
 		return (NULL);
 	i = ft_strlen(cmd);
 	str = (char *)malloc(sizeof(char) * (i + 1));
-	if (str == NULL)
-		return (NULL);
+	if (!str)
+		exit (print_error_func("malloc"));
 	j = 0;
 	while (cmd[j] != '\0')
 	{

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 14:03:04 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/26 16:40:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <stdbool.h>
 # include <string.h>
 # include <errno.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef struct s_envlist
 {
@@ -47,36 +47,29 @@ int			envp_lstmap(t_envlist *envp, char *key, char *value);
 int			create_envlst(t_envlist *lst, char **envp);
 
 /* signal_main.c */
-void		sig_int_input();
-void		sig_term_input();
-void		sig_quit_input();
-void		signal_proc();
-void		signal_ign();
+void		signal_proc(void);
 
 /* signal_heardoc.c */
-void		redirect_sig_int_input();
-void		redirect_sig_term_input();
-void		redirect_sig_quit_input();
-void		redirect_signal_proc();
+void		heardoc_signal_proc(void);
 
 /* wrapper_1.c */
-void	xclose(int fd);
-int	xdup2(int oldfd, int newfd);
-int	xdup(int oldfd, int *stdfd);
-int	xpipe(int *pipefd);
-pid_t	xfork(void);
+void		xclose(int fd);
+int			xdup2(int oldfd, int newfd);
+int			xdup(int oldfd, int *stdfd);
+int			xpipe(int *pipefd);
+pid_t		xfork(void);
 
 /* wrapper_2.c */
-char	*ft_xstrjoin(char *str1, char *str2);
-char	*ft_xsubstr(char const *s, unsigned int start, size_t len);
-char	**ft_xsplit(char const *s, char c);
-char	*ft_xitoa(int n);
+char		*ft_xstrjoin(char *str1, char *str2);
+char		*ft_xsubstr(char const *s, unsigned int start, size_t len);
+char		**ft_xsplit(char const *s, char c);
+char		*ft_xitoa(int n);
 
 /* wrapper_3.c */
-void	*xmalloc(size_t size);
-int	ft_open(char *pathname, int flags, mode_t mode);
-void	xwaitpid(pid_t pid, int *wstatus, int options);
-void	ft_perror(char *error_str);
-char	*ft_xstrdup(char *src);
+void		*xmalloc(size_t size);
+int			ft_open(char *pathname, int flags, mode_t mode);
+void		xwaitpid(pid_t pid, int *wstatus, int options);
+void		ft_perror(char *error_str);
+char		*ft_xstrdup(char *src);
 
 #endif
