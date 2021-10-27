@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/26 16:30:53 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 18:27:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	heardoc_and_redirect(t_redirect *redirect, t_envlist *env)
 	t_redirect	*now;
 
 	now = redirect->next;
-	if (now->str == NULL)
-		return (EXIT_SUCCESS);
 	while (now != redirect)
 	{
 		if (is_fd(now))

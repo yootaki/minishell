@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:36 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:37:49 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 17:30:51 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,6 @@ int	ft_open(char *pathname, int flags, mode_t mode)
 		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 	}
 	return (fd);
-}
-
-char	*ft_xstrdup(char *src)
-{
-	char	*str;
-
-	str = ft_strdup(src);
-	if (str == NULL)
-	{
-		ft_perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-	return (str);
 }
 
 void	xwaitpid(pid_t pid, int *wstatus, int options)
