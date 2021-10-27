@@ -6,12 +6,25 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:32 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 19:49:20 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/27 15:48:33 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/utils.h"
 #include "../../includes/expansion.h"
+
+char    *ft_xstrdup(char *src)
+{
+    char    *str;
+
+    str = ft_strdup(src);
+    if (!str)
+    {
+        ft_perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    return (str);
+}
 
 char	*ft_xstrjoin(char *s1, char *s2)
 {

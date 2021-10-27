@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/18 17:00:02 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/27 15:51:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	sort_and_print_env(t_envlist *envp_lst)
 	tmp = tmp_new->next;
 	while (tmp != tmp_new)
 	{
-		printf("declare -x %s=%s\n", tmp->key, tmp->value);
+		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }

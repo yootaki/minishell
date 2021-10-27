@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/27 12:14:20 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/27 16:27:41 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	loop_shell(t_envlist *envp_lst)
 	t_nlst		*node;
 	char		*command;
 
-	read_history(".my_history");
 	while (1)
 	{
 		signal_proc();
@@ -64,7 +63,6 @@ void	loop_shell(t_envlist *envp_lst)
 		signal_proc();
 		add_history(command);
 		free(command);
-		write_history(".my_history");
 	}
 }
 
