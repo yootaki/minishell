@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/25 17:32:23 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/10/27 12:14:20 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,22 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 		return (NULL);
 	}
 	free_data(&data);
-	//free_node(node);
 	return (node);
 }
 
-void	loop_shell(char **envp)
+void	loop_shell(t_envlist *envp_lst)
 {
 	t_nlst		*node;
-	t_envlist	*envp_lst;
 	char		*command;
 
-	envp_lst = get_envp(envp);
 	read_history(".my_history");
 	while (1)
 	{
 		signal_proc();
 		command = readline("minishell >> ");
 		if (command == NULL)
-		{
-			free_envplist(envp_lst);
-			ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
 			return ;
-		}
 		node = get_cmdline_from_input_str(command, envp_lst);
-		/* printf("------BEFORE-----\n");
-		check(node);
-		printf("-----------------\n"); */
 		if (node != NULL)
 		{
 			if (expansion(node, envp_lst))
@@ -69,34 +59,22 @@ void	loop_shell(char **envp)
 				free_node(node);
 				continue ;
 			}
-			else
-			{
-				//free_envplist(envp_lst);
-				//printf("------before-----\n");
-				//check(node);
-				//printf("-----------------\n");
-				//expansion(node, envp_lst);
-				/* printf("------AFTER-----\n");
-				check(node);
-				printf("-----------------\n"); */
-				//free_node(node);
-				//free_node(node);
-				//free_envplist(envp_lst);
-				exection(node);
-			}
+			exection(node);
 		}
 		signal_proc();
 		add_history(command);
 		free(command);
 		write_history(".my_history");
 	}
-	free_envplist(envp_lst);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	t_envlist	*envp_lst;
+
 	(void)argc;
 	(void)argv;
+	envp_lst = get_envp(envp);
 	ft_putstr_fd("\x1b[36m\
   -----------------------------------------------\n\
                  __      __      __         ____\n\
@@ -112,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
                      ||----w |\n\
                      ||     ||\n\n\
 \x1b[39m", STDERR_FILENO);
-	loop_shell(envp);
+	loop_shell(envp_lst);
+	free_envplist(envp_lst);
 	return (g_status);
 }
