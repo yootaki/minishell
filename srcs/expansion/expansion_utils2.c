@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 20:29:14 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/27 11:16:19 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ char	*get_var_name(char *str)
 	int		name_len;
 
 	name_len = 0;
-	while (str[name_len] != '\0' \
-	&& (ft_isalnum(str[name_len]) || str[name_len] == '_'))
+	if (str[name_len] == '?')
 		name_len++;
+	else
+	{
+		while (str[name_len] != '\0' \
+		&& (ft_isalnum(str[name_len]) || str[name_len] == '_'))
+			name_len++;
+	}
 	var_name = (char *)malloc(sizeof(char) * (++name_len));
 	if (!var_name)
 		exit (print_error_func("malloc"));
