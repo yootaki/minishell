@@ -118,6 +118,7 @@ test_command_not_found () {
     run_test 'unknowncommand | commandunknown'
     run_test 'echo hello'
     run_test 'echo hello world'
+	run_test 'echo $?'
     run_test 'ls | wc | wc'
     run_test 'cat /dev/urandom | head -c 100 | wc -c'
     run_test '<test1.txt'
