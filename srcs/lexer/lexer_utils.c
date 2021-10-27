@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:04:40 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:28:55 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/27 14:59:18 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ bool	check_isdigit(char *str)
 
 void	is_specified_fd(t_tokeniser *data, char *command)
 {
-	size_t	len;
 	char	*str;
 
-	len = data->char_cnt;
 	str = ft_xsubstr(command, data->start, data->char_cnt);
 	if (check_isdigit(str))
 		data->flg = 1;
