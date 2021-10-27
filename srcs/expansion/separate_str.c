@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 20:44:09 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 20:11:41 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	add_cmd_lst(t_cmd_lst *now)
 {
 	t_cmd_lst	*newlst;
 
-	newlst = (t_cmd_lst *)malloc(sizeof(t_cmd_lst));
-	if (!newlst)
-		exit (print_error_func("malloc"));
+	newlst = (t_cmd_lst *)xmalloc(sizeof(t_cmd_lst));
 	newlst->prev = now;
 	newlst->next = now->next;
 	now->next->prev = newlst;

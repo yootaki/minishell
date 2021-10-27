@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wrapper_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 16:17:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:15:40 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 20:17:27 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	xpipe(int *pipefd)
 {
 	if (pipe(pipefd) == -1)
 	{
-		perror("pipe");
+		ft_perror("pipe");
 		pipefd[0] = -1;
 		pipefd[1] = -1;
 		return (-1);
@@ -79,7 +79,7 @@ pid_t	xfork(void)
 	pid = fork();
 	if (pid == -1)
 	{
-		perror("fork");
+		ft_perror("fork");
 		exit(EXIT_FAILURE);
 	}
 	return (pid);

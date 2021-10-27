@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 20:45:33 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 20:18:26 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	write_to_stdout_from_stdin(t_envlist *env, char *separator, int *pipe_fd)
 	int		status;
 
 	status = 0;
-	pid = fork();
+	pid = xfork();
 	if (pid == -1)
 		return (print_error_func("fork"));
 	else if (pid == 0)
