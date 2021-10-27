@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:55 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:30:36 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 20:06:37 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ char	*strjoin_2(char *s1, char const *s2)
 	j = 0;
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
-	str = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		exit (print_error_func("malloc"));
+	str = (char *)xmalloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (s1 != NULL)
 	{
 		while (s1[j] != '\0')
