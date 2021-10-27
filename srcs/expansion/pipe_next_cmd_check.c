@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_next_cmd_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:59 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/23 20:55:03 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/10/26 20:06:47 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ t_nlst	*xget_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 	t_tokeniser	data;
 
 	node = init_node();
-	if (!node)
-		return (NULL);
 	lexer(&data, command);
 	if (data.token == NULL)
 		return (NULL);
