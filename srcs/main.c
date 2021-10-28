@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include "../includes/input.h"
 #include "../includes/parse.h"
 #include "../includes/utils.h"
@@ -49,7 +50,10 @@ void	loop_shell(t_envlist *envp_lst)
 		signal_proc();
 		command = readline("minishell >> ");
 		if (command == NULL)
+		{
+			ft_putchar_fd('\n', STDERR_FILENO);
 			return ;
+		}
 		node = get_cmdline_from_input_str(command, envp_lst);
 		if (node != NULL)
 		{
@@ -60,7 +64,6 @@ void	loop_shell(t_envlist *envp_lst)
 			}
 			exection(node);
 		}
-		signal_proc();
 		add_history(command);
 		free(command);
 	}
