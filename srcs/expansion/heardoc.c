@@ -30,6 +30,11 @@ char	*heardoc_expansion_var(char *line, t_envlist *env)
 	line[line_cnt] = '\0';
 	var_name = get_var_name(&line[line_cnt + 1]);
 	var_value = ft_xstrdup(get_var_value(var_name, env));
+	if (!var_value)
+	{
+		free(var_name);
+		return (ft_xstrdup("\0"));
+	}
 	tmp = ft_xstrjoin(line, var_value);
 	newline = ft_xstrjoin(tmp, &line[line_cnt + ft_strlen(var_name) + 1]);
 	free(var_name);
@@ -38,34 +43,23 @@ char	*heardoc_expansion_var(char *line, t_envlist *env)
 	return (newline);
 }
 
-static void	ft_putstr_endl(char *line, int *pipe_fd)
-{
-	ft_putstr_fd("> ", 1);
-	ft_putendl_fd(line, pipe_fd[WRITE]);
-}
-
 void	read_and_expansion_line(t_envlist *env, char *separator, int *pipe_fd)
 {
 	char	*expanded_line;
 	char	*line;
-	int		status;
 
 	close(pipe_fd[READ]);
-	heardoc_signal_proc();
-	ft_putstr_fd("> ", 1);
 	while (1)
 	{
-		status = get_next_line(0, &line);
+		heardoc_signal_proc();
+		line = readline("> ");
+		if (line == NULL)
+			return ;
 		if (!ft_strncmp(line, separator, ft_strlen(separator) + 1))
 			break ;
 		expanded_line = heardoc_expansion_var(line, env);
-		if (status == 1)
-			ft_putstr_endl(expanded_line, pipe_fd);
-		else if (status == 0)
-			ft_putstr_fd(expanded_line, pipe_fd[WRITE]);
+		ft_putendl_fd(expanded_line, pipe_fd[WRITE]);
 		free(line);
-		if (status == -1)
-			exit (print_error_func("malloc"));
 	}
 	free(line);
 }

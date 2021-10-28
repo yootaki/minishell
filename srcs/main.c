@@ -49,7 +49,10 @@ void	loop_shell(t_envlist *envp_lst)
 		signal_proc();
 		command = readline("minishell >> ");
 		if (command == NULL)
+		{
+			write(1, "\n", 1);
 			return ;
+		}
 		node = get_cmdline_from_input_str(command, envp_lst);
 		if (node != NULL)
 		{

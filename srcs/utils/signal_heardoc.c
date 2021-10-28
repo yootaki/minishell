@@ -27,6 +27,6 @@ void	heardoc_signal_proc(void)
 		perror("signal");
 	else if (signal(SIGTERM, &heardoc_signal_handler) == SIG_ERR)
 		perror("signal");
-	else if (signal(SIGQUIT, &heardoc_signal_handler) == SIG_ERR)//ctrl+バッククオート
+	else if (signal(SIGQUIT, &heardoc_signal_handler) == SIG_ERR)
 		perror("signal");
 }
