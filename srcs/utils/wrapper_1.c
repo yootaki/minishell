@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wrapper_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/23 16:17:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 20:17:27 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:02:52 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
-#include "../../includes/expansion.h"
+#include "utils.h"
+#include "expansion.h"
 
 void	xclose(int fd)
 {

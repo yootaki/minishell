@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_function.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:19 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/19 15:22:41 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:46:34 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/input.h"
+#include "input.h"
 
 bool	is_type(int c)
 {

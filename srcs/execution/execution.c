@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:06 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/25 17:31:07 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:37:20 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
-#include "../builtin_cmd/builtin_cmd.h"
+#include "execution.h"
+#include "builtin_cmd.h"
 
 int	backup_std_fd(t_data *data, int mode)
 {

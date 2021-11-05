@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:56 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:26:29 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:59:08 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
-#include "../../includes/expansion.h"
+#include "parse.h"
+#include "expansion.h"
 
 void	cmd_lst_add(t_cmd_lst *nil, t_token *token)
 {

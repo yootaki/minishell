@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:31 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:28:34 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:47:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/input.h"
-#include "../../includes/expansion.h"
+#include "input.h"
+#include "expansion.h"
 
 t_token	*lst_new(char *str, int flag)
 {

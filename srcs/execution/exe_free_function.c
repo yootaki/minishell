@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exe_free_function.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:49 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/05 14:03:50 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:34:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 void	ft_exit(int status)
 {

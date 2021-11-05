@@ -6,11 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:33:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:38:12 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 t_mode_type	ft_stat(char *pathname)
 {

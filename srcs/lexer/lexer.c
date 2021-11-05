@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:25 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:29:21 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:46:59 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/input.h"
-#include "../../includes/expansion.h"
+#include "input.h"
+#include "expansion.h"
 
 int	put_in_list(t_tokeniser *data, char **command, char **cmd)
 {

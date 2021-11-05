@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 23:04:30 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/26 20:18:26 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:40:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
-#include "../../includes/utils.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 char	*heardoc_expansion_var(char *line, t_envlist *env)
 {

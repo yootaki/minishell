@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_node.c                                        :+:      :+:    :+:   */
+/*   free_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:25:30 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:12:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
+#include "parse.h"
 
 void	free_cmd_lst(t_cmd_lst *cmd)
 {
@@ -87,4 +87,21 @@ void	free_data(t_tokeniser *data)
 		data->token = tlst;
 	}
 	free(data->token);
+}
+
+void	free_envplist(t_envlist *nil)
+{
+	t_envlist	*current;
+	t_envlist	*tmp;
+
+	current = nil->next;
+	while (current != nil)
+	{
+		free(current->key);
+		free(current->value);
+		tmp = current;
+		current = current->next;
+		free(tmp);
+	}
+	free(nil);
 }

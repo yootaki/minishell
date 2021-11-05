@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   process_function.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:22 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/25 11:54:05 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:38:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 void	ft_call_child(t_nlst *node, t_data *data, int prev_read_fd, int *pipefd)
 {

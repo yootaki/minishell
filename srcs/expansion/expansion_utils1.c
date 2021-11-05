@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/26 16:31:32 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:39:59 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 int	print_error_func(char *err_func)
 {

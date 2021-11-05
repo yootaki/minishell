@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:01 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:05:29 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:59:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
-#include <stdbool.h>
+#include "parse.h"
 
 int	create_lst(t_nlst **n_lst, t_token **tokens)
 {

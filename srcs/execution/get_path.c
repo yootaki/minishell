@@ -6,11 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:13 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:33:12 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:37:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 char	**search_path(t_envlist	*envp)
 {

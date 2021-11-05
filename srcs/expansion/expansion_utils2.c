@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/27 11:16:19 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:40:14 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 char	*get_var_name(char *str)
 {

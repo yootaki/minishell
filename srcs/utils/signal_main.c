@@ -6,11 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:27 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/20 16:38:21 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:02:34 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 void	signal_proc(void)
 {

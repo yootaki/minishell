@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   no_built_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:18 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 13:12:42 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:37:54 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 int	check_std_fd_in_use(int specified_fd, t_data *data)
 {

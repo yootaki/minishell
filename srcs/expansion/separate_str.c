@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   separate_str.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 13:37:28 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/26 20:11:41 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:41:32 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 void	add_cmd_lst(t_cmd_lst *now)
 {

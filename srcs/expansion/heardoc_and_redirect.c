@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   heardoc_and_redirect.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/26 18:27:45 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:40:38 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 bool	is_fd(t_redirect *now)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 12:55:02 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:48:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <stdbool.h>
-# include "../libft/libft.h"
+# include "../library/libft/libft.h"
 # include "utils.h"
 
 extern int	g_status;
@@ -77,9 +77,6 @@ void			lstadd_back(t_token **lst, t_token *new_list);
 
 /* ./lexer/init_datas.c */
 void			init_data(t_tokeniser *data, char *command);
-
-/* ./lexer/free_function.c */
-void			free_line(void *line);
 
 /* ./lexer/lexer_utils.c */
 void			proceed_command(char **cmd, char *ch, size_t *char_cnt);

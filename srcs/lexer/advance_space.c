@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   advance_space.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:21:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/13 20:21:34 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:45:45 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/input.h"
+#include "input.h"
 
 void	advance_space(t_tokeniser **data, char **cmd)
 {

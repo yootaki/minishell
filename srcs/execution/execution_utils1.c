@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:02 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/06 14:11:56 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:37:04 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 void	init_execution(t_data *data, t_nlst *node)
 {

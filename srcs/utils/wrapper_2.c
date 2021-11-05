@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:32 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/27 19:40:33 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:03:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
-#include "../../includes/expansion.h"
+#include "utils.h"
+#include "expansion.h"
 
 char	*ft_xstrdup(char *src)
 {

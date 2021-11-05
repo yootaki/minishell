@@ -10,10 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin_cmd.h"
-#include "../../libft/libft.h"
 #include "../../includes/expansion.h"
-#include "../../includes/utils.h"
+#include "builtin_cmd.h"
 
 #define VALID_IDENTIFIER "minishell: export: `': not a valid identifier\n"
 
