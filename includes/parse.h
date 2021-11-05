@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:12 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:41:16 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:18:37 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "input.h"
 # include "utils.h"
-# include "../libft/libft.h"
+# include "../library/libft/libft.h"
 # include <stdbool.h>
 
 enum	e_fd

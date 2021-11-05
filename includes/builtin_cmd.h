@@ -6,17 +6,17 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 22:53:23 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:20:35 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_CMD_H
 # define BUILTIN_CMD_H
 
-# include "../../libft/libft.h"
-# include "../../includes/input.h"
-# include "../../includes/parse.h"
-# include "../../includes/utils.h"
+# include "../library/libft/libft.h"
+# include "input.h"
+# include "parse.h"
+# include "utils.h"
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>

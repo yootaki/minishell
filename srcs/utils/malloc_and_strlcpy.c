@@ -6,11 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:20:24 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 20:47:33 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:32:03 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/expansion.h"
+#include "expansion.h"
 
 char	*malloc_and_strlcpy(char *str, int size)
 {

@@ -6,11 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:39 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:27:11 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:47:26 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
+#include "parse.h"
 
 int	create_redirect_lst(t_redirect *redirect, t_token **tokens)
 {

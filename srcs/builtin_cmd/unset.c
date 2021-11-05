@@ -6,13 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:43:01 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/22 17:56:22 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:27:35 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
-#include "../../libft/libft.h"
-#include "../../includes/expansion.h"
 
 #define VALID_IDENTIFIER "minishell: unset: `': not a valid identifier\n"
 

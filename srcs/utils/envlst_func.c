@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   envp_lst.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:25:19 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:12:31 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
-#include "../../includes/expansion.h"
+#include "utils.h"
+#include "expansion.h"
 
 t_envlist	*init_envlist(void)
 {
@@ -68,19 +68,14 @@ int	ft_envlstsize(t_envlist *lst)
 	return (count);
 }
 
-void	free_envplist(t_envlist *nil)
+void	ft_envlstdelone(t_envlist *lst)
 {
-	t_envlist	*current;
-	t_envlist	*tmp;
+	t_envlist	*prev;
+	t_envlist	*next;
 
-	current = nil->next;
-	while (current != nil)
-	{
-		free(current->key);
-		free(current->value);
-		tmp = current;
-		current = current->next;
-		free(tmp);
-	}
-	free(nil);
+	prev = lst->prev;
+	next = lst->next;
+	prev->next = next;
+	next->prev = prev;
+	free(lst);
 }

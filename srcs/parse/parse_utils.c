@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 02:21:33 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/14 02:22:15 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:59:29 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
-#include <stdbool.h>
+#include "parse.h"
 
 bool	is_next_redirect(t_token_type type, int specified_fd)
 {

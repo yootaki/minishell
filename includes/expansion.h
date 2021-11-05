@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:34:57 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:21:01 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-# include "../get_next_line/get_next_line.h"
-# include "../srcs/builtin_cmd/builtin_cmd.h"
+# include "../library/get_next_line/get_next_line.h"
+# include "builtin_cmd.h"
 # include "input.h"
 # include "parse.h"
 # include "utils.h"

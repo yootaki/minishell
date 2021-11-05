@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wrapper_3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:36 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/27 15:34:05 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 14:03:13 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/utils.h"
+#include "utils.h"
 
 void	*xmalloc(size_t size)
 {

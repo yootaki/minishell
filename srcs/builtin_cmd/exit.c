@@ -6,12 +6,11 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/14 21:19:05 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:28:43 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
-#include "../../libft/libft.h"
 
 #define TOO_MANY_ARGUMENTS "minishell: exit: too many arguments\n"
 

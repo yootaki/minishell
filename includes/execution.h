@@ -6,18 +6,18 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:42:23 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:20:44 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include "../srcs/builtin_cmd/builtin_cmd.h"
+# include "builtin_cmd.h"
 # include "input.h"
 # include "parse.h"
 # include "utils.h"
-# include "../libft/libft.h"
+# include "../library/libft/libft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>

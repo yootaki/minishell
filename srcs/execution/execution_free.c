@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execution_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:58 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/06 14:44:04 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:34:57 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/execution.h"
+#include "execution.h"
 
 void	free_path_lst(t_data *data)
 {

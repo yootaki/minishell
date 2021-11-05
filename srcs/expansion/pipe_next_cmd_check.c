@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_next_cmd_check.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:59 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 20:06:47 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:41:08 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/expansion.h"
+#include "expansion.h"
 
 t_token_type	check_cmd_exist(char *line)
 {

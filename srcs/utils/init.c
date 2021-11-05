@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:52 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/10/26 16:26:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:54:35 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/parse.h"
-#include "../../includes/expansion.h"
+#include "parse.h"
+#include "expansion.h"
 
 t_cmd_lst	*init_cmd_lst(void)
 {
@@ -53,4 +53,14 @@ t_nlst	*init_node(void)
 	new->next = new;
 	new->prev = new;
 	return (new);
+}
+
+void	init_data(t_tokeniser *data, char *command)
+{
+	data->cmd_len = 0;
+	data->cmd_len = ft_strlen(command);
+	data->token = NULL;
+	data->char_cnt = 0;
+	data->flg = 0;
+	data->start = 0;
 }

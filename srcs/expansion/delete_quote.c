@@ -6,12 +6,12 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:14 by yootaki           #+#    #+#             */
-/*   Updated: 2021/10/23 20:20:00 by yootaki          ###   ########.fr       */
+/*   Updated: 2021/11/05 13:39:41 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../builtin_cmd/builtin_cmd.h"
-#include "../../includes/expansion.h"
+#include "builtin_cmd.h"
+#include "expansion.h"
 
 char	*join_three_str(char *str_front, char *str_middle, char *str_back)
 {
