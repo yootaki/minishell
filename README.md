@@ -8,7 +8,7 @@ hryuuta :
 
 # Usage
 ```
-$> git clone https://github.com/ryuta06012/minishell_42.git
+$> git clone https://github.com/yootaki/minishell.git
 
 $> cd minishell
 
