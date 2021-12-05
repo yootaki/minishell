@@ -13,6 +13,8 @@ $> git clone https://github.com/yootaki/minishell.git
 $> cd minishell
 
 $> make
-
-$> ./minishell
+```
+$ cd minishell
+$ make
+$ ./minishell
 ```
