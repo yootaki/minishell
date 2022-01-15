@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:28:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/15 21:59:11 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	change_oldpwd(t_envlist *envp_lst, t_envlist *now_pwd)
 		now->value = ft_xstrdup(now_pwd->value);
 		if (!now->value)
 			exit (EXIT_FAILURE);
+		free(now_pwd->value);
 	}
 	return (EXIT_SUCCESS);
 }
