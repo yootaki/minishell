@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:40:26 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/15 22:40:41 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
 	}
 	else
-	{
-		new_str = ft_xstrjoin(ft_xstrjoin(expanser->str, var_value), \
-		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-		expanser->str_cnt += ft_strlen(var_value);
-	}
+		new_str = double_strjoin(expanser, var_value, var_name);
 	free(var_name);
 	free(var_value);
 	free(expanser->str);

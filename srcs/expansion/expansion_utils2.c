@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/07 15:56:56 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:40:14 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/15 22:45:27 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,17 @@ bool	is_var_name(int c)
 		return (true);
 	else
 		return (false);
+}
+
+char	*double_strjoin(t_expanser *expanser, char *vvalue, char *vname)
+{
+	char	*str;
+	char	*new_str;
+
+	str = ft_xstrjoin(expanser->str, vvalue);
+	new_str = ft_xstrjoin(str, \
+	&expanser->str[expanser->str_cnt + ft_strlen(vname) + 1]);
+	free(str);
+	expanser->str_cnt += ft_strlen(vvalue);
+	return (new_str);
 }
