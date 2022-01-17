@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:38:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/17 15:14:02 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ t_nlst	*get_cmdline_from_input_str(char *command, t_envlist *envp_lst)
 
 void	loop_shell(t_envlist *envp_lst)
 {
-	t_nlst		*node;
-	char		*command;
+	t_nlst	*node;
+	char	*command;
 
 	while (1)
 	{
 		signal_proc();
-		command = readline("minishell >> ");
+		command = readline(MINISHELL);
 		if (command == NULL)
 		{
-			ft_putchar_fd('\n', STDERR_FILENO);
+			ft_putstr_fd("\b\bexit\n", STDERR_FILENO);
 			return ;
 		}
 		node = get_cmdline_from_input_str(command, envp_lst);
