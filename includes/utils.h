@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:18:46 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/17 13:39:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+
+# define MINISHELL "minishell >> "
 
 typedef struct s_envlist
 {
