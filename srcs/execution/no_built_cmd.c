@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   no_built_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:18 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:37:54 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/17 12:41:05 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	change_fd(t_redirect *r_lst, int redirect_fd, int std_fd, t_data *data)
 {
 	if (r_lst->spec_flg == 1)
 	{
-		printf("----r_lst->spec_flg--\n");
 		if (check_std_fd_in_use(r_lst->spec_fd, data) == -1 \
 		|| xdup2(redirect_fd, r_lst->spec_fd) == -1)
 		{
