@@ -6,15 +6,13 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:48:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/18 10:46:49 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INPUT_H
 # define INPUT_H
 
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -22,6 +20,8 @@
 # include <stdbool.h>
 # include "../library/libft/libft.h"
 # include "utils.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 extern int	g_status;
 

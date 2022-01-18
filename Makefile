@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc -g
-CFLAGS = -Wall -Wextra -Werror -I ${HEADER} -I ${LIBFT_DIR}
+CFLAGS = -Wall -Wextra -Werror -I ${HEADER} -I ${LIBFT_DIR} -I $(shell brew --prefix readline)/include
 HEADER = ./includes
 LIBFT_DIR = ./library/libft
 
@@ -35,7 +35,7 @@ all: ${NAME}
 
 ${NAME}: ${OBJS} ${HEADER} ${LIBFT_DIR}
 	@${MAKE_BONUS} -C ${LIBFT_DIR}
-	${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L ${LIBFT_DIR} -lft -lreadline
+	${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L ${LIBFT_DIR} -lft -lreadline -L $(shell brew --prefix readline)/lib
 
 clean:
 	${MAKE} -C ${LIBFT_DIR} clean
@@ -50,7 +50,7 @@ re: fclean all
 debug: CFLAGS += -g3 -fsanitize=address
 debug: re
 
-check:
+test:
 	@cd testcase && bash check.sh
 
 .PHONY: all clean fclean re
