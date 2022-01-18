@@ -6,19 +6,20 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:27 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/01/17 15:25:58 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/18 11:00:14y yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "input.h"
 #include "utils.h"
 
 /* ctrl + C */
 void	sig_int_input()
 {
-	// \bは1文字分カーソルを左にずらしている
-	// MINISHELLはutils.hで定義している。（"minishell >> "）
-	ft_putstr_fd("\b\b  \b\n", STDERR_FILENO);
-	ft_putstr_fd(MINISHELL, STDERR_FILENO);
+	ft_putstr_fd("\b\b  \n", STDERR_FILENO);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 /* ctrl + \ */
@@ -30,9 +31,15 @@ void	sig_quit_input()
 void	signal_proc(void)
 {
 	if (signal(SIGINT, sig_int_input) == SIG_ERR)
+	{
 		perror("signal");
-	else if (signal(SIGTERM, SIG_IGN) == SIG_ERR)
+	}
+	if (signal(SIGQUIT, sig_quit_input) == SIG_ERR)
+	{
 		perror("signal");
-	else if (signal(SIGQUIT, sig_quit_input) == SIG_ERR)
+	}
+	if (signal(SIGTERM, SIG_IGN) == SIG_ERR)
+	{
 		perror("signal");
+	}
 }
