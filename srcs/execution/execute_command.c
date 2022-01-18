@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:53 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:34:48 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/18 14:29:32 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ void	execute_command(t_nlst *node, t_data *data)
 	cmd = tolower_cmd(node->cmd->next->str);
 	if (cmd == NULL)
 		no_built_cmd(node, data);
-	if (!ft_strncmp(cmd, "echo", ft_strlen(cmd)))
+	if (ft_strcmp(cmd, "echo") == 0)
 		my_echo(node->cmd);
-	else if (!ft_strncmp(cmd, "cd", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "cd") == 0)
 		my_cd(node->cmd, node->envp_lst);
-	else if (!ft_strncmp(cmd, "env", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "env") == 0)
 		my_env(node->envp_lst);
-	else if (!ft_strncmp(cmd, "export", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "export") == 0)
 		my_export(node->cmd, node->envp_lst);
-	else if (!ft_strncmp(cmd, "pwd", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "pwd") == 0)
 		my_pwd(node->envp_lst);
-	else if (!ft_strncmp(cmd, "unset", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "unset") == 0)
 		my_unset(node->cmd, node->envp_lst);
-	else if (!ft_strncmp(cmd, "exit", ft_strlen(cmd)))
+	else if (ft_strcmp(cmd, "exit") == 0)
 		my_exit(node->cmd);
 	else
 		no_built_cmd(node, data);
