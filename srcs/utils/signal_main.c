@@ -14,8 +14,10 @@
 #include "utils.h"
 
 /* ctrl + C */
-void	sig_int_input()
+void	sig_int_input(int sig_no)
 {
+	(void)sig_no;
+	g_status = 1;
 	ft_putstr_fd("\b\b  \n", STDERR_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -23,8 +25,9 @@ void	sig_int_input()
 }
 
 /* ctrl + \ */
-void	sig_quit_input()
+void	sig_quit_input(int sig_no)
 {
+	(void)sig_no;
 	ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
 }
 
