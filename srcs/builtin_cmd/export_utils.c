@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:28:57 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/23 15:19:04 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
 		tmp = tmp->next;
 	}
 	if (tmp != envp_lst)
-		tmp->value = &now->str[char_cnt + 1];
+		tmp->value = env_value;
 	else
 		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
 	return (EXIT_SUCCESS);
