@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 13:28:43 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:29:40 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,25 @@ int	calculate_exit_status(char *str)
 		return (num % 256);
 }
 
-int	determine_exit_status(t_cmd_lst *now, int count, char **args)
+void	determine_status_code_and_exit(t_cmd_lst *now, int count, char **args)
 {
 	if ((count == 0 && now->next->next->str[0] == ' ') \
 	|| longlong_over_check(args[0]))
-		return (255);
-	if (count == 1)
-		return (calculate_exit_status(args[0]));
-	if (count == 2 && is_str_digit(args[0]) \
-	&& !longlong_over_check(args[0]) && !is_str_digit(args[1]))
-		return (255);
+	{
+		g_status = 255;
+	}
+	else if (count == 1)
+	{
+		g_status = calculate_exit_status(args[0]);
+	}
+	else if (count == 2 && is_str_digit(args[0]))
+	{
+		g_status = 1;
+		return ;
+	}
 	else if (count == 2 && !is_str_digit(args[0]))
-		return (255);
-	return (1);
+		g_status = 255;
+	exit(g_status);
 }
 
 int	my_exit(t_cmd_lst *cmd)
@@ -110,6 +116,6 @@ int	my_exit(t_cmd_lst *cmd)
 			args[count - 1] = now->str;
 		now = now->next;
 	}
-	g_status = determine_exit_status(now, count, args);
-	exit(g_status);
+	determine_status_code_and_exit(now, count, args);
+	return (g_status);
 }
