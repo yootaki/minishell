@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:21 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/18 14:31:54 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:51:45 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	print_args(t_cmd_lst *now, t_cmd_lst *cmd)
 {
 	while (now != cmd)
 	{
+		//printf("now->str = %s:\n", now->str);
+		//printf("now_cnt = %zu\n", ft_strlen(now->str));
 		ft_putstr_fd (now->str, STDOUT_FILENO);
 		now = now->next;
 		if (now != cmd)
@@ -38,12 +40,27 @@ void	print_args(t_cmd_lst *now, t_cmd_lst *cmd)
 	}
 }
 
+/* void print_check(t_cmd_lst *now)
+{
+	t_cmd_lst *current;
+
+	current = now->next;
+	while (current != now)
+	{
+		printf("current->str = %s\n", current->str);
+		current = current->next;
+	}
+} */
+
 int	my_echo(t_cmd_lst *cmd)
 {
 	t_cmd_lst	*now;
 	int			display_return;
 
 	now = cmd->next->next;
+	//print_check(cmd);
+	//printf("now\n");
+	//print_check(now);
 	display_return = 1;
 	if (now == cmd)
 	{

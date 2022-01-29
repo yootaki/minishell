@@ -13,12 +13,17 @@
 #include "input.h"
 #include "utils.h"
 
+void	sigint_handler(int sig_no)
+{
+	g_status = 128 + sig_no;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+}
+
 /* ctrl + C */
 void	sig_int_input(int sig_no)
 {
-	(void)sig_no;
-	g_status = 1;
-	ft_putstr_fd("\b\b  \n", STDERR_FILENO);
+	g_status = 128 + sig_no;
+	ft_putstr_fd("\b\b  \n", STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();

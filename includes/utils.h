@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:06:17 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/01/17 13:39:50 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/29 00:24:29 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int			envp_lstmap(t_envlist *envp, char *key, char *value);
 int			create_envlst(t_envlist *lst, char **envp);
 
 /* signal_main.c */
+void		sig_int_input(int sig_no);
 void		signal_proc(void);
 
 /* signal_heardoc.c */
+void		heardoc_signal_handler(int signal);
 void		heardoc_signal_proc(void);
 
 /* wrapper_1.c */

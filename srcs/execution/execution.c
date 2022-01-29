@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:06 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:37:20 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/29 00:18:57 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,18 @@ void	pipe_existence(t_nlst *node, t_data *data)
 	int		wstatus;
 
 	xwaitpid(execution_process(node, data), &wstatus, 0);
+	signal(SIGINT, sig_int_input);
 	if (WIFEXITED(wstatus))
 		g_status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		g_status = WTERMSIG(wstatus) + 128;
+	}
 	current = node->next;
 	while (current != node)
 	{
-		wait(0);
+		wait(NULL);
 		close_redirect_fd(current);
 		current = current->next;
 	}

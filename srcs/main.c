@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/18 11:23:20 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/29 00:28:39 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	loop_shell(t_envlist *envp_lst)
 
 	while (1)
 	{
-		signal_proc();
-		command = readline(MINISHELL);
+		command = readline("minishell >> ");
 		if (command == NULL)
 		{
 			ft_putstr_fd("exit\n", STDERR_FILENO);
@@ -63,8 +62,8 @@ void	loop_shell(t_envlist *envp_lst)
 				continue ;
 			}
 			exection(node);
+			add_history(command);
 		}
-		add_history(command);
 		free(command);
 	}
 }
@@ -91,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
                      ||----w |\n\
                      ||     ||\n\n\
 \x1b[39m", STDERR_FILENO);
+	signal_proc();
 	loop_shell(envp_lst);
 	free_envplist(envp_lst);
 	return (g_status);

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/15 22:40:41otakhryuu      ###   ########.fr       */
+/*   Updated: 2022/01/29 00:55:54 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 		if (put_separated_expanser_to_now(now, &expanser, &add_lst_cnt))
 			return (EXIT_FAILURE);
 		if (add_lst_cnt == 0)
+		{
+			//printf("add_lt_cnt\n");
 			now = now->next;
+		}
 		while (--add_lst_cnt >= 0)
 		{
 			now->category = categorize(now);
