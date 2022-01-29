@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/29 00:55:54 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/01/29 12:35:18 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int	expanser(t_cmd_lst *cmd, t_envlist *env)
 			return (EXIT_FAILURE);
 		if (add_lst_cnt == 0)
 		{
-			//printf("add_lt_cnt\n");
 			now = now->next;
 		}
 		while (--add_lst_cnt >= 0)
