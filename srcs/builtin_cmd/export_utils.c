@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/23 15:19:04 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/03 19:51:17 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
 	char_cnt = 0;
 	while (now->str[char_cnt] != '=' && now->str[char_cnt])
 		char_cnt++;
-	get_key_and_value(now, &env_key, &env_value, char_cnt);
+	if (get_key_and_value(now, &env_key, &env_value, char_cnt) == 1)
+		return (EXIT_FAILURE);
 	tmp = envp_lst->next;
 	while (tmp != envp_lst)
 	{
