@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/04 16:02:28 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/05 02:27:32 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	loop_shell(t_envlist *envp_lst)
 				free_node(node);
 				continue ;
 			}
-			//search_path(node->envp_lst);
 			exection(node);
 			add_history(command);
 		}
