@@ -6,13 +6,14 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:46 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/28 15:29:40 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/01/29 12:18:50 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
 
 #define TOO_MANY_ARGUMENTS "minishell: exit: too many arguments\n"
+#define NUMERIC_ARGUMENT_REQUIRED "minishell: exit: numeric argument required\n"
 
 static int	ft_ovcheck(int sign, long num, long next_num)
 {
@@ -84,10 +85,14 @@ void	determine_status_code_and_exit(t_cmd_lst *now, int count, char **args)
 	else if (count == 2 && is_str_digit(args[0]))
 	{
 		g_status = 1;
+		ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
 		return ;
 	}
 	else if (count == 2 && !is_str_digit(args[0]))
+	{
 		g_status = 255;
+		ft_putstr_fd(NUMERIC_ARGUMENT_REQUIRED, STDERR_FILENO);
+	}
 	exit(g_status);
 }
 
