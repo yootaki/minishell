@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_cmd_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:46 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:34:25 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/04 15:42:44 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@ char	**create_cmd_array(t_nlst *node, t_data *data)
 
 	get_path(node, data);
 	data->cmd = get_cmd_str(node);
+	printf("data->cmd[0] = %s\n", data->cmd[0]);
 	if (data->cmd == NULL)
 		free_function(data, 2);
 	tmp_cmd = search_cmd(data->cmd[0], data);
 	if (tmp_cmd == NULL)
 		free_function(data, 3);
 	data->cmd[0] = tmp_cmd;
+	printf("data->cmd[0] = %s\n", data->cmd[0]);
 	return (data->cmd);
 }

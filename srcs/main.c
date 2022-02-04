@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/29 12:53:24 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/04 16:02:28 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	loop_shell(t_envlist *envp_lst)
 				free_node(node);
 				continue ;
 			}
+			//search_path(node->envp_lst);
 			exection(node);
 			add_history(command);
 		}
