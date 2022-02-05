@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:26 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/01/18 14:30:01 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/05 02:20:49 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,16 @@ char	*search_cmd(char *cmd, t_data *data)
 	if (ft_strchr(cmd, '/') || (ft_strchr(cmd, '.') && ft_strchr(cmd, '/')))
 		path_cmd = cmd_path_direct(cmd);
 	else
+	{
+		if (data->path_list == NULL)
+		{
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd(cmd, STDERR_FILENO);
+			ft_putstr_fd(": command not found\n", STDERR_FILENO);
+			free_node(data->top);
+			ft_exit(127);
+		}
 		path_cmd = cmd_path(cmd, data);
+	}
 	return (path_cmd);
 }
