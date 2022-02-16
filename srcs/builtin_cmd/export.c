@@ -45,6 +45,7 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 		{
 			ft_putstr_fd(VALID_IDENTIFIER, STDERR_FILENO);
 			g_status = 1;
+			break;
 		}
 		else if (insert_key_and_value(now, envp_lst) == 1)
 		{
