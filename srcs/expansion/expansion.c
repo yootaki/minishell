@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/29 12:35:18 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/16 14:48:55 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	free(var_value);
 	free(expanser->str);
 	if (!ft_strlen(new_str))
+	{
+		free(new_str);
 		expanser->str = NULL;
+	}
 	else
 		expanser->str = new_str;
 }
