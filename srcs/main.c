@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/05 02:27:32 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/16 09:05:30 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int	main(int argc, char **argv, char **envp)
 	signal_proc();
 	loop_shell(envp_lst);
 	free_envplist(envp_lst);
+	system("leaks minishell");
 	return (g_status);
 }
