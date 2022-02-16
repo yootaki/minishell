@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:04 by yootaki           #+#    #+#             */
-/*   Updated: 2021/11/05 14:20:35 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/16 09:49:04 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ int		my_exit(t_cmd_lst *cmd);
 
 /* export utils */
 void	swap_envlst(t_envlist *now, t_envlist *min);
-void	ft_sort_envlst(t_envlist *nil, int size);
-void	sort_and_print_env(t_envlist *envp_lst);
+void	sort_envlst(t_envlist *nil, int size);
 int		get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt);
-int		insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst);
+void	set_env_value(t_envlist *current, char *key, char *value);
 
 /* util function */
 void	ft_envlstdelone(t_envlist *lst);

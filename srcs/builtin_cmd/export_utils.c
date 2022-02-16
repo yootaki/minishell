@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/03 19:51:17 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/16 09:49:17 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	swap_envlst(t_envlist *now, t_envlist *min)
 	min->value = now_value;
 }
 
-void	ft_sort_envlst(t_envlist *nil, int size)
+void	sort_envlst(t_envlist *nil, int size)
 {
 	t_envlist	*min;
 	t_envlist	*lst;
@@ -57,32 +57,6 @@ void	ft_sort_envlst(t_envlist *nil, int size)
 	}
 }
 
-void	sort_and_print_env(t_envlist *envp_lst)
-{
-	t_envlist	*new_lst;
-	t_envlist	*tmp_new;
-	t_envlist	*tmp_src;
-	t_envlist	*tmp;
-	int			size;
-
-	new_lst = init_envlist();
-	tmp_new = new_lst;
-	tmp_src = envp_lst->next;
-	while (tmp_src != envp_lst)
-	{
-		ft_envlstadd_back(tmp_new, ft_envlstnew(tmp_src->key, tmp_src->value));
-		tmp_src = tmp_src->next;
-	}
-	size = ft_envlstsize(tmp_new);
-	ft_sort_envlst(tmp_new, size);
-	tmp = tmp_new->next;
-	while (tmp != tmp_new)
-	{
-		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-}
-
 int	get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt)
 {
 	*key = malloc_and_strlcpy(now->str, cnt + 1);
@@ -98,30 +72,9 @@ int	get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt)
 	return (EXIT_SUCCESS);
 }
 
-int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
+void	set_env_value(t_envlist *current, char *key, char *value)
 {
-	t_envlist	*tmp;
-	char		*env_key;
-	char		*env_value;
-	int			char_cnt;
-
-	env_key = NULL;
-	env_value = NULL;
-	char_cnt = 0;
-	while (now->str[char_cnt] != '=' && now->str[char_cnt])
-		char_cnt++;
-	if (get_key_and_value(now, &env_key, &env_value, char_cnt) == 1)
-		return (EXIT_FAILURE);
-	tmp = envp_lst->next;
-	while (tmp != envp_lst)
-	{
-		if (!ft_strncmp(tmp->key, env_key, ft_strlen(tmp->key) + 1))
-			break ;
-		tmp = tmp->next;
-	}
-	if (tmp != envp_lst)
-		tmp->value = env_value;
-	else
-		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
-	return (EXIT_SUCCESS);
+	free(key);
+	free(current->value);
+	current->value = value;
 }
