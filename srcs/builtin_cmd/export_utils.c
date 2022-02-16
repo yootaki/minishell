@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/16 12:38:38 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/16 13:46:56 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ int	get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt)
 
 void	set_env_value(t_envlist *current, char *key, char *value)
 {
-	if (ft_strlen(value) == 0)
-	{
-		free(key);
-		free(value);
-		return ;
-	}
 	free(key);
 	free(current->value);
 	current->value = value;

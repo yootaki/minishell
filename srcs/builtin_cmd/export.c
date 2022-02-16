@@ -25,6 +25,10 @@ bool	validate_args(char *arg)
 	{
 		return (false);
 	}
+	else if (!ft_strchr(arg, '='))
+	{
+		return (false);
+	}
 	return (true);
 }
 
