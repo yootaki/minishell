@@ -33,6 +33,8 @@ void	sig_int_input(int sig_no)
 void	sig_quit_input(int sig_no)
 {
 	(void)sig_no;
+	g_status = 131;
+	printf("Quit: 3\n");
 	ft_putstr_fd("\b\b  \b\b", STDERR_FILENO);
 }
 

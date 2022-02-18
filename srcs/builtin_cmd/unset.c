@@ -36,6 +36,25 @@ int	delete_key_and_value(char *unset_obj, t_envlist *envp_lst)
 	return (g_status);
 }
 
+bool	validate_unset_obj(char *obj)
+{
+	if (obj == NULL)
+	{
+		return (false);
+	}
+	else if (obj[0] == ' ')
+	{
+		return (false);
+	}
+	while (*obj != '\0')
+	{
+		if (ft_isdigit(*obj))
+			return (false);
+		obj++;
+	}
+	return (true);
+}
+
 int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
@@ -48,7 +67,7 @@ int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst)
 	while (now != cmd)
 	{
 		unset_obj = now->str;
-		if (unset_obj == NULL || unset_obj[0] == ' ')
+		if (validate_unset_obj(unset_obj) == false)
 		{
 			ft_putstr_fd(VALID_IDENTIFIER, STDERR_FILENO);
 			g_status = 1;
