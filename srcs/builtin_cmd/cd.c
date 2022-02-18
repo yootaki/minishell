@@ -3,15 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2022/01/18 14:31:49 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/18 14:52:29 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin_cmd.h"
 #define CURRENTPATH_SIZE 512
+
+char	*get_home_path(t_envlist *envp_lst)
+{
+	t_envlist	*tmp;
+
+	tmp = envp_lst->next;
+	while (tmp != envp_lst && ft_strncmp(tmp->key, "HOME", 4))
+		tmp = tmp->next;
+	if (tmp == envp_lst)
+	{
+		printf("minishell: cd: HOME not set\n");
+		g_status = 1;
+		return (NULL);
+	}
+	return (tmp->value);
+}
 
 int	change_oldpwd(t_envlist *envp_lst, t_envlist *now_pwd)
 {
@@ -55,16 +71,14 @@ int	change_current_path(t_envlist *envp_lst)
 int	my_cd(t_cmd_lst *cmd, t_envlist *envp_lst)
 {
 	t_cmd_lst	*now;
-	t_envlist	*tmp;
 	char		*dir_path;
 
 	now = cmd->next->next;
 	if (now == cmd)
 	{
-		tmp = envp_lst->next;
-		while (ft_strncmp(tmp->key, "HOME", 4) && tmp != envp_lst)
-			tmp = tmp->next;
-		dir_path = tmp->value;
+		dir_path = get_home_path(envp_lst);
+		if (dir_path == NULL)
+			return (EXIT_FAILURE);
 	}
 	else if (now->str == NULL)
 		return (0);
