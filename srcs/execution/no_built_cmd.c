@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:18 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/19 13:13:36 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/19 15:54:39 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	no_built_cmd(t_nlst *node, t_data *data)
 		exit(g_status);
 	data->cmd_array = create_cmd_array(node, data);
 	if (execve(data->cmd_array[0], data->cmd_array, \
-	inherit_environment(node->next->envp_lst)) == -1)
+	inherit_environment(node->envp_lst)) == -1)
 	{
 		ft_perror(data->cmd_array[0]);
 		g_status = 1;

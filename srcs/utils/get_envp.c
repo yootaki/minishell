@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/19 13:21:03 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/19 16:13:34 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ int	create_envlst(t_envlist *lst, char **envp)
 		key = ft_xstrdup(*envp);
 		str++;
 		if (!ft_strncmp(key, "SHLVL", 6))
+		{
 			value = ft_xitoa(ft_atoi(str) + 1);
+			if (ft_atoi(value) > 999)
+				value = ft_xitoa((int)1);
+		}
 		else
 			value = ft_xstrdup(str);
 		envp_lstmap(current, key, value);
