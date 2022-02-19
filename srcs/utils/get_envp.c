@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 14:01:50 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/19 13:21:03 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int	create_envlst(t_envlist *lst, char **envp)
 t_envlist	*get_envp(char **envp)
 {
 	t_envlist	*env_lst;
-
+	
+	if (envp[0] == NULL)
+		return (NULL);
 	env_lst = init_envlist();
 	create_envlst(env_lst, envp);
 	return (env_lst);

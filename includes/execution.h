@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:05:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 13:20:44 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/19 13:11:32 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void			free_path_list(char **path_list);
 void			free_function(t_data *data, int pattern);
 
 /* execution_utils1.c */
+char			**inherit_environment(t_envlist *elst);
 void			init_execution(t_data *data, t_nlst *node);
 int				is_builtin_cmd(char *cmd);
 
