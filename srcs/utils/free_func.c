@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:02:47 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/11/05 14:12:01 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/19 15:16:24 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ void	free_envplist(t_envlist *nil)
 	t_envlist	*current;
 	t_envlist	*tmp;
 
-	current = nil->next;
+
+if (nil == NULL)
+		return ;	current = nil->next;
 	while (current != nil)
 	{
 		free(current->key);

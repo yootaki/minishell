@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/16 14:48:55 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/19 15:14:10 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	char	*var_value;
 	char	*new_str;
 
+	if (env == NULL)
+	{
+		expanser->str = NULL;
+		return ;
+	}
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
 	var_value = get_var_value(var_name, env);

@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:42:16 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/18 14:52:29 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/19 15:07:23 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*get_home_path(t_envlist *envp_lst)
 {
 	t_envlist	*tmp;
 
+	if (envp_lst == NULL)
+		return (NULL);
 	tmp = envp_lst->next;
 	while (tmp != envp_lst && ft_strncmp(tmp->key, "HOME", 4))
 		tmp = tmp->next;
@@ -55,6 +57,8 @@ int	change_current_path(t_envlist *envp_lst)
 	t_envlist	*now;
 	char		current_path[CURRENTPATH_SIZE];
 
+	if (envp_lst == NULL)
+		return (EXIT_SUCCESS);
 	ft_memset(current_path, '\0', CURRENTPATH_SIZE);
 	if (!getcwd(current_path, CURRENTPATH_SIZE))
 		return (EXIT_FAILURE);
