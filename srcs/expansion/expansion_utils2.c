@@ -42,6 +42,7 @@ char	*get_var_value(char *str, t_envlist *env)
 	if (*str == '?')
 		return (ft_xitoa(g_status));
 	now = env->next;
+	printf("get_var_value\n");
 	while (now != env)
 	{
 		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
@@ -60,6 +61,8 @@ int	change_underbar(t_nlst *now, t_envlist *envp_lst)
 {
 	t_envlist	*tmp;
 
+	if (envp_lst == NULL)
+		return (EXIT_SUCCESS);
 	tmp = envp_lst->next;
 	while (tmp != envp_lst)
 	{

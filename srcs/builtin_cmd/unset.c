@@ -62,6 +62,8 @@ int	my_unset(t_cmd_lst *cmd, t_envlist *envp_lst)
 
 	now = cmd->next->next;
 	g_status = 0;
+	if (envp_lst == NULL)
+		return (g_status);
 	if (now == cmd)
 		return (g_status);
 	while (now != cmd)

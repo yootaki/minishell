@@ -6,11 +6,45 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:02 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/01/18 14:31:27 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/19 13:16:09 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
+
+static size_t envlst_size(t_envlist *elst)
+{
+	size_t count;
+	t_envlist *current;
+
+	count = 0;
+	current = elst->next;
+	while (current != elst)
+	{
+		count++;
+		current = current->next;
+	}
+	return (count);
+}
+
+char	**inherit_environment(t_envlist *elst)
+{
+	char		**array;
+	t_envlist	*current;
+	size_t		count;
+
+	count = envlst_size(elst);
+	array = (char **)xmalloc(sizeof(char *) * (count + 1));
+	count = 0;
+	current = elst->next;
+	while (current != elst)
+	{
+		array[count] = strjoin_2times(current->key, "=", current->value);
+		count++;
+		current = current->next;
+	}
+	return (array);
+}
 
 void	init_execution(t_data *data, t_nlst *node)
 {
