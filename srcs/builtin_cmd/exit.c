@@ -73,7 +73,13 @@ int	calculate_exit_status(char *str)
 
 void	determine_status_code_and_exit(t_cmd_lst *now, int count, char **args)
 {
-	if ((count == 0 && now->next->next->str[0] == ' ') \
+	printf("exit\n");
+	if (!is_str_digit(args[0]))
+	{
+		g_status = 255;
+		ft_putstr_fd(NUMERIC_ARGUMENT_REQUIRED, STDERR_FILENO);
+	}
+	else if ((count == 1 && now->next->next->str[0] == ' ') \
 	|| longlong_over_check(args[0]))
 	{
 		g_status = 255;
@@ -82,16 +88,11 @@ void	determine_status_code_and_exit(t_cmd_lst *now, int count, char **args)
 	{
 		g_status = calculate_exit_status(args[0]);
 	}
-	else if (count == 2 && is_str_digit(args[0]))
+	else if (count > 1 && is_str_digit(args[0]))
 	{
 		g_status = 1;
 		ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
 		return ;
-	}
-	else if (count == 2 && !is_str_digit(args[0]))
-	{
-		g_status = 255;
-		ft_putstr_fd(NUMERIC_ARGUMENT_REQUIRED, STDERR_FILENO);
 	}
 	exit(g_status);
 }
@@ -105,19 +106,16 @@ int	my_exit(t_cmd_lst *cmd)
 	g_status = 0;
 	now = cmd->next->next;
 	if (now == cmd)
+	{
+		printf("exit\n");
 		exit(g_status);
+	}
 	count = 0;
 	while (now != cmd)
 	{
 		if (now->str[0] != ' ')
 			count++;
-		if (count > 2)
-		{
-			g_status = 1;
-			ft_putstr_fd(TOO_MANY_ARGUMENTS, STDERR_FILENO);
-			return (g_status);
-		}
-		else if (count > 0)
+		if (count > 0)
 			args[count - 1] = now->str;
 		now = now->next;
 	}
