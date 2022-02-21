@@ -86,17 +86,9 @@ int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
 	return (EXIT_SUCCESS);
 }
 
-int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
+static void	set_insert_key_and_value(t_cmd_lst *now, \
+t_cmd_lst *cmd, t_envlist *envp_lst)
 {
-	t_cmd_lst	*now;
-
-	now = cmd->next->next;
-	g_status = 0;
-	if (now == cmd)
-	{
-		sort_and_print_env(envp_lst);
-		return (g_status);
-	}
 	while (now != cmd)
 	{
 		if (!validate_args(now->str))
@@ -112,5 +104,21 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 		}
 		now = now->next;
 	}
+}
+
+int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
+{
+	t_cmd_lst	*now;
+
+	now = cmd->next->next;
+	if (envp_lst == NULL)
+		return (EXIT_SUCCESS);
+	g_status = 0;
+	if (now == cmd)
+	{
+		sort_and_print_env(envp_lst);
+		return (g_status);
+	}
+	set_insert_key_and_value(now, cmd, envp_lst);
 	return (g_status);
 }
