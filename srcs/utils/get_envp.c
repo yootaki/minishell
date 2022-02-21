@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/19 16:13:34 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/21 13:26:49 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,17 @@ int	envp_lstmap(t_envlist *envp, char *key, char *value)
 	return (EXIT_SUCCESS);
 }
 
-/*
-* 環境変数を一行ずつ読み取り、keyとvalueに分割してenv_lstに追加
-*/
+static void	set_value(char **value, char *key, char *str)
+{
+	if (!ft_strncmp(key, "SHLVL", 6))
+	{
+		*value = ft_xitoa(ft_atoi(str) + 1);
+		if (ft_atoi(*value) > 999)
+			*value = ft_xitoa((int)1);
+	}
+	else
+		*value = ft_xstrdup(str);
+}
 
 int	create_envlst(t_envlist *lst, char **envp)
 {
@@ -44,14 +52,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 		*str = '\0';
 		key = ft_xstrdup(*envp);
 		str++;
-		if (!ft_strncmp(key, "SHLVL", 6))
-		{
-			value = ft_xitoa(ft_atoi(str) + 1);
-			if (ft_atoi(value) > 999)
-				value = ft_xitoa((int)1);
-		}
-		else
-			value = ft_xstrdup(str);
+		set_value(&value, key, str);
 		envp_lstmap(current, key, value);
 		(envp)++;
 	}
@@ -61,7 +62,7 @@ int	create_envlst(t_envlist *lst, char **envp)
 t_envlist	*get_envp(char **envp)
 {
 	t_envlist	*env_lst;
-	
+
 	if (envp[0] == NULL)
 		return (NULL);
 	env_lst = init_envlist();
