@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:11 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/21 13:26:49 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/21 11:57:35 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	create_envlst(t_envlist *lst, char **envp)
 		str++;
 		set_value(&value, key, str);
 		envp_lstmap(current, key, value);
+		free(key), key = NULL;
+		free(value), value = NULL;
 		(envp)++;
 	}
 	return (EXIT_SUCCESS);

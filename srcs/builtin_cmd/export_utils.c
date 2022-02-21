@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/16 13:46:56 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/21 12:06:54 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt)
 void	set_env_value(t_envlist *current, char *key, char *value)
 {
 	free(key);
+	key = NULL;
 	free(current->value);
 	current->value = value;
 }

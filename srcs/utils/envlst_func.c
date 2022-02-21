@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:03:08 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/21 13:15:21 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/21 11:50:28 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_envlist	*ft_envlstnew(char *key, char *value)
 	lst = (t_envlist *)xmalloc(sizeof(t_envlist));
 	lst->prev = lst;
 	lst->next = lst;
-	lst->key = key;
-	lst->value = value;
+	lst->key = ft_xstrdup(key);
+	lst->value = ft_xstrdup(value);
 	return (lst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/21 15:32:05 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/21 12:27:58 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,5 @@ int	main(int argc, char **argv, char **envp)
 	signal_proc();
 	loop_shell(envp_lst);
 	free_envplist(envp_lst);
-	system("leaks minishell");
 	return (g_status);
 }
