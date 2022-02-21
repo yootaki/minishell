@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/21 14:41:22 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:06:28 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	loop_shell(t_envlist *envp_lst)
 		node = get_cmdline_from_input_str(command, envp_lst);
 		if (node != NULL)
 		{
-			if (expansion(node, envp_lst))
+			if (expansion(node, envp_lst) == 1)
 			{
 				free_node(node);
 				continue ;
@@ -93,5 +93,6 @@ int	main(int argc, char **argv, char **envp)
 	signal_proc();
 	loop_shell(envp_lst);
 	free_envplist(envp_lst);
+	system("leaks minishell");
 	return (g_status);
 }

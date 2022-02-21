@@ -6,16 +6,16 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:04:02 by hryuuta           #+#    #+#             */
-/*   Updated: 2022/02/19 13:16:09 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/21 13:06:08 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execution.h"
 
-static size_t envlst_size(t_envlist *elst)
+static	size_t	envlst_size(t_envlist *elst)
 {
-	size_t count;
-	t_envlist *current;
+	size_t		count;
+	t_envlist	*current;
 
 	count = 0;
 	current = elst->next;
@@ -33,6 +33,8 @@ char	**inherit_environment(t_envlist *elst)
 	t_envlist	*current;
 	size_t		count;
 
+	if (elst == NULL)
+		return (NULL);
 	count = envlst_size(elst);
 	array = (char **)xmalloc(sizeof(char *) * (count + 1));
 	count = 0;
