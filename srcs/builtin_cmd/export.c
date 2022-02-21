@@ -56,6 +56,7 @@ void	sort_and_print_env(t_envlist *envp_lst)
 		printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
+	free_envplist(tmp_new);
 }
 
 int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
@@ -83,6 +84,7 @@ int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
 		set_env_value(tmp, env_key, env_value);
 	else
 		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
+	free(env_key), free(env_value);
 	return (EXIT_SUCCESS);
 }
 
@@ -114,7 +116,7 @@ int	my_export(t_cmd_lst *cmd, t_envlist *envp_lst)
 	if (envp_lst == NULL)
 		return (EXIT_SUCCESS);
 	g_status = 0;
-	if (now == cmd)
+	if (now == cmd || now->str[0] == '#')
 	{
 		sort_and_print_env(envp_lst);
 		return (g_status);
