@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:34:02 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/21 15:06:28 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/21 15:32:05 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	loop_shell(t_envlist *envp_lst)
 		{
 			if (expansion(node, envp_lst) == 1)
 			{
-				free_node(node);
+				free_node(node), add_history(command);
+				free(command), command = NULL;
 				continue ;
 			}
-			exection(node);
-			add_history(command);
+			exection(node), add_history(command);
 		}
 		free(command);
 	}
