@@ -42,7 +42,6 @@ char	*get_var_value(char *str, t_envlist *env)
 	if (*str == '?')
 		return (ft_xitoa(g_status));
 	now = env->next;
-	printf("get_var_value\n");
 	while (now != env)
 	{
 		if (!ft_strncmp(now->key, str, ft_strlen(str) + 1))
