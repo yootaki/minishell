@@ -6,7 +6,7 @@
 /*   By: yootaki <yootaki@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/04 11:41:35 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/19 15:14:10 by yootaki          ###   ########.fr       */
+/*   Updated: 2022/02/21 14:30:24 by yootaki          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,15 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	char	*var_value;
 	char	*new_str;
 
-	if (env == NULL)
-	{
-		expanser->str = NULL;
-		return ;
-	}
 	expanser->str[expanser->str_cnt] = '\0';
 	var_name = get_var_name(&expanser->str[expanser->str_cnt + 1]);
-	var_value = get_var_value(var_name, env);
+	if (env == NULL)
+		var_value = NULL;
+	else
+		var_value = get_var_value(var_name, env);
 	if (var_value == NULL)
-	{
 		new_str = strjoin_minishell(expanser->str, \
 		&expanser->str[expanser->str_cnt + ft_strlen(var_name) + 1]);
-	}
 	else
 		new_str = double_strjoin(expanser, var_value, var_name);
 	free(var_name);
@@ -40,10 +36,9 @@ void	expansion_var(t_expanser *expanser, t_envlist *env)
 	if (!ft_strlen(new_str))
 	{
 		free(new_str);
-		expanser->str = NULL;
+		new_str = ft_strdup("");
 	}
-	else
-		expanser->str = new_str;
+	expanser->str = new_str;
 }
 
 void	quotation_flag_check(t_expanser *expanser)
