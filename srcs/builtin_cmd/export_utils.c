@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 22:50:50 by yootaki           #+#    #+#             */
-/*   Updated: 2022/02/21 12:06:54 by hryuuta          ###   ########.fr       */
+/*   Updated: 2022/02/22 18:38:45 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ int	get_key_and_value(t_cmd_lst *now, char **key, char **val, int cnt)
 	return (EXIT_SUCCESS);
 }
 
-void	set_env_value(t_envlist *current, char *key, char *value)
+void	set_env_value(t_envlist *current, char *value)
 {
-	free(key);
-	key = NULL;
 	free(current->value);
-	current->value = value;
+	current->value = ft_xstrdup(value);
 }
