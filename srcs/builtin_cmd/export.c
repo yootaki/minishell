@@ -81,7 +81,7 @@ int	insert_key_and_value(t_cmd_lst *now, t_envlist *envp_lst)
 		tmp = tmp->next;
 	}
 	if (tmp != envp_lst)
-		set_env_value(tmp, env_key, env_value);
+		set_env_value(tmp, env_value);
 	else
 		ft_envlstadd_back(envp_lst, ft_envlstnew(env_key, env_value));
 	free(env_key), free(env_value);
