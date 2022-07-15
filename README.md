@@ -14,6 +14,7 @@ $> cd minishell
 
 $> make
 ```
+```
 $ cd minishell
 $ make
 $ ./minishell
